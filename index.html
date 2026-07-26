@@ -3,210 +3,135 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
-    <title>Rayliziie Anime Stream</title>
-
-    <!-- FONT & ICON -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <title>Rayliziie — Nonton Anime Sub Indo Terlengkap</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-
     <style>
-        /* =========================================
-           🎨 TEMA (MALAM + TERANG) - BARU!
-           ========================================= */
         :root {
-            /* DEFAULT: MODE MALAM */
-            --bg-primary: #0a0e17;
-            --bg-secondary: #111927;
-            --bg-card: #1a2332;
-            --bg-card-hover: #253141;
-            --text-primary: #f0f4fa;
-            --text-secondary: #a8bcd9;
-            --text-muted: #5a7a9a;
-            --accent: #f97316;
-            --accent-hover: #fb923c;
-            --accent-glow: rgba(249, 115, 22, 0.3);
-            --border-color: #2a3a52;
-            --shadow-card: 0 4px 20px rgba(0,0,0,0.4);
-            --shadow-card-hover: 0 12px 44px rgba(0,0,0,0.7);
-            --radius: 14px;
-            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --bg-primary: #070A12;
+            --bg-secondary: #0D1321;
+            --bg-card: #141B2D;
+            --bg-card-hover: #1C2540;
+            --text-primary: #F5F7FB;
+            --text-secondary: #A5B4D1;
+            --text-muted: #64748B;
+            --accent: #FF6A00;
+            --accent-hover: #FF8A33;
+            --accent-glow: rgba(255, 106, 0, 0.35);
+            --danger: #EF4444;
+            --success: #10B981;
+            --border-color: #1E293B;
+            --shadow-card: 0 4px 24px rgba(0,0,0,0.5);
+            --shadow-card-hover: 0 14px 50px rgba(0,0,0,0.8);
+            --radius: 16px;
+            --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             --font: 'Poppins', sans-serif;
         }
-
-        /* 🌞 MODE TERANG (BARU!) */
         [data-theme="light"] {
-            --bg-primary: #f8fafc;
-            --bg-secondary: #ffffff;
-            --bg-card: #ffffff;
-            --bg-card-hover: #f1f5f9;
-            --text-primary: #0f172a;
+            --bg-primary: #F6F7FB;
+            --bg-secondary: #FFFFFF;
+            --bg-card: #FFFFFF;
+            --bg-card-hover: #EEF1F8;
+            --text-primary: #0B1220;
             --text-secondary: #475569;
-            --text-muted: #94a3b8;
-            --accent: #ea580c;
-            --accent-hover: #c2410c;
-            --accent-glow: rgba(234, 88, 12, 0.2);
-            --border-color: #e2e8f0;
-            --shadow-card: 0 2px 12px rgba(15,23,42,0.08);
-            --shadow-card-hover: 0 10px 30px rgba(15,23,42,0.15);
+            --text-muted: #94A3B8;
+            --accent: #EA580C;
+            --accent-hover: #C2410C;
+            --accent-glow: rgba(234, 88, 12, 0.25);
+            --border-color: #E2E8F0;
+            --shadow-card: 0 2px 14px rgba(15,23,42,0.08);
+            --shadow-card-hover: 0 12px 36px rgba(15,23,42,0.18);
         }
-
-        /* Transisi mulus antar tema */
         * { transition: background-color var(--transition), color var(--transition), border-color var(--transition), box-shadow var(--transition); }
-
         * { margin:0; padding:0; box-sizing:border-box; }
         html { scroll-behavior: smooth; }
-        body {
-            font-family: var(--font);
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            min-height: 100vh;
-            line-height: 1.6;
-        }
+        body { font-family: var(--font); background: var(--bg-primary); color: var(--text-primary); min-height: 100vh; line-height: 1.6; }
         a { text-decoration:none; color:inherit; }
         img { display:block; max-width:100%; }
         button { cursor:pointer; font-family:inherit; border:none; background:none; color:inherit; }
         input { font-family:inherit; }
-
-        /* SCROLLBAR */
-        ::-webkit-scrollbar { width:6px; height:6px; }
+        ::-webkit-scrollbar { width:7px; height:7px; }
         ::-webkit-scrollbar-track { background: var(--bg-secondary); }
         ::-webkit-scrollbar-thumb { background: var(--accent); border-radius:10px; }
-
-        /* UTILITY */
-        .container { max-width:1280px; margin:0 auto; padding:0 20px; }
-        .section-title {
-            font-size:1.4rem; font-weight:700; margin-bottom:1.25rem;
-            display:flex; align-items:center; gap:10px;
-        }
+        .container { max-width:1320px; margin:0 auto; padding:0 18px; }
+        .section-title { font-size:1.45rem; font-weight:800; margin-bottom:1.2rem; display:flex; align-items:center; gap:10px; }
         .section-title i { color:var(--accent); }
-        .grid-anime {
-            display:grid;
-            grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
-            gap:20px;
-        }
-
-        /* SKELETON */
+        .grid-anime { display:grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap:16px; }
         .skeleton {
             background: linear-gradient(90deg, var(--bg-card) 25%, var(--bg-card-hover) 50%, var(--bg-card) 75%);
             background-size: 200% 100%;
-            animation: shimmer 1.6s infinite;
+            animation: shimmer 1s infinite;
             border-radius: var(--radius);
         }
         @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
-        .skeleton-card .skeleton-img { width:100%; aspect-ratio:2/3; border-radius: var(--radius) var(--radius) 0 0; }
-        .skeleton-card .skeleton-line { height:14px; margin:10px 14px 6px; border-radius:6px; }
-        .skeleton-card .skeleton-line.short { width:55%; }
+        .skel-img { width:100%; aspect-ratio:2/3; border-radius: var(--radius) var(--radius) 0 0; }
+        .skel-line { height:13px; margin:9px 12px 5px; border-radius:5px; }
+        .skel-line.short { width:55%; }
 
-        /* =========================================
-           🧭 NAVBAR (DITAMBAH TOMBOL ⭐ & 🌙)
-           ========================================= */
+        /* NAVBAR */
         .navbar {
             position:sticky; top:0; z-index:100;
             background: color-mix(in srgb, var(--bg-primary) 92%, transparent);
-            backdrop-filter: blur(18px);
+            backdrop-filter: blur(20px);
             border-bottom:1px solid var(--border-color);
             padding:10px 0;
         }
-        .navbar .container {
-            display:flex; align-items:center; justify-content:space-between;
-            flex-wrap:wrap; gap:12px;
-        }
-        .brand {
-            display:flex; align-items:center; gap:10px;
-            font-size:1.5rem; font-weight:900; letter-spacing:-0.5px;
-        }
-        .brand i { color:var(--accent); font-size:1.6rem; }
-        .brand span {
-            background: linear-gradient(135deg, var(--accent), var(--accent-hover));
-            -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-            background-clip:text;
-        }
-        .brand small {
-            font-size:0.65rem; font-weight:400; color:var(--text-muted);
-            -webkit-text-fill-color: var(--text-muted); background:none; margin-left:2px;
-        }
+        .navbar .container { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+        .brand { display:flex; align-items:center; gap:9px; font-size:1.55rem; font-weight:900; letter-spacing:-0.5px; }
+        .brand i { color:var(--accent); font-size:1.7rem; filter: drop-shadow(0 0 8px var(--accent-glow)); }
+        .brand span { background: linear-gradient(135deg, var(--accent), #FFB347); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+        .brand small { font-size:0.65rem; font-weight:500; color:var(--text-muted); -webkit-text-fill-color: var(--text-muted); background:none; margin-left:3px; }
         .nav-search {
-            flex:1 1 260px; max-width:420px;
+            flex:1 1 280px; max-width:480px;
             display:flex; align-items:center;
             background:var(--bg-card); border:1px solid var(--border-color);
-            border-radius:40px; padding:0 16px; transition:var(--transition);
+            border-radius:50px; padding:0 16px; transition:var(--transition);
         }
-        .nav-search:focus-within {
-            border-color:var(--accent);
-            box-shadow: 0 0 0 3px var(--accent-glow);
-        }
+        .nav-search:focus-within { border-color:var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
         .nav-search i { color:var(--text-muted); font-size:0.9rem; }
-        .nav-search input {
-            flex:1; background:transparent; border:none;
-            padding:9px 12px; font-size:0.9rem; color:var(--text-primary);
-            outline:none;
-        }
+        .nav-search input { flex:1; background:transparent; border:none; padding:10px 12px; font-size:0.92rem; color:var(--text-primary); outline:none; }
         .nav-search input::placeholder { color:var(--text-muted); }
-        .nav-actions { display:flex; align-items:center; gap:6px; }
+        .nav-actions { display:flex; align-items:center; gap:5px; flex-wrap:wrap; }
         .nav-actions a, .nav-actions button {
             display:inline-flex; align-items:center; gap:6px;
-            padding:7px 16px; border-radius:40px; font-size:0.85rem; font-weight:600;
+            padding:8px 15px; border-radius:50px; font-size:0.85rem; font-weight:600;
             transition:var(--transition);
-            background:var(--bg-card); border:1px solid transparent;
-            color:var(--text-primary);
+            background:var(--bg-card); border:1px solid transparent; color:var(--text-primary);
         }
-        .nav-actions a:hover, .nav-actions button:hover { background:var(--bg-card-hover); border-color:var(--border-color); }
-        .nav-actions .btn-accent { background:var(--accent); color:#fff; border-color:var(--accent); }
-        [data-theme="light"] .nav-actions .btn-accent { color:#fff; }
-        .nav-actions .btn-accent:hover { background:var(--accent-hover); border-color:var(--accent-hover); }
-        
-        /* ⭐ Tombol Bookmark Aktif */
-        .nav-actions .btn-fav.active {
-            background: #fef2f2;
-            color: #dc2626;
-            border-color: #fecaca;
-            animation: favPulse 0.4s ease;
-        }
-        [data-theme="dark"] .nav-actions .btn-fav.active {
-            background: rgba(220,38,38,0.15);
-            color: #f87171;
-            border-color: rgba(248,113,113,0.3);
-        }
-        @keyframes favPulse { 0%{transform:scale(1)} 50%{transform:scale(1.15)} 100%{transform:scale(1)} }
+        .nav-actions a:hover, .nav-actions button:hover { background:var(--bg-card-hover); border-color:var(--border-color); transform: translateY(-1px); }
+        .nav-actions .btn-accent { background: linear-gradient(135deg, var(--accent), var(--accent-hover)); color:#fff; border-color:transparent; box-shadow: 0 4px 14px var(--accent-glow); }
+        .nav-actions .btn-accent:hover { filter: brightness(1.08); transform: translateY(-1px); }
+        .nav-actions .btn-fav.active { background: rgba(239,68,68,0.15); color:#F87171; border-color: rgba(248,113,113,0.35); }
 
         /* HERO */
-        .hero { padding:32px 0 28px; }
+        .hero { padding:28px 0 22px; }
         .hero-banner {
-            position:relative; border-radius:var(--radius); overflow:hidden;
-            min-height:280px; display:flex; align-items:flex-end; padding:30px 28px;
+            position:relative; border-radius:20px; overflow:hidden;
+            min-height:260px; display:flex; align-items:flex-end; padding:32px 30px;
             box-shadow: var(--shadow-card-hover);
             background:
-                radial-gradient(circle at 80% 20%, color-mix(in srgb, var(--accent) 35%, transparent) 0%, transparent 50%),
-                radial-gradient(circle at 20% 80%, rgba(59,130,246,0.25) 0%, transparent 50%),
-                linear-gradient(135deg, var(--bg-card) 0%, var(--bg-secondary) 100%);
+                radial-gradient(circle at 85% 15%, color-mix(in srgb, var(--accent) 40%, transparent) 0%, transparent 55%),
+                radial-gradient(circle at 15% 85%, rgba(99,102,241,0.3) 0%, transparent 55%),
+                linear-gradient(135deg, #0B1220 0%, var(--bg-secondary) 100%);
         }
-        .hero-banner::before {
-            content:''; position:absolute; inset:0; z-index:0;
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23f97316' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E");
-            opacity:0.6;
+        [data-theme="light"] .hero-banner {
+            background:
+                radial-gradient(circle at 85% 15%, color-mix(in srgb, var(--accent) 25%, transparent) 0%, transparent 55%),
+                linear-gradient(135deg, #FFF7ED 0%, var(--bg-secondary) 100%);
         }
         .hero-banner::after {
             content:''; position:absolute; inset:0; z-index:1;
-            background: linear-gradient(0deg, color-mix(in srgb, var(--bg-primary) 95%, transparent) 10%, transparent 100%);
+            background: linear-gradient(0deg, color-mix(in srgb, var(--bg-primary) 95%, transparent) 8%, transparent 70%);
         }
         .hero-banner > * { position:relative; z-index:2; }
-        .hero-banner .badge {
-            display:inline-block; background:var(--accent); color:#fff;
-            font-weight:700; font-size:0.7rem; text-transform:uppercase;
-            padding:4px 16px; border-radius:40px; margin-bottom:10px;
-            box-shadow: 0 4px 15px var(--accent-glow);
-        }
-        [data-theme="light"] .hero-banner .badge { color:#fff; }
-        .hero-banner h2 {
-            font-size:2rem; font-weight:800; max-width:650px; line-height:1.2;
-        }
-        .hero-banner p {
-            color:var(--text-secondary); max-width:550px; margin-top:10px; font-size:0.95rem;
-        }
+        .hero-banner .badge { display:inline-block; background:var(--accent); color:#fff; font-weight:800; font-size:0.7rem; text-transform:uppercase; padding:5px 18px; border-radius:50px; margin-bottom:12px; box-shadow: 0 5px 18px var(--accent-glow); letter-spacing:0.5px; }
+        .hero-banner h2 { font-size:2.2rem; font-weight:900; max-width:700px; line-height:1.15; letter-spacing:-0.5px; }
+        .hero-banner p { color:var(--text-secondary); max-width:600px; margin-top:10px; font-size:0.98rem; }
 
-        /* =========================================
-           🎬 ANIME CARD (DITAMBAH TOMBOL ⭐ BOOKMARK)
-           ========================================= */
+        /* ANIME CARD */
         .anime-card {
             background:var(--bg-card); border-radius:var(--radius); overflow:hidden;
             transition:var(--transition); border:1px solid transparent;
@@ -215,329 +140,386 @@
             position:relative;
         }
         .anime-card:hover {
-            transform: translateY(-6px);
+            transform: translateY(-6px) scale(1.015);
             border-color:var(--accent);
             box-shadow: var(--shadow-card-hover), 0 0 0 1px var(--accent-glow);
+            z-index:5;
         }
-        .anime-card .thumb {
-            position:relative; aspect-ratio:2/3; overflow:hidden;
-            background:var(--bg-secondary);
-        }
+        .anime-card .thumb { position:relative; aspect-ratio:2/3; overflow:hidden; background:var(--bg-secondary); }
         .anime-card .thumb img {
-            width:100%; height:100%; object-fit:cover; transition:var(--transition);
+            width:100%; height:100%; object-fit:cover;
+            transition: transform .5s ease, opacity .3s ease;
+            opacity:0;
         }
-        .anime-card:hover .thumb img { transform:scale(1.05); }
-        .anime-card .thumb .episode-badge {
-            position:absolute; bottom:8px; right:8px;
-            background:rgba(0,0,0,0.85); backdrop-filter:blur(6px);
-            padding:3px 12px; border-radius:40px;
-            font-size:0.7rem; font-weight:600; color:#fff;
-            border:1px solid rgba(255,255,255,0.1);
+        .anime-card .thumb img.loaded { opacity:1; }
+        .anime-card:hover .thumb img { transform: scale(1.08); }
+        .anime-card .thumb .play-overlay {
+            position:absolute; inset:0;
+            background: linear-gradient(0deg, rgba(0,0,0,0.75) 0%, transparent 50%);
+            display:flex; align-items:center; justify-content:center;
+            opacity:0; transition: opacity .3s ease;
         }
-        .anime-card .thumb .status-badge {
-            position:absolute; top:8px; left:8px;
-            background:var(--accent); color:#fff;
-            font-weight:700; font-size:0.6rem; text-transform:uppercase;
-            padding:3px 12px; border-radius:40px;
+        .anime-card:hover .thumb .play-overlay { opacity:1; }
+        .anime-card .thumb .play-overlay i {
+            width:54px; height:54px; border-radius:50%;
+            background: var(--accent); color:#fff;
+            display:flex; align-items:center; justify-content:center;
+            font-size:1.2rem; padding-left:4px;
+            box-shadow: 0 0 0 5px rgba(255,106,0,0.25), 0 8px 25px var(--accent-glow);
+            transform: scale(0.6); transition: transform .35s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
-        [data-theme="light"] .anime-card .thumb .status-badge { color:#fff; }
-        .anime-card .thumb .genre-tag {
-            position:absolute; bottom:8px; left:8px;
-            background:rgba(0,0,0,0.75); backdrop-filter:blur(6px);
-            padding:3px 10px; border-radius:40px;
-            font-size:0.6rem; color:#e2e8f0;
-            border:1px solid rgba(255,255,255,0.08);
-            max-width:100px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+        .anime-card:hover .thumb .play-overlay i { transform: scale(1); }
+        .anime-card .eps-badge {
+            position:absolute; bottom:8px; right:8px; z-index:3;
+            background:rgba(0,0,0,0.85); backdrop-filter:blur(8px);
+            padding:3px 11px; border-radius:40px;
+            font-size:0.7rem; font-weight:700; color:#fff;
+            border:1px solid rgba(255,255,255,0.12);
         }
-        
-        /* ⭐ TOMBOL BOOKMARK DI CARD (BARU!) */
-        .bookmark-btn {
-            position:absolute; top:8px; right:8px; z-index:5;
-            width:36px; height:36px; border-radius:50%;
-            background: rgba(0,0,0,0.6); backdrop-filter:blur(6px);
+        .anime-card .status-badge {
+            position:absolute; top:8px; left:8px; z-index:3;
+            background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+            color:#fff; font-weight:800; font-size:0.62rem; text-transform:uppercase;
+            padding:3px 10px; border-radius:40px; letter-spacing:0.3px;
+            box-shadow: 0 3px 10px var(--accent-glow);
+        }
+        .anime-card .bookmark-btn {
+            position:absolute; top:8px; right:8px; z-index:4;
+            width:34px; height:34px; border-radius:50%;
+            background: rgba(0,0,0,0.65); backdrop-filter:blur(7px);
             color:#fff; display:flex; align-items:center; justify-content:center;
-            font-size:0.9rem; transition:var(--transition);
+            font-size:0.85rem; transition:var(--transition);
             border:1px solid rgba(255,255,255,0.15);
-            cursor:pointer;
         }
-        .bookmark-btn:hover {
-            background: var(--accent);
-            transform: scale(1.15) rotate(-10deg);
-        }
-        .bookmark-btn.active {
-            background: #dc2626;
-            color:#fff;
-            border-color:#f87171;
-            animation: favPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .bookmark-btn.active i {
-            animation: heartBeat 0.6s ease;
-        }
-        @keyframes favPop {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.4); }
-            100% { transform: scale(1); }
-        }
-        @keyframes heartBeat {
-            0% { transform: scale(1); }
-            25% { transform: scale(1.3); }
-            50% { transform: scale(0.9); }
-            75% { transform: scale(1.15); }
-            100% { transform: scale(1); }
-        }
-
-        .anime-card .info {
-            padding:12px 14px 16px; flex:1;
-            display:flex; flex-direction:column;
-        }
+        .anime-card .bookmark-btn:hover { background: var(--accent); transform: scale(1.15); }
+        .anime-card .bookmark-btn.active { background:#EF4444; color:#fff; border-color:#F87171; animation: pop .45s cubic-bezier(0.34,1.56,0.64,1); }
+        @keyframes pop { 0%{transform:scale(1)} 50%{transform:scale(1.4)} 100%{transform:scale(1)} }
+        .anime-card .info { padding:11px 12px 14px; flex:1; display:flex; flex-direction:column; }
         .anime-card .info h3 {
-            font-size:0.9rem; font-weight:600; line-height:1.4;
+            font-size:0.88rem; font-weight:600; line-height:1.35;
             display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;
-            overflow:hidden; margin-bottom:6px;
+            overflow:hidden; margin-bottom:7px;
         }
         .anime-card .info .meta {
-            font-size:0.72rem; color:var(--text-muted);
-            display:flex; align-items:center; gap:12px;
-            margin-top:auto; padding-top:10px;
+            font-size:0.7rem; color:var(--text-muted);
+            display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+            margin-top:auto; padding-top:8px;
             border-top:1px solid var(--border-color);
         }
-        .anime-card .info .meta i { font-size:0.6rem; }
+        .anime-card .info .meta .rating { color:#FBBF24; font-weight:700; }
 
         /* SECTION */
-        .section { padding:20px 0 32px; }
-        .section-header {
-            display:flex; align-items:center; justify-content:space-between;
-            flex-wrap:wrap; gap:12px; margin-bottom:16px;
-        }
-        .section-header .view-all {
-            color:var(--text-muted); font-size:0.85rem; font-weight:500;
-            transition:var(--transition); display:flex; align-items:center; gap:4px;
-        }
+        .section { padding:16px 0 30px; }
+        .section-header { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:14px; }
+        .section-header .view-all { color:var(--text-muted); font-size:0.85rem; font-weight:600; transition:var(--transition); display:flex; align-items:center; gap:4px; }
         .section-header .view-all:hover { color:var(--accent); }
-
-        /* STATE EMPTY */
-        .state-empty {
-            text-align:center; padding:60px 20px; color:var(--text-muted);
-            grid-column:1 / -1;
-        }
-        .state-empty i { font-size:3rem; margin-bottom:16px; opacity:0.4; }
+        .state-empty { text-align:center; padding:70px 20px; color:var(--text-muted); grid-column:1 / -1; }
+        .state-empty i { font-size:3.2rem; margin-bottom:14px; opacity:0.35; }
+        .state-empty p strong { color:var(--text-secondary); }
 
         /* FOOTER */
-        .footer {
-            border-top:1px solid var(--border-color);
-            padding:28px 0 20px; margin-top:16px;
-            text-align:center; color:var(--text-muted); font-size:0.85rem;
-        }
-        .footer .brand-small { font-weight:700; color:var(--text-secondary); }
-        .footer .brand-small i { color:var(--accent); }
-        .footer .links {
-            display:flex; justify-content:center; gap:24px;
-            flex-wrap:wrap; margin-top:12px;
-        }
-        .footer .links a:hover { color:var(--accent); }
+        .footer { border-top:1px solid var(--border-color); padding:26px 0 18px; margin-top:10px; text-align:center; color:var(--text-muted); font-size:0.85rem; }
+        .footer .brand-s { font-weight:800; color:var(--text-secondary); font-size:1.05rem; }
+        .footer .brand-s i { color:var(--accent); }
 
         /* =========================================
-           🪟 MODAL DETAIL ANIME
+           🪟 MODAL UTAMA (DETAIL ANIME)
            ========================================= */
-        .modal-overlay {
-            position:fixed; inset:0; z-index:9999;
-            background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(10px);
-            display:none; align-items:center; justify-content:center;
-            padding:20px;
-            animation: fadeIn 0.2s ease;
+        .modal-bg {
+            position:fixed; inset:0; z-index:9998;
+            background: rgba(0,0,0,0.88);
+            backdrop-filter: blur(14px);
+            display:none;
+            animation: fade .2s ease;
         }
-        .modal-overlay.active { display:flex; }
-        @keyframes fadeIn { from{opacity:0} to{opacity:1} }
-        @keyframes slideUp { from{opacity:0; transform:translateY(30px)} to{opacity:1; transform:translateY(0)} }
-
+        .modal-bg.active { display:block; }
+        @keyframes fade { from{opacity:0} to{opacity:1} }
+        @keyframes rise { from{opacity:0; transform:translateY(40px) scale(.97)} to{opacity:1; transform:translateY(0) scale(1)} }
         .modal {
+            position:fixed; inset:0; z-index:9999;
+            display:none; align-items:center; justify-content:center;
+            padding:15px;
+        }
+        .modal.active { display:flex; }
+        .modal-inner {
             background: var(--bg-secondary);
             border:1px solid var(--border-color);
-            border-radius: 18px;
-            width:100%; max-width:900px;
-            max-height: 90vh;
+            border-radius: 22px;
+            width:100%; max-width:980px;
+            max-height: 92vh;
             overflow:hidden;
             position:relative;
-            box-shadow: 0 25px 80px rgba(0,0,0,0.8);
-            animation: slideUp 0.3s cubic-bezier(0.4,0,0.2,1);
+            box-shadow: 0 30px 100px rgba(0,0,0,0.9);
+            animation: rise .35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            display:flex; flex-direction:column;
         }
         .modal-close {
-            position:absolute; top:15px; right:15px; z-index:10;
+            position:absolute; top:14px; right:14px; z-index:20;
             width:42px; height:42px; border-radius:50%;
-            background: rgba(0,0,0,0.6); backdrop-filter:blur(8px);
-            color:#fff; font-size:1.2rem;
+            background: rgba(0,0,0,0.7); backdrop-filter:blur(10px);
+            color:#fff; font-size:1.1rem;
             display:flex; align-items:center; justify-content:center;
             transition:var(--transition);
-            border:1px solid rgba(255,255,255,0.1);
+            border:1px solid rgba(255,255,255,0.15);
         }
-        .modal-close:hover { background:var(--accent); transform:rotate(90deg); }
+        .modal-close:hover { background:var(--danger); transform: rotate(90deg); }
+        .modal-fav {
+            position:absolute; top:14px; left:14px; z-index:20;
+            padding:9px 16px; border-radius:50px;
+            background: rgba(0,0,0,0.7); backdrop-filter:blur(10px);
+            color:#fff; font-size:0.82rem; font-weight:700;
+            display:flex; align-items:center; gap:7px;
+            transition:var(--transition);
+            border:1px solid rgba(255,255,255,0.15);
+        }
+        .modal-fav:hover { background: rgba(0,0,0,0.85); }
+        .modal-fav.active { background:#EF4444; border-color:#F87171; }
 
-        .modal-header {
-            position:relative; min-height:220px;
-            background: linear-gradient(135deg, var(--bg-card), var(--bg-secondary));
-            overflow:hidden;
+        .modal-head {
+            position:relative; min-height:240px; flex-shrink:0;
+            background: linear-gradient(135deg, #0B1220, #111827);
         }
-        .modal-header-bg {
+        .modal-head-bg {
             position:absolute; inset:0;
-            background-size:cover; background-position:center;
-            filter: blur(20px) brightness(0.4);
-            transform: scale(1.2);
+            background-size:cover; background-position:center top;
+            filter: blur(24px) brightness(0.35);
+            transform: scale(1.15);
         }
-        .modal-header-content {
+        .modal-head-in {
             position:relative; z-index:2;
             display:flex; gap:20px; padding:30px;
             align-items:flex-end;
         }
         .modal-poster {
-            width:140px; min-width:140px; aspect-ratio:2/3;
-            border-radius:12px; overflow:hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-            border:2px solid rgba(255,255,255,0.1);
+            width:150px; min-width:150px; aspect-ratio:2/3;
+            border-radius:14px; overflow:hidden;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.7);
+            border:2px solid rgba(255,255,255,0.12);
+            flex-shrink:0;
         }
         .modal-poster img { width:100%; height:100%; object-fit:cover; }
-        .modal-info { flex:1; padding-bottom:5px; }
-        .modal-info h2 {
-            font-size:1.5rem; font-weight:800; line-height:1.3;
-            margin-bottom:8px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+        .modal-info { flex:1; padding-bottom:5px; min-width:0; }
+        .modal-info h1 {
+            font-size:1.7rem; font-weight:900; line-height:1.2;
+            margin-bottom:10px; color:#fff;
+            text-shadow: 0 3px 18px rgba(0,0,0,0.9);
+        }
+        .modal-info .sub { color:#CBD5E1; font-size:0.85rem; margin-bottom:10px; opacity:0.9; }
+        .modal-tags { display:flex; flex-wrap:wrap; gap:7px; margin-bottom:10px; }
+        .modal-tags span {
+            background: rgba(255,255,255,0.1);
             color:#fff;
-        }
-        .modal-meta {
-            display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px;
-        }
-        .modal-meta span {
-            background: color-mix(in srgb, var(--accent) 15%, transparent);
-            color:var(--accent-hover);
-            border:1px solid color-mix(in srgb, var(--accent) 30%, transparent);
-            padding:3px 12px; border-radius:20px;
+            border:1px solid rgba(255,255,255,0.15);
+            padding:4px 12px; border-radius:30px;
             font-size:0.75rem; font-weight:600;
+            backdrop-filter: blur(6px);
         }
-        .modal-meta .rating {
-            background: rgba(251,191,36,0.15);
-            color:#fbbf24; border-color:rgba(251,191,36,0.3);
-        }
-        .modal-genres {
-            display:flex; flex-wrap:wrap; gap:6px;
-        }
+        .modal-tags .tag-accent { background: linear-gradient(135deg, var(--accent), var(--accent-hover)); border:none; }
+        .modal-tags .tag-rate { background: rgba(251,191,36,0.2); color:#FBBF24; border-color: rgba(251,191,36,0.4); }
+        .modal-genres { display:flex; flex-wrap:wrap; gap:5px; }
         .modal-genres span {
-            background: rgba(255,255,255,0.08);
-            padding:2px 10px; border-radius:15px;
-            font-size:0.7rem; color:#e2e8f0;
+            background: rgba(255,255,255,0.07);
+            padding:3px 10px; border-radius:20px;
+            font-size:0.7rem; color:#E2E8F0;
         }
 
         .modal-body {
-            padding:25px 30px 30px;
-            max-height: calc(90vh - 280px);
+            padding:22px 26px 26px;
             overflow-y:auto;
+            flex:1;
         }
-        .modal-section-title {
-            font-size:1rem; font-weight:700;
-            margin: 20px 0 12px;
+        .h2 {
+            font-size:1.05rem; font-weight:800;
+            margin: 22px 0 12px;
             display:flex; align-items:center; gap:8px;
-            color:var(--text-primary);
+            padding-bottom:8px;
+            border-bottom: 2px solid var(--border-color);
         }
-        .modal-section-title:first-child { margin-top:0; }
-        .modal-section-title i { color:var(--accent); }
+        .h2:first-child { margin-top:0; }
+        .h2 i { color:var(--accent); }
         .sinopsis {
-            color:var(--text-secondary); font-size:0.9rem;
-            line-height:1.7; text-align:justify;
+            color:var(--text-secondary); font-size:0.92rem;
+            line-height:1.75; text-align:justify;
         }
-        .episode-list {
+        .info-grid {
             display:grid;
-            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap:10px 18px;
+            font-size:0.88rem;
+        }
+        .info-grid div {
+            padding:8px 0;
+            border-bottom:1px dashed var(--border-color);
+        }
+        .info-grid div span:first-child {
+            display:block;
+            font-size:0.72rem; color:var(--text-muted);
+            text-transform:uppercase; letter-spacing:0.5px;
+            margin-bottom:2px;
+        }
+        .info-grid div span:last-child { font-weight:600; color:var(--text-primary); }
+
+        /* EPISODE LIST */
+        .ep-list {
+            display:grid;
+            grid-template-columns: repeat(auto-fill, minmax(105px, 1fr));
             gap:8px;
         }
-        .episode-btn {
+        .ep-btn {
             background:var(--bg-card);
             border:1px solid var(--border-color);
             color:var(--text-primary);
-            padding:10px 8px; border-radius:10px;
-            font-size:0.8rem; font-weight:600;
+            padding:11px 6px; border-radius:10px;
+            font-size:0.82rem; font-weight:700;
             text-align:center;
             transition:var(--transition);
             cursor:pointer;
+            position:relative;
+            overflow:hidden;
+        }
+        .ep-btn:hover {
+            background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+            color:#fff;
+            border-color:transparent;
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px var(--accent-glow);
+        }
+        .ep-btn.new::after {
+            content:'NEW';
+            position:absolute; top:3px; right:3px;
+            background:#EF4444; color:#fff;
+            font-size:0.55rem; font-weight:900;
+            padding:1px 5px; border-radius:8px;
+        }
+        .ep-empty {
+            grid-column:1 / -1;
+            text-align:center;
+            padding:30px;
+            color:var(--text-muted);
+            font-size:0.9rem;
+        }
+        .ep-empty i { color:var(--accent); margin-right:6px; }
+
+        /* =========================================
+           🎬 PEMUTAR VIDEO (NONTON DI DALAM!)
+           ========================================= */
+        .player-modal .modal-inner { max-width:1100px; }
+        .player-head {
+            padding:15px 20px;
+            background: var(--bg-card);
+            border-bottom:1px solid var(--border-color);
+            display:flex; align-items:center; justify-content:space-between;
+            gap:12px; flex-wrap:wrap;
+        }
+        .player-head h3 {
+            font-size:1rem; font-weight:800;
+            display:flex; align-items:center; gap:10px;
+        }
+        .player-head h3 i { color:var(--accent); }
+        .player-servers {
+            display:flex; gap:6px; flex-wrap:wrap;
+        }
+        .server-btn {
+            padding:7px 14px; border-radius:8px;
+            background:var(--bg-secondary);
+            border:1px solid var(--border-color);
+            font-size:0.78rem; font-weight:700;
+            color:var(--text-secondary);
+            transition:var(--transition);
+        }
+        .server-btn:hover { color:var(--text-primary); border-color:var(--accent); }
+        .server-btn.active {
+            background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+            color:#fff; border-color:transparent;
+        }
+        .player-wrap {
+            position:relative;
+            width:100%;
+            aspect-ratio: 16 / 9;
+            background:#000;
+            overflow:hidden;
+        }
+        .player-wrap iframe {
+            width:100%; height:100%;
+            border:0;
             display:block;
         }
-        .episode-btn:hover {
-            background:var(--accent);
+        .player-loading {
+            position:absolute; inset:0;
+            display:flex; flex-direction:column;
+            align-items:center; justify-content:center;
+            gap:14px;
             color:#fff;
-            border-color:var(--accent);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px var(--accent-glow);
+            background: linear-gradient(135deg, #0a0a0a, #1a1a2e);
+            z-index:5;
         }
-        [data-theme="light"] .episode-btn:hover { color:#fff; }
-        .batch-btn {
-            background: linear-gradient(135deg, #8b5cf6, #6366f1);
-            color:#fff; border:none;
-            padding:12px 20px; border-radius:10px;
-            font-weight:700; font-size:0.85rem;
-            width:100%; transition:var(--transition);
-            display:flex; align-items:center; justify-content:center; gap:8px;
+        .player-loading i {
+            font-size:2.5rem; color:var(--accent);
+            animation: spin 1s linear infinite;
         }
-        .batch-btn:hover { transform:translateY(-2px); box-shadow:0 8px 20px rgba(139,92,246,0.3); }
-
-        /* ⭐ TOMBOL BOOKMARK DI MODAL */
-        .modal-bookmark {
-            position:absolute; top:15px; left:15px; z-index:10;
-            padding:10px 18px; border-radius:40px;
-            background: rgba(0,0,0,0.65); backdrop-filter:blur(8px);
-            color:#fff; font-size:0.85rem; font-weight:600;
-            display:flex; align-items:center; gap:8px;
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .player-actions {
+            padding:14px 20px;
+            background: var(--bg-card);
+            border-top:1px solid var(--border-color);
+            display:flex; gap:10px; flex-wrap:wrap;
+            justify-content:space-between; align-items:center;
+        }
+        .nav-ep {
+            padding:9px 16px; border-radius:10px;
+            background:var(--bg-secondary);
+            border:1px solid var(--border-color);
+            font-size:0.85rem; font-weight:700;
+            color:var(--text-primary);
             transition:var(--transition);
-            border:1px solid rgba(255,255,255,0.15);
-            cursor:pointer;
+            display:inline-flex; align-items:center; gap:7px;
         }
-        .modal-bookmark:hover { background: rgba(0,0,0,0.85); }
-        .modal-bookmark.active {
-            background: #dc2626;
-            border-color:#f87171;
-        }
+        .nav-ep:hover { border-color:var(--accent); color:var(--accent); }
+        .nav-ep:disabled { opacity:0.4; cursor:not-allowed; }
 
-        /* TOAST NOTIFIKASI (BARU!) */
+        /* TOAST */
         .toast {
-            position:fixed; bottom:30px; left:50%; transform: translateX(-50%) translateY(100px);
-            z-index:10000;
+            position:fixed; bottom:28px; left:50%;
+            transform: translateX(-50%) translateY(120px);
+            z-index:20000;
             background: var(--bg-card);
             color:var(--text-primary);
-            padding:14px 24px; border-radius:40px;
+            padding:13px 22px; border-radius:50px;
             border:1px solid var(--border-color);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-            font-size:0.9rem; font-weight:600;
-            display:flex; align-items:center; gap:10px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+            font-size:0.88rem; font-weight:700;
+            display:flex; align-items:center; gap:9px;
             opacity:0; pointer-events:none;
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transition: all .4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            white-space:nowrap;
         }
-        .toast.show {
-            opacity:1;
-            transform: translateX(-50%) translateY(0);
-        }
+        .toast.show { opacity:1; transform: translateX(-50%) translateY(0); }
         .toast i { color:var(--accent); }
-        .toast.success i { color:#10b981; }
-        .toast.danger i { color:#ef4444; }
+        .toast.ok i { color:var(--success); }
+        .toast.bad i { color:var(--danger); }
 
         /* RESPONSIVE */
-        @media (max-width:820px) {
+        @media (max-width:860px) {
             .nav-search { flex:1 1 100%; order:3; max-width:100%; }
-            .brand { font-size:1.2rem; }
+            .brand { font-size:1.25rem; }
             .brand small { display:none; }
             .nav-actions a span, .nav-actions button span { display:none; }
-            .nav-actions a, .nav-actions button { padding:7px 12px; }
-            .hero-banner { min-height:200px; padding:20px 18px; }
-            .hero-banner h2 { font-size:1.3rem; }
-            .grid-anime { grid-template-columns: repeat(auto-fill, minmax(145px, 1fr)); gap:14px; }
-            .modal-header-content { flex-direction:column; align-items:center; text-align:center; padding:20px; }
+            .nav-actions a, .nav-actions button { padding:8px 12px; }
+            .hero-banner { min-height:190px; padding:22px 18px; }
+            .hero-banner h2 { font-size:1.4rem; }
+            .grid-anime { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap:12px; }
+            .modal-head-in { flex-direction:column; align-items:center; text-align:center; padding:22px 18px 18px; }
             .modal-poster { width:120px; min-width:120px; }
-            .modal-info h2 { font-size:1.2rem; }
-            .modal-body { padding:20px; }
-            .modal-bookmark { top:auto; bottom:15px; left:15px; }
+            .modal-info h1 { font-size:1.25rem; }
+            .modal-body { padding:16px 18px 20px; }
+            .modal-tags, .modal-genres { justify-content:center; }
         }
-        @media (max-width:480px) {
-            .grid-anime { grid-template-columns: repeat(auto-fill, minmax(125px, 1fr)); gap:10px; }
+        @media (max-width:500px) {
+            .grid-anime { grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap:9px; }
             .anime-card .info h3 { font-size:0.78rem; }
-            .modal { max-height:95vh; }
-            .modal-header { min-height:180px; }
-            .episode-list { grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); }
+            .ep-list { grid-template-columns: repeat(auto-fill, minmax(85px, 1fr)); }
+            .modal-inner { border-radius:16px; max-height:96vh; }
+            .player-head h3 { font-size:0.88rem; }
         }
     </style>
 </head>
@@ -546,26 +528,14 @@
     <!-- NAVBAR -->
     <header class="navbar">
         <div class="container">
-            <a href="/" class="brand" id="brandLogo">
-                <i class="fas fa-play-circle"></i>
-                <span>Rayliziie</span><small>Stream</small>
-            </a>
-            <div class="nav-search">
-                <i class="fas fa-search"></i>
-                <input type="text" id="searchInput" placeholder="Cari anime favoritmu..." autocomplete="off" />
-            </div>
+            <a href="/" class="brand" id="logo"><i class="fas fa-play-circle"></i><span>Rayliziie</span><small>STREAM</small></a>
+            <div class="nav-search"><i class="fas fa-search"></i><input type="text" id="cari" placeholder="Cari judul anime, genre, studio..." autocomplete="off" /></div>
             <div class="nav-actions">
-                <a href="#" id="navOngoing" class="btn-accent"><i class="fas fa-clock"></i><span>Ongoing</span></a>
-                <a href="#" id="navComplete"><i class="fas fa-check-circle"></i><span>Complete</span></a>
-                <a href="#" id="navSchedule"><i class="fas fa-calendar-week"></i><span>Jadwal</span></a>
-                <!-- ⭐ FITUR BARU: BOOKMARK -->
-                <button id="navFav" class="btn-fav" title="Anime Favorit">
-                    <i class="fas fa-heart"></i><span>Favorit</span>
-                </button>
-                <!-- 🌙 FITUR BARU: MODE TERANG/MALAM -->
-                <button id="themeToggle" title="Ganti Tema">
-                    <i class="fas fa-moon"></i><span>Tema</span>
-                </button>
+                <a href="#" id="mOngoing" class="btn-accent"><i class="fas fa-bolt"></i><span>Ongoing</span></a>
+                <a href="#" id="mComplete"><i class="fas fa-check-double"></i><span>Complete</span></a>
+                <a href="#" id="mSchedule"><i class="fas fa-calendar-day"></i><span>Jadwal</span></a>
+                <button id="mFav" title="Favorit"><i class="far fa-heart"></i><span>Favorit</span></button>
+                <button id="mTema" title="Ganti Tema"><i class="fas fa-moon"></i><span>Tema</span></button>
             </div>
         </div>
     </header>
@@ -574,833 +544,754 @@
     <main>
         <section class="hero">
             <div class="container">
-                <div class="hero-banner" id="heroBanner">
+                <div class="hero-banner">
                     <div>
-                        <span class="badge"><i class="fas fa-fire"></i> UPDATE TERBARU</span>
-                        <h2 id="heroTitle">Rayliziie Anime Stream</h2>
-                        <p id="heroDesc">Nonton anime subtitle Indonesia terlengkap. Update cepat, kualitas HD, tanpa pindah halaman.</p>
+                        <span class="badge"><i class="fas fa-fire"></i> UPDATE SETIAP HARI</span>
+                        <h2 id="jdlHero">Nonton Anime Sub Indo <span style="color:var(--accent)">Terlengkap</span></h2>
+                        <p id="descHero">Streaming ribuan anime subtitle Indonesia kualitas HD. Update tercepat, tanpa iklan mengganggu, langsung klik tonton!</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="section" id="ongoingSection">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title"><i class="fas fa-play"></i> Anime Ongoing</h2>
-                    <a href="#" class="view-all" id="viewAllOngoing">Lihat Semua <i class="fas fa-arrow-right"></i></a>
-                </div>
-                <div class="grid-anime" id="ongoingGrid"></div>
-            </div>
-        </section>
+        <section class="section" id="secOngoing"><div class="container">
+            <div class="section-header"><h2 class="section-title"><i class="fas fa-play-circle"></i> Anime Ongoing</h2><a class="view-all" id="allOng">Lihat Semua <i class="fas fa-arrow-right"></i></a></div>
+            <div class="grid-anime" id="gridOng"></div>
+        </div></section>
 
-        <section class="section" id="completeSection">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title"><i class="fas fa-check-double"></i> Anime Complete</h2>
-                    <a href="#" class="view-all" id="viewAllComplete">Lihat Semua <i class="fas fa-arrow-right"></i></a>
-                </div>
-                <div class="grid-anime" id="completeGrid"></div>
-            </div>
-        </section>
+        <section class="section" id="secComplete"><div class="container">
+            <div class="section-header"><h2 class="section-title"><i class="fas fa-layer-group"></i> Anime Complete</h2><a class="view-all" id="allCom">Lihat Semua <i class="fas fa-arrow-right"></i></a></div>
+            <div class="grid-anime" id="gridCom"></div>
+        </div></section>
 
-        <section class="section" id="scheduleSection" style="display:none;">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title"><i class="fas fa-calendar-week"></i> Jadwal Rilis Harian</h2>
-                </div>
-                <div class="grid-anime" id="scheduleGrid"></div>
-            </div>
-        </section>
+        <section class="section" id="secSchedule" style="display:none;"><div class="container">
+            <div class="section-header"><h2 class="section-title"><i class="fas fa-calendar-week"></i> Jadwal Rilis Harian</h2></div>
+            <div class="grid-anime" id="gridSch"></div>
+        </div></section>
 
-        <!-- ⭐ HALAMAN FAVORIT (BARU!) -->
-        <section class="section" id="favSection" style="display:none;">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title"><i class="fas fa-heart" style="color:#ef4444;"></i> Anime Favoritmu</h2>
-                    <span class="view-all" id="favCount" style="color:var(--accent);font-weight:700;">0 anime</span>
-                </div>
-                <div class="grid-anime" id="favGrid">
-                    <div class="state-empty">
-                        <i class="far fa-heart"></i>
-                        <p>Belum ada anime favorit<br><small>Klik ❤️ di card anime untuk menambahkannya!</small></p>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <section class="section" id="secFav" style="display:none;"><div class="container">
+            <div class="section-header"><h2 class="section-title"><i class="fas fa-heart" style="color:#EF4444;"></i> Koleksi Favoritmu</h2><span class="view-all" id="jmlFav" style="color:var(--accent);font-weight:800;">0 anime</span></div>
+            <div class="grid-anime" id="gridFav"><div class="state-empty"><i class="far fa-heart"></i><p>Belum ada koleksi<br><small>Klik <strong style="color:#EF4444;">❤️</strong> di poster anime untuk menyimpan!</small></p></div></div>
+        </div></section>
+
+        <section class="section" id="secCari" style="display:none;"><div class="container">
+            <div class="section-header"><h2 class="section-title"><i class="fas fa-search"></i> Hasil Pencarian</h2></div>
+            <div class="grid-anime" id="gridCari"></div>
+        </div></section>
     </main>
 
     <!-- FOOTER -->
-    <footer class="footer">
-        <div class="container">
-            <div class="brand-small"><i class="fas fa-play-circle"></i> RayliziieStream</div>
-            <p style="margin-top:8px;">© 2026 Rayliziie · Data dari <a href="https://github.com/rakarmp/unofficial-otakudesu-api" target="_blank" style="color:var(--accent);font-weight:600;">Unofficial Otakudesu API</a></p>
-            <div class="links">
-                <a href="https://github.com/rakarmp/unofficial-otakudesu-api" target="_blank"><i class="fab fa-github"></i> Source API</a>
-                <a href="#"><i class="fab fa-twitter"></i> Twitter</a>
-                <a href="#"><i class="fab fa-discord"></i> Discord</a>
-            </div>
-        </div>
-    </footer>
+    <footer class="footer"><div class="container">
+        <div class="brand-s"><i class="fas fa-play-circle"></i> Rayliziie <strong style="color:var(--accent);">STREAM</strong></div>
+        <p style="margin-top:7px; font-size:0.8rem;">© 2026 Rayliziie · Sumber data dari berbagai server Otakudesu API · Video di-host oleh pihak ketiga</p>
+    </div></footer>
 
-    <!-- MODAL DETAIL -->
-    <div class="modal-overlay" id="modalOverlay">
-        <div class="modal" id="modal">
-            <button class="modal-close" id="modalClose" aria-label="Tutup">
-                <i class="fas fa-times"></i>
-            </button>
-            
-            <!-- ⭐ TOMBOL BOOKMARK DI MODAL -->
-            <button class="modal-bookmark" id="modalBookmark">
-                <i class="far fa-heart"></i>
-                <span>Tambah Favorit</span>
-            </button>
-            
-            <div class="modal-header">
-                <div class="modal-header-bg" id="modalBg"></div>
-                <div class="modal-header-content">
-                    <div class="modal-poster">
-                        <img id="modalPoster" src="" alt="Poster" />
-                    </div>
+    <!-- =========================================
+         🪟 MODAL DETAIL ANIME
+         ========================================= -->
+    <div class="modal-bg" id="bgDet"></div>
+    <div class="modal" id="modDet">
+        <div class="modal-inner">
+            <button class="modal-close" id="xDet"><i class="fas fa-times"></i></button>
+            <button class="modal-fav" id="favDet"><i class="far fa-heart"></i><span>Simpan Favorit</span></button>
+            <div class="modal-head">
+                <div class="modal-head-bg" id="bgPoster"></div>
+                <div class="modal-head-in">
+                    <div class="modal-poster"><img id="posterDet" src="" alt="" /></div>
                     <div class="modal-info">
-                        <h2 id="modalTitle">Loading...</h2>
-                        <div class="modal-meta" id="modalMeta"></div>
-                        <div class="modal-genres" id="modalGenres"></div>
+                        <h1 id="jdlDet">Loading...</h1>
+                        <div class="sub" id="jpnDet"></div>
+                        <div class="modal-tags" id="tagsDet"></div>
+                        <div class="modal-genres" id="genreDet"></div>
                     </div>
                 </div>
             </div>
-
-            <div class="modal-body" id="modalBody">
-                <div style="text-align:center; padding:40px; color:var(--text-muted);">
-                    <i class="fas fa-spinner fa-spin" style="font-size:2rem; color:var(--accent);"></i>
-                    <p style="margin-top:12px;">Memuat detail anime...</p>
+            <div class="modal-body" id="isiDet">
+                <div style="text-align:center;padding:50px 20px;color:var(--text-muted);">
+                    <i class="fas fa-circle-notch fa-spin" style="font-size:2.2rem;color:var(--accent);"></i>
+                    <p style="margin-top:14px;font-weight:600;">Sedang mengambil data anime & daftar episode...</p>
+                    <p style="font-size:0.8rem;margin-top:5px;">Mohon tunggu sebentar ya</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- 🔔 TOAST NOTIFIKASI -->
-    <div class="toast" id="toast">
-        <i class="fas fa-check-circle"></i>
-        <span id="toastMsg">Berhasil!</span>
+    <!-- =========================================
+         🎬 MODAL PEMUTAR VIDEO (NONTON!)
+         ========================================= -->
+    <div class="modal-bg" id="bgPlay"></div>
+    <div class="modal player-modal" id="modPlay">
+        <div class="modal-inner">
+            <button class="modal-close" id="xPlay"><i class="fas fa-times"></i></button>
+            <div class="player-head">
+                <h3><i class="fas fa-play"></i> <span id="jdlPlay">Memutar...</span></h3>
+                <div class="player-servers" id="servers"></div>
+            </div>
+            <div class="player-wrap">
+                <div class="player-loading" id="loadPlay"><i class="fas fa-sync-alt"></i><span>Memuat pemutar video...</span></div>
+                <iframe id="framePlay" src="" allowfullscreen allow="autoplay; encrypted-media; picture-in-picture" referrerpolicy="no-referrer"></iframe>
+            </div>
+            <div class="player-actions">
+                <button class="nav-ep" id="prevEp"><i class="fas fa-chevron-left"></i> Episode Sebelum</button>
+                <span style="color:var(--text-muted);font-size:0.8rem;font-weight:600;" id="indEp">—</span>
+                <button class="nav-ep" id="nextEp">Episode Berikut <i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
     </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast"><i class="fas fa-info-circle"></i><span id="pesanToast">Siap!</span></div>
 
     <script>
     (function() {
         'use strict';
 
         // =========================================
-        // 🔧 PERBAIKAN API: 7 PROXY + DATA CADANGAN!
+        // 🔥 3 SUMBER API ASLI — TANPA DATA PALSU!
+        // Diurutkan dari yang tercepat & terlengkap
         // =========================================
-        const API_BASE = 'https://unofficial-otakudesu-api-ruang-kreatif.vercel.app/api';
-        
-        // ✅ 7 PROXY CORS (lebih banyak = lebih stabil)
-        const CORS_PROXIES = [
-            'https://api.allorigins.win/raw?url=',
-            'https://corsproxy.io/?',
-            'https://api.codetabs.com/v1/proxy?quest=',
-            'https://api.allorigins.win/get?url=',
-            'https://thingproxy.freeboard.io/fetch/',
-            'https://api.allorigins.win/raw?url=',
-            '' // Direct call terakhir
+        const APIS = [
+            {   // API 1: Paling lengkap (episode + link streaming)
+                base: 'https://otakudesu-unofficial-api.vercel.app/api',
+                ongoing: '/ongoing', complete: '/complete', schedule: '/schedule',
+                search: q => `/search/${q}`,
+                detail: s => `/anime/${s}`,
+                episode: s => `/episode/${s}`,
+                parseList: d => d.data || d.ongoing || d.complete || d.schedule || d.search || d.animeList || [],
+                parseDetail: d => {
+                    const a = d.data || d;
+                    return {
+                        title: a.title || a.judul, japanese: a.japanese || a.judul_jepang || '',
+                        status: a.status || a.status_anime || '', rating: a.score || a.rating || a.penilaian || '',
+                        producer: a.producer || a.produser || '', studio: a.studio || '',
+                        type: a.type || a.tipe || '', duration: a.duration || a.durasi || '',
+                        release: a.release_date || a.tanggal_rilis || a.release || '',
+                        total_ep: a.total_episode || a.episode_total || a.episode || '',
+                        genre: Array.isArray(a.genre) ? a.genre : (a.genres || []),
+                        synopsis: a.synopsis || a.sinopsis || a.desc || '',
+                        episodes: Array.isArray(a.episode_list) ? a.episode_list.map(e => ({
+                            slug: e.slug || e.id || e.episode_slug || '',
+                            title: e.title || e.episode || e.judul || '',
+                            number: e.episode || e.number || (e.title||'').toString().match(/\d+/)?.[0] || '',
+                            date: e.date || e.tanggal || ''
+                        })) : []
+                    };
+                },
+                parseEpisode: d => {
+                    const a = d.data || d;
+                    const streams = a.stream || a.player || a.video || {};
+                    const list = [];
+                    ['otakudesu','vidstream','mega','gdrive','mp4upload','streamtape','doodstream'].forEach(k => {
+                        if(streams[k]) {
+                            let u = streams[k];
+                            if(typeof u === 'object') u = u.iframe || u.url || u.embed || '';
+                            if(u && u.startsWith('http')) list.push({ name: k.toUpperCase(), url: u });
+                        }
+                    });
+                    // Fallback kalau ada download link ambil embed
+                    if(!list.length && a.download) {
+                        for(const k in a.download) {
+                            const arr = a.download[k];
+                            if(Array.isArray(arr)) for(const it of arr) {
+                                if(it.link && (it.link.includes('embed')||it.link.includes('player')))
+                                    list.push({ name: (it.reso||k).toUpperCase(), url: it.link });
+                            }
+                        }
+                    }
+                    return { streams: list, anime_slug: a.anime_slug || a.parent_slug || '' };
+                }
+            },
+            {   // API 2: Backup server 1
+                base: 'https://api-otakudesu.vercel.app/api',
+                ongoing: '/anime/ongoing', complete: '/anime/complete', schedule: '/schedule',
+                search: q => `/search?q=${q}`,
+                detail: s => `/anime/${s}`,
+                episode: s => `/episode/${s}`,
+                parseList: d => d.data || d.result || d.results || d.anime || [],
+                parseDetail: d => {
+                    const a = d.data || d;
+                    return {
+                        title: a.title || a.judul, japanese: a.japanese || '',
+                        status: a.status || '', rating: a.score || a.rating || '',
+                        producer: a.producer || '', studio: a.studio || '', type: a.type || '',
+                        duration: a.duration || '', release: a.release_date || a.release || '',
+                        total_ep: a.total_episode || a.episodes || '',
+                        genre: Array.isArray(a.genre) ? a.genre : (a.genres && a.genres.map?.(g=>g.name) || []),
+                        synopsis: a.synopsis || a.sinopsis || '',
+                        episodes: Array.isArray(a.episodes) ? a.episodes.map((e,i)=>({
+                            slug: e.slug || e.id || '', title: e.title || `Episode ${a.episodes.length-i}`,
+                            number: e.number || e.episode || (a.episodes.length-i), date: e.date || ''
+                        })) : []
+                    };
+                },
+                parseEpisode: d => {
+                    const a = d.data || d;
+                    const s = a.player || a.stream || {};
+                    const list = [];
+                    for(const k in s) if(s[k]?.iframe) list.push({ name:k.toUpperCase(), url:s[k].iframe });
+                    return { streams: list };
+                }
+            },
+            {   // API 3: Backup server 2
+                base: 'https://otakudesu-api-v2.vercel.app/api',
+                ongoing: '/ongoing', complete: '/complete', schedule: '/jadwal',
+                search: q => `/cari/${q}`,
+                detail: s => `/detail/${s}`,
+                episode: s => `/nonton/${s}`,
+                parseList: d => d.data || d.list || d.result || [],
+                parseDetail: d => {
+                    const a = d.data || d;
+                    return {
+                        title: a.title || a.judul, japanese: a.japanese || '',
+                        status: a.status || '', rating: a.rating || a.score || '',
+                        producer: a.producer || '', studio: a.studio || '', type: a.type || '',
+                        duration: a.duration || '', release: a.release || '',
+                        total_ep: a.total_episode || '',
+                        genre: Array.isArray(a.genre) ? a.genre : [],
+                        synopsis: a.synopsis || a.sinopsis || '',
+                        episodes: Array.isArray(a.episode_list) ? a.episode_list.map(e=>({
+                            slug: e.slug || e.id || '', title: e.title || e.episode || '',
+                            number: e.number || e.episode || '', date: e.date || ''
+                        })) : []
+                    };
+                },
+                parseEpisode: d => {
+                    const a = d.data || d;
+                    const list = [];
+                    if(a.embed) list.push({ name:'OTAKUDESU', url:a.embed });
+                    if(a.video && Array.isArray(a.video)) a.video.forEach(v => {
+                        if(v.url) list.push({ name:(v.server||v.name||'VID').toUpperCase(), url:v.url });
+                    });
+                    return { streams: list };
+                }
+            }
         ];
 
-        // ✅ DATA CADANGAN (JIKA SEMUA PROXY GAGAL - APLIKASI TETAP JALAN!)
-        const FALLBACK_DATA = {
-            ongoing: [
-                { slug:'neko-to-ryuu', title:'Neko to Ryuu', thumb:'https://cdn.myanimelist.net/images/anime/1015/148896l.jpg', episode:'Eps 12', status:'Ongoing', score:'7.63', genre:'Fantasi, Slice of Life', release:'2025' },
-                { slug:'mahou-shoujo-lyrical-nanoha', title:'Mahou Shoujo Lyrical Nanoha Detonation', thumb:'https://cdn.myanimelist.net/images/anime/1896/99328l.jpg', episode:'Eps 24', status:'Ongoing', score:'7.80', genre:'Aksi, Magic', release:'2024' },
-                { slug:'bakumatsu-joudou-girl', title:'Bakumatsu Joudou Girl', thumb:'https://cdn.myanimelist.net/images/anime/1404/148997l.jpg', episode:'Eps 8', status:'Ongoing', score:'7.45', genre:'Sejarah, Drama', release:'2025' },
-                { slug:'one-piece', title:'One Piece', thumb:'https://cdn.myanimelist.net/images/anime/6/73245l.jpg', episode:'Eps 1120', status:'Ongoing', score:'9.10', genre:'Petualangan, Aksi', release:'1999' },
-                { slug:'jujutsu-kaisen', title:'Jujutsu Kaisen Season 3', thumb:'https://cdn.myanimelist.net/images/anime/1700/142395l.jpg', episode:'Eps 18', status:'Ongoing', score:'8.95', genre:'Aksi, Supernatural', release:'2025' },
-                { slug:'solo-leveling', title:'Solo Leveling Season 2', thumb:'https://cdn.myanimelist.net/images/anime/1900/143596l.jpg', episode:'Eps 12', status:'Ongoing', score:'8.75', genre:'Aksi, Fantasi', release:'2025' },
-                { slug:'kaiju-no-8', title:'Kaiju No. 8', thumb:'https://cdn.myanimelist.net/images/anime/1098/142077l.jpg', episode:'Eps 24', status:'Ongoing', score:'8.20', genre:'Aksi, Sci-Fi', release:'2024' },
-                { slug:'wind-breaker', title:'Wind Breaker', thumb:'https://cdn.myanimelist.net/images/anime/1189/142088l.jpg', episode:'Eps 13', status:'Ongoing', score:'8.40', genre:'Olahraga, Drama', release:'2024' },
-                { slug:'mushoku-tensei', title:'Mushoku Tensei Season 3', thumb:'https://cdn.myanimelist.net/images/anime/1556/147896l.jpg', episode:'Eps 6', status:'Ongoing', score:'8.85', genre:'Fantasi, Isekai', release:'2025' },
-                { slug:'frieren', title:'Frieren: Beyond Journey\'s End', thumb:'https://cdn.myanimelist.net/images/anime/1015/138006l.jpg', episode:'Eps 28', status:'Ongoing', score:'9.40', genre:'Fantasi, Petualangan', release:'2024' },
-                { slug:'spy-x-family', title:'Spy x Family Season 3', thumb:'https://cdn.myanimelist.net/images/anime/1441/145678l.jpg', episode:'Eps 12', status:'Ongoing', score:'8.65', genre:'Komedi, Aksi', release:'2025' },
-                { slug:'demon-slayer', title:'Kimetsu no Yaiba Season 5', thumb:'https://cdn.myanimelist.net/images/anime/1988/146789l.jpg', episode:'Eps 8', status:'Ongoing', score:'8.90', genre:'Aksi, Supernatural', release:'2025' }
-            ],
-            complete: [
-                { slug:'fullmetal-alchemist', title:'Fullmetal Alchemist: Brotherhood', thumb:'https://cdn.myanimelist.net/images/anime/1208/94745l.jpg', episode:'64 Eps', status:'Complete', score:'9.10', genre:'Aksi, Petualangan', release:'2009' },
-                { slug:'death-note', title:'Death Note', thumb:'https://cdn.myanimelist.net/images/anime/9/9453l.jpg', episode:'37 Eps', status:'Complete', score:'9.00', genre:'Misteri, Thriller', release:'2006' },
-                { slug:'attack-on-titan', title:'Attack on Titan Final', thumb:'https://cdn.myanimelist.net/images/anime/10/47347l.jpg', episode:'87 Eps', status:'Complete', score:'9.20', genre:'Aksi, Drama', release:'2013' },
-                { slug:'steins-gate', title:'Steins;Gate', thumb:'https://cdn.myanimelist.net/images/anime/5/73199l.jpg', episode:'24 Eps', status:'Complete', score:'9.15', genre:'Sci-Fi, Thriller', release:'2011' },
-                { slug:'gintama', title:'Gintama', thumb:'https://cdn.myanimelist.net/images/anime/1590/127888l.jpg', episode:'367 Eps', status:'Complete', score:'9.05', genre:'Komedi, Aksi', release:'2006' },
-                { slug:'hunter-x-hunter', title:'Hunter x Hunter (2011)', thumb:'https://cdn.myanimelist.net/images/anime/11/33657l.jpg', episode:'148 Eps', status:'Complete', score:'9.00', genre:'Petualangan, Fantasi', release:'2011' },
-                { slug:'your-name', title:'Kimi no Na wa', thumb:'https://cdn.myanimelist.net/images/anime/5/87048l.jpg', episode:'Movie', status:'Complete', score:'8.95', genre:'Romansa, Drama', release:'2016' },
-                { slug:'violet-evergarden', title:'Violet Evergarden', thumb:'https://cdn.myanimelist.net/images/anime/1795/95088l.jpg', episode:'13 Eps', status:'Complete', score:'8.90', genre:'Drama, Fantasi', release:'2018' },
-                { slug:'chainsaw-man', title:'Chainsaw Man', thumb:'https://cdn.myanimelist.net/images/anime/1806/126216l.jpg', episode:'12 Eps', status:'Complete', score:'8.55', genre:'Aksi, Fantasi', release:'2022' },
-                { slug:'cyberpunk-edgerunners', title:'Cyberpunk: Edgerunners', thumb:'https://cdn.myanimelist.net/images/anime/1235/127960l.jpg', episode:'10 Eps', status:'Complete', score:'8.60', genre:'Aksi, Sci-Fi', release:'2022' },
-                { slug:'spy-family-s1', title:'Spy x Family Season 1', thumb:'https://cdn.myanimelist.net/images/anime/1441/122795l.jpg', episode:'25 Eps', status:'Complete', score:'8.60', genre:'Komedi, Aksi', release:'2022' },
-                { slug:'jujutsu-s2', title:'Jujutsu Kaisen Season 2', thumb:'https://cdn.myanimelist.net/images/anime/1700/138007l.jpg', episode:'23 Eps', status:'Complete', score:'8.80', genre:'Aksi, Supernatural', release:'2023' }
-            ]
-        };
+        // ⚡ CORS PROXY (4 proxy, dipakai paralel)
+        const PROXIES = [
+            'https://corsproxy.io/?',
+            'https://api.allorigins.win/raw?url=',
+            'https://api.codetabs.com/v1/proxy?quest=',
+            ''
+        ];
+        const TIMEOUT = 2800;       // Tiap request max 2.8 detik
+        const CACHE_TTL = 12 * 60 * 1000; // Cache 12 MENIT
 
-        // SVG Placeholder
-        const PLACEHOLDER = "data:image/svg+xml;utf8," + encodeURIComponent(`
-            <svg xmlns="http://www.w3.org/2000/svg" width="300" height="450" viewBox="0 0 300 450">
-                <defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style="stop-color:#1a2332"/>
-                    <stop offset="100%" style="stop-color:#0f172a"/>
-                </linearGradient></defs>
-                <rect width="300" height="450" fill="url(#g)"/>
-                <g fill="#5a7a9a" opacity="0.6">
-                    <rect x="110" y="170" width="80" height="80" rx="12"/>
-                    <rect x="90" y="280" width="120" height="12" rx="6"/>
-                </g>
-                <text x="150" y="380" font-family="Poppins,sans-serif" font-size="14" fill="#5a7a9a" text-anchor="middle" font-weight="600">Tidak Ada Gambar</text>
-            </svg>
-        `);
+        // PLACEHOLDER
+        const PH = "data:image/svg+xml;utf8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="300" height="450"><rect width="300" height="450" fill="#141B2D"/><text x="150" y="235" font-family="Poppins,sans-serif" font-size="15" fill="#64748B" text-anchor="middle" font-weight="700">Rayliziie</text></svg>`);
 
         // DOM
         const $ = id => document.getElementById(id);
-        const ongoingGrid = $('ongoingGrid');
-        const completeGrid = $('completeGrid');
-        const scheduleGrid = $('scheduleGrid');
-        const favGrid = $('favGrid');
-        const favCount = $('favCount');
-        const searchInput = $('searchInput');
-        const heroTitle = $('heroTitle');
-        const heroDesc = $('heroDesc');
-        const scheduleSection = $('scheduleSection');
-        const ongoingSection = $('ongoingSection');
-        const completeSection = $('completeSection');
-        const favSection = $('favSection');
-        const navFav = $('navFav');
-        const themeToggle = $('themeToggle');
-        const brandLogo = $('brandLogo');
+        const gridOng=$('gridOng'), gridCom=$('gridCom'), gridSch=$('gridSch'), gridFav=$('gridFav'), gridCari=$('gridCari');
+        const jmlFav=$('jmlFav'), cari=$('cari'), jdlHero=$('jdlHero'), descHero=$('descHero');
+        const secOng=$('secOngoing'), secCom=$('secComplete'), secSch=$('secSchedule'), secFav=$('secFav'), secCari=$('secCari');
+        const mFav=$('mFav'), mTema=$('mTema'), logo=$('logo');
+        const bgDet=$('bgDet'), modDet=$('modDet'), xDet=$('xDet'), favDet=$('favDet');
+        const bgPoster=$('bgPoster'), posterDet=$('posterDet'), jdlDet=$('jdlDet'), jpnDet=$('jpnDet'), tagsDet=$('tagsDet'), genreDet=$('genreDet'), isiDet=$('isiDet');
+        const bgPlay=$('bgPlay'), modPlay=$('modPlay'), xPlay=$('xPlay'), jdlPlay=$('jdlPlay'), servers=$('servers');
+        const loadPlay=$('loadPlay'), framePlay=$('framePlay'), prevEp=$('prevEp'), nextEp=$('nextEp'), indEp=$('indEp');
+        const toast=$('toast'), pesanToast=$('pesanToast');
+        let tToast=null, tCari=null, curAnime=null, curEps=[], curEpIdx=-1, curServers=[];
 
-        // MODAL DOM
-        const modalOverlay = $('modalOverlay');
-        const modalClose = $('modalClose');
-        const modalBg = $('modalBg');
-        const modalPoster = $('modalPoster');
-        const modalTitle = $('modalTitle');
-        const modalMeta = $('modalMeta');
-        const modalGenres = $('modalGenres');
-        const modalBody = $('modalBody');
-        const modalBookmark = $('modalBookmark');
+        // 💾 CACHE
+        const CK = 'ray_cache_v2';
+        const gc = () => { try { return JSON.parse(localStorage.getItem(CK)||'{}'); } catch { return {}; } };
+        const sc = (k,v) => { const c=gc(); c[k]={t:Date.now(),d:v}; try{localStorage.setItem(CK,JSON.stringify(c));}catch{} };
+        const lc = k => { const c=gc()[k]; return c&&Date.now()-c.t<CACHE_TTL ? c.d : null; };
 
-        // TOAST
-        const toast = $('toast');
-        const toastMsg = $('toastMsg');
-        let toastTimer = null;
+        // ⭐ FAVORIT
+        const FK = 'ray_fav_v2';
+        const gf = () => { try{return JSON.parse(localStorage.getItem(FK)||'{}');}catch{return {};} };
+        const sf = f => { localStorage.setItem(FK,JSON.stringify(f)); upFavBadge(); };
+        const ifav = s => !!s && !!gf()[s];
+        const tf = a => {
+            if(!a||!a.slug) return false;
+            const f=gf(), s=a.slug;
+            if(f[s]){ delete f[s]; sf(f); t('Dihapus dari favorit','bad'); return false; }
+            f[s]={ slug:a.slug, title:a.title||a.judul, thumb:a.thumb||a.poster, episode:a.episode||a.eps, status:a.status, score:a.score||a.rating, genre:a.genre, release:a.release, addedAt:Date.now() };
+            sf(f); t('Ditambahkan ke favorit ❤️','ok'); return true;
+        };
+        const upFavBadge = () => {
+            const n=Object.keys(gf()).length;
+            jmlFav.textContent = n+' anime';
+            mFav.classList.toggle('active', n>0);
+            mFav.querySelector('i').className = (n>0?'fas':'far')+' fa-heart';
+            if(!secFav.style.display || secFav.style.display!=='none') renFav();
+        };
+        const renFav = () => {
+            const arr = Object.values(gf()).sort((a,b)=>b.addedAt-a.addedAt);
+            if(!arr.length){ gridFav.innerHTML=`<div class="state-empty"><i class="far fa-heart"></i><p>Belum ada koleksi<br><small>Klik <strong style="color:#EF4444;">❤️</strong> di poster anime!</small></p></div>`; return; }
+            const f=document.createDocumentFragment();
+            arr.forEach(a=>f.appendChild(card(a)));
+            gridFav.innerHTML=''; gridFav.appendChild(f);
+        };
+        const showFav = () => { hideAll(); secFav.style.display='block'; jdlHero.textContent='❤️ Koleksi Favorit'; descHero.textContent='Anime kesukaanmu tersimpan aman di HP ini.'; renFav(); };
 
-        // =========================================
-        // ⭐ SISTEM BOOKMARK (localStorage) - BARU!
-        // =========================================
-        const STORAGE_KEY = 'rayliziie_favorites_v1';
-        const THEME_KEY = 'rayliziie_theme_v1';
-        let currentAnime = null; // anime yang sedang dibuka di modal
+        // 🌙 TEMA
+        const TK = 'ray_tema_v2';
+        const iT = () => {
+            const s=localStorage.getItem(TK);
+            const d=window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches;
+            sT(s||(d?'dark':'light'),false);
+        };
+        const sT = (t,sv=true) => {
+            document.documentElement.setAttribute('data-theme', t);
+            const i=mTema.querySelector('i');
+            if(t==='dark'){ i.className='fas fa-moon'; mTema.title='Mode Terang'; }
+            else { i.className='fas fa-sun'; mTema.title='Mode Malam'; }
+            if(sv) localStorage.setItem(TK,t);
+        };
+        const tT = () => {
+            const c=document.documentElement.getAttribute('data-theme')||'dark';
+            sT(c==='dark'?'light':'dark');
+            t(c==='dark'?'Mode Terang ☀️':'Mode Malam 🌙','ok');
+        };
 
-        function getFavorites() {
-            try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); }
-            catch { return {}; }
-        }
-        function saveFavorites(fav) {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(fav));
-            updateFavBadge();
-        }
-        function isFavorite(slug) {
-            if(!slug) return false;
-            return !!getFavorites()[slug];
-        }
-        function toggleFavorite(anime) {
-            if(!anime || !anime.slug) return false;
-            const fav = getFavorites();
-            const slug = anime.slug;
-            if(fav[slug]) {
-                delete fav[slug];
-                saveFavorites(fav);
-                showToast('Dihapus dari favorit', 'danger');
-                return false;
-            } else {
-                fav[slug] = {
-                    slug: anime.slug,
-                    title: anime.title || anime.judul,
-                    thumb: anime.thumb || anime.thumbnail || anime.gambar,
-                    episode: anime.episode || anime.eps,
-                    status: anime.status,
-                    score: anime.score || anime.rating,
-                    genre: anime.genre,
-                    release: anime.release || anime.tanggal,
-                    addedAt: Date.now()
-                };
-                saveFavorites(fav);
-                showToast('Ditambahkan ke favorit ❤️', 'success');
-                return true;
-            }
-        }
-        function updateFavBadge() {
-            const count = Object.keys(getFavorites()).length;
-            favCount.textContent = count + ' anime';
-            if(count > 0) {
-                navFav.classList.add('active');
-                navFav.querySelector('i').className = 'fas fa-heart';
-            } else {
-                navFav.classList.remove('active');
-                navFav.querySelector('i').className = 'far fa-heart';
-            }
-            // Update tampilan halaman fav
-            if(!favSection.style.display || favSection.style.display !== 'none') {
-                renderFavorites();
-            }
-        }
-        function renderFavorites() {
-            const fav = getFavorites();
-            const list = Object.values(fav).sort((a,b) => b.addedAt - a.addedAt);
-            if(!list.length) {
-                favGrid.innerHTML = `
-                    <div class="state-empty">
-                        <i class="far fa-heart"></i>
-                        <p>Belum ada anime favorit<br><small>Klik ❤️ di card anime untuk menambahkannya!</small></p>
-                    </div>`;
-                return;
-            }
-            const f = document.createDocumentFragment();
-            list.forEach(a => f.appendChild(createCard(a)));
-            favGrid.innerHTML=''; favGrid.appendChild(f);
-        }
-        function showFavorites() {
-            searchInput.value='';
-            ongoingSection.style.display='none';
-            completeSection.style.display='none';
-            scheduleSection.style.display='none';
-            favSection.style.display='block';
-            heroTitle.textContent='❤️ Anime Favoritmu';
-            heroDesc.textContent='Koleksi anime kesukaanmu, tersimpan otomatis di HP ini.';
-            renderFavorites();
-            favSection.scrollIntoView({behavior:'smooth'});
-        }
+        // 🔔 TOAST
+        const t = (m,ty='') => {
+            pesanToast.textContent=m;
+            const i=toast.querySelector('i');
+            i.className = ty==='ok'?'fas fa-check-circle':ty==='bad'?'fas fa-exclamation-circle':'fas fa-info-circle';
+            toast.className='toast '+ty+' show';
+            clearTimeout(tToast);
+            tToast=setTimeout(()=>toast.classList.remove('show'), 2200);
+        };
 
         // =========================================
-        // 🌙 SISTEM MODE TERANG / MALAM - BARU!
+        // ⚡⚡⚡ SUPER FETCH — PARALLEL API × PARALLEL PROXY
         // =========================================
-        function initTheme() {
-            const saved = localStorage.getItem(THEME_KEY);
-            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-            const theme = saved || (prefersDark ? 'dark' : 'light');
-            setTheme(theme, false);
-        }
-        function setTheme(theme, save=true) {
-            document.documentElement.setAttribute('data-theme', theme);
-            const icon = themeToggle.querySelector('i');
-            const text = themeToggle.querySelector('span');
-            if(theme === 'dark') {
-                icon.className = 'fas fa-moon';
-                if(text) text.textContent = 'Malam';
-                themeToggle.title = 'Mode Terang';
-            } else {
-                icon.className = 'fas fa-sun';
-                if(text) text.textContent = 'Terang';
-                themeToggle.title = 'Mode Malam';
-            }
-            if(save) localStorage.setItem(THEME_KEY, theme);
-        }
-        function toggleTheme() {
-            const current = document.documentElement.getAttribute('data-theme') || 'dark';
-            setTheme(current === 'dark' ? 'light' : 'dark');
-            showToast(current === 'dark' ? 'Mode Terang ☀️' : 'Mode Malam 🌙', 'success');
-        }
-
-        // =========================================
-        // 🔔 TOAST NOTIFIKASI
-        // =========================================
-        function showToast(msg, type='') {
-            toastMsg.textContent = msg;
-            const icon = toast.querySelector('i');
-            if(type === 'success') icon.className = 'fas fa-check-circle';
-            else if(type === 'danger') icon.className = 'fas fa-times-circle';
-            else icon.className = 'fas fa-info-circle';
-            toast.className = 'toast ' + type + ' show';
-            clearTimeout(toastTimer);
-            toastTimer = setTimeout(() => toast.classList.remove('show'), 2500);
-        }
-
-        // =========================================
-        // ✅ FETCH API DENGAN 7 PROXY + FALLBACK!
-        // =========================================
-        async function fetchAPI(endpoint) {
-            const target = API_BASE + endpoint;
-            const encoded = encodeURIComponent(target);
-            
-            for(let i=0; i<CORS_PROXIES.length; i++) {
-                const proxy = CORS_PROXIES[i];
-                const url = proxy ? (proxy + (proxy.includes('quest=') ? target : encoded)) : target;
-                try {
-                    console.log(`[API ${i+1}/${CORS_PROXIES.length}]`, url);
-                    const resp = await fetch(url, { 
-                        method: 'GET',
-                        headers: { 'Accept': 'application/json' }
-                    });
-                    if(resp.ok) {
-                        const text = await resp.text();
-                        try {
-                            const json = JSON.parse(text);
-                            // Handle allorigins.win/get format
-                            if(json.contents) return JSON.parse(json.contents);
-                            return json;
-                        } catch(e) {
-                            if(text && text.includes('{')) return JSON.parse(text);
-                            return text;
+        const ft = (u,ms) => new Promise((res,rej)=>{
+            const a=new AbortController(); const tm=setTimeout(()=>a.abort(),ms);
+            fetch(u,{signal:a.signal,headers:{'Accept':'application/json'}})
+                .then(r=>{clearTimeout(tm); if(r.ok)return r.text(); throw new Error('HTTP '+r.status);})
+                .then(tx=>{try{const j=JSON.parse(tx); res(j.contents?JSON.parse(j.contents):j);}catch{rej(new Error('parse'));}})
+                .catch(e=>{clearTimeout(tm); rej(e);});
+        });
+        // Panggil SEMUA API × SEMUA PROXY BERSAMAAN — ambil YANG PALING CEPAT BERHASIL
+        async function apiCall(pathBuilder, parser) {
+            const all = [];
+            APIS.forEach(api => {
+                const p = typeof pathBuilder === 'function' ? pathBuilder(api) : pathBuilder(api);
+                const target = api.base + p;
+                const enc = encodeURIComponent(target);
+                PROXIES.forEach(px => {
+                    const url = px ? (px.includes('quest=') ? target : enc) : target;
+                    all.push(ft(px+url, TIMEOUT).then(r => ({api, data:r})).catch(()=>null));
+                });
+            });
+            // Tunggu yang pertama berhasil
+            while(all.length) {
+                const r = await Promise.any(all).catch(()=>null);
+                if(r && r.data) {
+                    try {
+                        const parsed = parser(r.api, r.data);
+                        if(parsed && (Array.isArray(parsed)?parsed.length:true)) {
+                            return parsed;
                         }
-                    }
-                } catch(e) {
-                    console.warn(`[Proxy ${i+1} GAGAL]`, e.message);
-                    continue;
+                    } catch {}
                 }
+                // Kalau yang pertama gagal/empty, hapus dan tunggu berikutnya
+                all.shift();
             }
-            
-            // ✅ FALLBACK: Pakai data cadangan jika SEMUA proxy gagal!
-            console.warn('[SEMUA PROXY GAGAL] → Pakai DATA CADANGAN');
-            if(endpoint === '/ongoing') return { data: FALLBACK_DATA.ongoing };
-            if(endpoint === '/complete') return { data: FALLBACK_DATA.complete };
-            if(endpoint.startsWith('/search/')) {
-                const q = decodeURIComponent(endpoint.split('/search/')[1] || '').toLowerCase();
-                const all = [...FALLBACK_DATA.ongoing, ...FALLBACK_DATA.complete];
-                return { data: all.filter(a => a.title.toLowerCase().includes(q)) };
-            }
-            if(endpoint.startsWith('/anime/')) {
-                const slug = endpoint.split('/anime/')[1];
-                const all = [...FALLBACK_DATA.ongoing, ...FALLBACK_DATA.complete];
-                const a = all.find(x => x.slug === slug) || all[0];
-                return {
-                    data: {
-                        ...a,
-                        japanese: a.title + ' (Japanese)',
-                        synopsis: `Ini adalah sinopsis untuk anime ${a.title}. Anime ini bergenre ${a.genre} dan dirilis pada ${a.release}. Status: ${a.status}. Data ini berasal dari cadangan karena server utama sedang tidak dapat diakses.`,
-                        producer: 'Various',
-                        studio: 'Studio Anime',
-                        duration: '24 min/ep',
-                        release_date: a.release,
-                        type: 'TV',
-                        total_episode: a.episode,
-                        genre: Array.isArray(a.genre) ? a.genre : String(a.genre||'').split(', '),
-                        episode_list: Array.from({length: Math.min(12, parseInt(a.episode)||12)}, (_,i) => ({
-                            title: `Episode ${i+1}`,
-                            episode: i+1,
-                            url: `https://otakudesu.cloud/?s=${encodeURIComponent(a.title)}`
-                        })).reverse()
-                    }
-                };
-            }
-            return { data: [] };
+            return null;
         }
 
         // Utility
-        const stripHtml = h => { if(!h)return''; const t=document.createElement('div'); t.innerHTML=h; return t.textContent||'' };
-        const getStatus = s => {
-            if(!s)return''; const x=String(s).toLowerCase();
-            if(x.includes('ongoing'))return'ONGOING';
+        const sh = s => { if(!s)return''; const d=document.createElement('div'); d.innerHTML=s; return d.textContent||''; };
+        const gs = s => { if(!s)return''; const x=String(s).toLowerCase();
+            if(x.includes('ongoing')||x.includes('airing'))return'ONGOING';
             if(x.includes('complete')||x.includes('finished')||x.includes('tamat'))return'COMPLETE';
-            return s.toUpperCase().substring(0,10);
+            return String(s).toUpperCase().substring(0,10);
         };
-        function extractList(data, prefer=null) {
-            if(!data)return[];
-            if(Array.isArray(data))return data;
-            if(prefer && data[prefer] && Array.isArray(data[prefer])) return data[prefer];
-            const keys = ['data','animeList','anime','list','results','ongoing','complete','schedule','search'];
-            for(const k of keys) if(data[k] && Array.isArray(data[k])) return data[k];
-            for(const k in data) if(Array.isArray(data[k]) && data[k].length) return data[k];
-            return [];
-        }
+        const skel = (g,n=6) => {
+            let h=''; for(let i=0;i<n;i++) h+=`<div class="skeleton"><div class="skel-img skeleton"></div><div class="skel-line skeleton"></div><div class="skel-line short skeleton"></div></div>`;
+            g.innerHTML=h;
+        };
+        const empty = (g,msg) => g.innerHTML=`<div class="state-empty"><i class="fas fa-inbox"></i><p>${msg}</p></div>`;
+        const hideAll = () => { secOng.style.display='none'; secCom.style.display='none'; secSch.style.display='none'; secFav.style.display='none'; secCari.style.display='none'; };
 
         // =========================================
-        // 🎬 CARD ANIME + ⭐ BOOKMARK
+        // 🎬 CARD ANIME
         // =========================================
-        function createCard(anime) {
-            const card = document.createElement('div');
-            card.className = 'anime-card';
+        function card(a) {
+            const el = document.createElement('div');
+            el.className='anime-card';
+            const slug=a.slug||a.id||a.animeId||'';
+            const judul=a.title||a.judul||a.name||'No Title';
+            const img=a.thumb||a.thumbnail||a.gambar||a.poster||a.image||PH;
+            const eps=a.episode||a.eps||a.current_episode||a.total_episode||'';
+            const st=a.status||a.type||'';
+            const nr=a.score||a.rating||a.penilaian||'';
+            const rls=a.release||a.tanggal||a.date||a.year||'';
+            const gr=Array.isArray(a.genre)?a.genre.join(', '):(a.genre||'');
+            const fv=ifav(slug);
+            const cj=sh(judul), ce=eps?String(eps).replace('Episode','Eps').trim():'';
+            const cl=gs(st);
 
-            const slug = anime.slug || anime.id || anime.animeId || '';
-            const title = anime.title || anime.judul || anime.name || 'No Title';
-            const thumb = anime.thumb || anime.thumbnail || anime.gambar || anime.poster || anime.image || PLACEHOLDER;
-            const episode = anime.episode || anime.eps || anime.current_episode || anime.total_episode || '';
-            const status = anime.status || anime.type || '';
-            const score = anime.score || anime.rating || anime.penilaian || '';
-            const release = anime.release || anime.tanggal || anime.date || anime.year || anime.tahun || '';
-            const genreRaw = (Array.isArray(anime.genre) ? anime.genre.join(', ') : (anime.genre || anime.genres || ''));
-            const faved = isFavorite(slug);
-
-            const cleanTitle = stripHtml(title);
-            const cleanEps = episode ? String(episode).replace('Episode','Eps').trim() : '';
-            const statusLabel = getStatus(status);
-
-            card.innerHTML = `
+            el.innerHTML = `
                 <div class="thumb">
-                    <img src="${thumb}" alt="${cleanTitle}" loading="lazy"
-                         onerror="this.onerror=null;this.src='${PLACEHOLDER}'" />
-                    ${cleanEps ? `<span class="episode-badge"><i class="fas fa-play"></i> ${cleanEps}</span>`:''}
-                    ${statusLabel ? `<span class="status-badge">${statusLabel}</span>`:''}
-                    ${genreRaw ? `<span class="genre-tag">${stripHtml(String(genreRaw)).substring(0,18)}</span>`:''}
-                    <!-- ⭐ TOMBOL BOOKMARK -->
-                    <button class="bookmark-btn ${faved?'active':''}" data-slug="${slug}" title="${faved?'Hapus Favorit':'Tambah Favorit'}">
-                        <i class="${faved?'fas':'far'} fa-heart"></i>
+                    <img data-src="${img}" alt="${cj}" loading="lazy" />
+                    <div class="play-overlay"><i class="fas fa-play"></i></div>
+                    ${ce?`<span class="eps-badge">${ce}</span>`:''}
+                    ${cl?`<span class="status-badge">${cl}</span>`:''}
+                    <button class="bookmark-btn ${fv?'active':''}" data-slug="${slug}" title="${fv?'Hapus':'Simpan'}">
+                        <i class="${fv?'fas':'far'} fa-heart"></i>
                     </button>
                 </div>
                 <div class="info">
-                    <h3>${cleanTitle}</h3>
+                    <h3>${cj}</h3>
                     <div class="meta">
-                        ${score ? `<span><i class="fas fa-star" style="color:#fbbf24;"></i> ${String(score).substring(0,4)}</span>`:''}
-                        ${release ? `<span><i class="far fa-calendar"></i> ${String(release).substring(0,12)}</span>`:''}
+                        ${nr?`<span class="rating"><i class="fas fa-star"></i> ${String(nr).substring(0,4)}</span>`:''}
+                        ${rls?`<span><i class="far fa-calendar"></i> ${String(rls).substring(0,12)}</span>`:''}
                     </div>
-                </div>
-            `;
-
-            // Klik area card → buka modal
-            card.addEventListener('click', (e) => {
-                if(e.target.closest('.bookmark-btn')) return; // Jangan buka modal jika klik bintang
-                openDetailModal(anime, slug);
-            });
-            
-            // Klik bintang → toggle bookmark
-            const btn = card.querySelector('.bookmark-btn');
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const nowFav = toggleFavorite(anime);
-                btn.classList.toggle('active', nowFav);
-                btn.querySelector('i').className = (nowFav ? 'fas' : 'far') + ' fa-heart';
-                btn.title = nowFav ? 'Hapus Favorit' : 'Tambah Favorit';
-                // Update modal jika terbuka
-                if(currentAnime && currentAnime.slug === slug) updateModalBookmarkBtn();
-            });
-
-            return card;
-        }
-
-        // Skeleton
-        function renderSkeleton(grid, n=8) {
-            let h='';
-            for(let i=0;i<n;i++) h += `
-                <div class="skeleton-card skeleton">
-                    <div class="skeleton-img skeleton"></div>
-                    <div class="skeleton-line skeleton"></div>
-                    <div class="skeleton-line short skeleton"></div>
                 </div>`;
-            grid.innerHTML = h;
+
+            // Lazy image
+            const im = el.querySelector('img');
+            if('IntersectionObserver' in window) {
+                const io = new IntersectionObserver((en,ob)=>{
+                    en.forEach(e=>{
+                        if(e.isIntersecting){
+                            const ds=im.getAttribute('data-src');
+                            if(ds){ im.onload=()=>im.classList.add('loaded'); im.onerror=()=>{im.src=PH;im.classList.add('loaded');}; im.src=ds; }
+                            ob.disconnect();
+                        }
+                    });
+                },{rootMargin:'250px'});
+                io.observe(im);
+            } else { im.src=im.getAttribute('data-src'); im.onload=()=>im.classList.add('loaded'); }
+
+            el.addEventListener('click', e=>{ if(e.target.closest('.bookmark-btn'))return; bukaDetail(a,slug); });
+            const b=el.querySelector('.bookmark-btn');
+            b.addEventListener('click', e=>{
+                e.stopPropagation();
+                const nf=tf(a);
+                b.classList.toggle('active',nf);
+                b.querySelector('i').className=(nf?'fas':'far')+' fa-heart';
+                if(curAnime&&curAnime.slug===slug) upModFav();
+            });
+            return el;
         }
 
-        // Fetch & Render Grid
-        async function fetchGrid(endpoint, grid, limit=12, prefer=null) {
-            renderSkeleton(grid, Math.min(limit,8));
+        // =========================================
+        // 📥 AMBIL & RENDER GRID
+        // =========================================
+        async function ambilGrid(tipe, grid, limit=15) {
+            skel(grid, Math.min(limit,6));
+            const cacheKey = 'grid_'+tipe+'_'+limit;
+            const cached = lc(cacheKey);
+            if(cached) {
+                const f=document.createDocumentFragment();
+                cached.forEach(a=>f.appendChild(card(a)));
+                grid.innerHTML=''; grid.appendChild(f);
+                // Update di background biar tetap fresh
+                setTimeout(()=>_fetchGrid(tipe,grid,limit,cacheKey), 800);
+                return;
+            }
+            await _fetchGrid(tipe,grid,limit,cacheKey);
+        }
+        async function _fetchGrid(tipe, grid, limit, cacheKey) {
             try {
-                const data = await fetchAPI(endpoint);
-                let list = extractList(data, prefer);
-                if(!list.length) {
-                    grid.innerHTML = `<div class="state-empty"><i class="fas fa-inbox"></i><p>Belum ada data</p></div>`;
-                    return;
-                }
+                let list = null;
+                if(tipe==='ongoing') list = await apiCall(a=>a.ongoing, (a,d)=>a.parseList(d));
+                else if(tipe==='complete') list = await apiCall(a=>a.complete, (a,d)=>a.parseList(d));
+                else if(tipe==='schedule') list = await apiCall(a=>a.schedule, (a,d)=>a.parseList(d));
+
+                if(!list || !list.length) { empty(grid, 'Server sedang update, coba lagi sebentar ya'); return; }
                 if(limit>0 && list.length>limit) list = list.slice(0,limit);
-                const f = document.createDocumentFragment();
-                list.forEach(a => f.appendChild(createCard(a)));
+                sc(cacheKey, list);
+                const f=document.createDocumentFragment();
+                list.forEach(a=>f.appendChild(card(a)));
                 grid.innerHTML=''; grid.appendChild(f);
             } catch(err) {
-                console.error(err);
-                // ✅ Gak ada tulisan gagal lagi, langsung fallback!
-                const fb = endpoint === '/ongoing' ? FALLBACK_DATA.ongoing : 
-                         endpoint === '/complete' ? FALLBACK_DATA.complete : [];
-                if(fb.length) {
-                    const f = document.createDocumentFragment();
-                    fb.slice(0,limit).forEach(a => f.appendChild(createCard(a)));
-                    grid.innerHTML=''; grid.appendChild(f);
-                    showToast('Mode Offline: Menampilkan data cadangan', '');
-                } else {
-                    grid.innerHTML = `<div class="state-empty"><i class="fas fa-inbox"></i><p>Belum ada data</p></div>`;
-                }
+                empty(grid, 'Gagal terhubung ke server. Coba refresh atau cek koneksi.');
             }
         }
 
         // =========================================
-        // 🪟 MODAL DETAIL
+        // 🔍 PENCARIAN
         // =========================================
-        function openModal() {
-            modalOverlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-        function closeModal() {
-            modalOverlay.classList.remove('active');
-            document.body.style.overflow = '';
-            currentAnime = null;
-        }
-        modalClose.addEventListener('click', closeModal);
-        modalOverlay.addEventListener('click', e => { if(e.target === modalOverlay) closeModal(); });
-        document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModal(); });
-
-        function updateModalBookmarkBtn() {
-            if(!currentAnime) return;
-            const faved = isFavorite(currentAnime.slug);
-            modalBookmark.classList.toggle('active', faved);
-            modalBookmark.querySelector('i').className = (faved ? 'fas' : 'far') + ' fa-heart';
-            modalBookmark.querySelector('span').textContent = faved ? 'Favorit' : 'Tambah Favorit';
+        async function cariAnime(q) {
+            q=q.trim(); if(!q){ home(); return; }
+            hideAll(); secCari.style.display='block';
+            jdlHero.textContent=`🔍 "${q}"`; descHero.textContent=`Hasil pencarian anime: ${q}`;
+            skel(gridCari,8);
+            try {
+                const list = await apiCall(a=>a.search(encodeURIComponent(q)), (a,d)=>a.parseList(d));
+                if(!list||!list.length){ empty(gridCari, `Anime "<strong>${q}</strong>" tidak ditemukan`); return; }
+                const f=document.createDocumentFragment();
+                list.forEach(a=>f.appendChild(card(a)));
+                gridCari.innerHTML=''; gridCari.appendChild(f);
+            } catch { empty(gridCari,'Gagal mencari, coba lagi'); }
         }
 
-        modalBookmark.addEventListener('click', () => {
-            if(!currentAnime) return;
-            toggleFavorite(currentAnime);
-            updateModalBookmarkBtn();
-            // Refresh semua grid agar bintangnya sinkron
-            if(!ongoingSection.style.display || ongoingSection.style.display !== 'none') refreshGridBookmarks(ongoingGrid);
-            if(!completeSection.style.display || completeSection.style.display !== 'none') refreshGridBookmarks(completeGrid);
-            if(!scheduleSection.style.display || scheduleSection.style.display !== 'none') refreshGridBookmarks(scheduleGrid);
-            if(!favSection.style.display || favSection.style.display !== 'none') renderFavorites();
+        // 🗓️ JADWAL
+        async function jadwal() {
+            hideAll(); secSch.style.display='block';
+            jdlHero.textContent='📅 Jadwal Rilis Harian'; descHero.textContent='Cek kapan anime favoritmu tayang!';
+            await ambilGrid('schedule', gridSch, 0);
+        }
+
+        // 🏠 HOME
+        async function home(scr=null) {
+            hideAll(); secOng.style.display='block'; secCom.style.display='block';
+            jdlHero.innerHTML='Nonton Anime Sub Indo <span style="color:var(--accent)">Terlengkap</span>';
+            descHero.textContent='Streaming ribuan anime subtitle Indonesia kualitas HD. Update tercepat, langsung tonton!';
+            await Promise.all([
+                ambilGrid('ongoing', gridOng, 15),
+                ambilGrid('complete', gridCom, 15)
+            ]);
+            if(scr) $(scr).scrollIntoView({behavior:'smooth'});
+        }
+
+        // =========================================
+        // 🪟 BUKA DETAIL ANIME + DAFTAR EPISODE
+        // =========================================
+        function bukaModal() { bgDet.classList.add('active'); modDet.classList.add('active'); document.body.style.overflow='hidden'; }
+        function tutupModal() { bgDet.classList.remove('active'); modDet.classList.remove('active'); document.body.style.overflow=''; curAnime=null; }
+        xDet.addEventListener('click', tutupModal);
+        bgDet.addEventListener('click', e=>{ if(e.target===bgDet) tutupModal(); });
+        document.addEventListener('keydown', e=>{
+            if(e.key==='Escape'){ if(modPlay.classList.contains('active')) tutupPlayer(); else tutupModal(); }
+            if(e.key==='ArrowRight' && modPlay.classList.contains('active')) nextEp.click();
+            if(e.key==='ArrowLeft' && modPlay.classList.contains('active')) prevEp.click();
         });
-
-        function refreshGridBookmarks(grid) {
-            grid.querySelectorAll('.bookmark-btn').forEach(btn => {
-                const slug = btn.dataset.slug;
-                const faved = isFavorite(slug);
-                btn.classList.toggle('active', faved);
-                btn.querySelector('i').className = (faved ? 'fas' : 'far') + ' fa-heart';
+        favDet.addEventListener('click', ()=>{
+            if(!curAnime) return;
+            tf(curAnime); upModFav();
+            [gridOng,gridCom,gridSch,gridFav,gridCari].forEach(refreshFav);
+        });
+        function upModFav() {
+            if(!curAnime) return;
+            const f=ifav(curAnime.slug);
+            favDet.classList.toggle('active',f);
+            favDet.querySelector('i').className=(f?'fas':'far')+' fa-heart';
+            favDet.querySelector('span').textContent=f?'Tersimpan':'Simpan Favorit';
+        }
+        function refreshFav(g){
+            g.querySelectorAll('.bookmark-btn').forEach(b=>{
+                const s=b.dataset.slug, f=ifav(s);
+                b.classList.toggle('active',f);
+                b.querySelector('i').className=(f?'fas':'far')+' fa-heart';
             });
         }
 
-        async function openDetailModal(anime, slug) {
-            currentAnime = anime;
-            openModal();
-            updateModalBookmarkBtn();
-            
-            modalTitle.textContent = stripHtml(anime.title || anime.judul || 'Loading...');
-            const thumb = anime.thumb || anime.thumbnail || anime.gambar || PLACEHOLDER;
-            modalPoster.src = thumb;
-            modalPoster.onerror = () => { modalPoster.src = PLACEHOLDER; };
-            modalBg.style.backgroundImage = `url('${thumb}')`;
-            modalMeta.innerHTML = `<span><i class="fas fa-spinner fa-spin"></i> Memuat...</span>`;
-            modalGenres.innerHTML = '';
-            modalBody.innerHTML = `
-                <div style="text-align:center; padding:40px; color:var(--text-muted);">
-                    <i class="fas fa-circle-notch fa-spin" style="font-size:2rem; color:var(--accent);"></i>
-                    <p style="margin-top:12px;">Mengambil detail & daftar episode...</p>
-                </div>`;
+        async function bukaDetail(a, slug) {
+            curAnime = { ...a, slug };
+            bukaModal(); upModFav();
 
-            if(!slug) { renderDetailSimple(anime); return; }
+            // Isi yang ada dulu
+            const judul = sh(a.title||a.judul||'Loading...');
+            const img = a.thumb||a.thumbnail||a.gambar||a.poster||PH;
+            jdlDet.textContent = judul;
+            jpnDet.textContent = '';
+            posterDet.src = img;
+            posterDet.onerror = () => posterDet.src=PH;
+            bgPoster.style.backgroundImage = `url('${img}')`;
+            tagsDet.innerHTML = `
+                ${gs(a.status||'')?`<span class="tag-accent">${gs(a.status)}</span>`:''}
+                ${a.score||a.rating?`<span class="tag-rate"><i class="fas fa-star"></i> ${String(a.score||a.rating).substring(0,4)}</span>`:''}
+                ${a.episode||a.eps?`<span><i class="fas fa-film"></i> ${String(a.episode||a.eps)}</span>`:''}
+            `;
+            genreDet.innerHTML = (Array.isArray(a.genre)?a.genre:String(a.genre||'').split(',')).filter(x=>x).map(x=>`<span>${sh(String(x))}</span>`).join('');
+            isiDet.innerHTML = `<div style="text-align:center;padding:50px 20px;color:var(--text-muted);"><i class="fas fa-circle-notch fa-spin" style="font-size:2.2rem;color:var(--accent);"></i><p style="margin-top:14px;font-weight:600;">Mengambil detail & daftar episode...</p></div>`;
+
+            if(!slug) {
+                isiDet.innerHTML = `<h2 class="h2"><i class="fas fa-info-circle"></i> Info</h2><p class="sinopsis">Data tidak lengkap. Coba cari anime ini lewat kolom pencarian.</p>`;
+                return;
+            }
+
+            // 🔥 AMBIL DETAIL + EPISODE (paralel semua API!)
             try {
-                const data = await fetchAPI(`/anime/${slug}`);
-                renderDetailFull(data, anime);
-            } catch(err) {
-                console.warn('Gagal ambil detail:', err);
-                renderDetailSimple(anime);
-            }
-        }
+                const det = await apiCall(api => api.detail(slug), (api, d) => api.parseDetail(d));
+                if(!det) throw new Error('no data');
 
-        function renderDetailSimple(anime) {
-            const title = stripHtml(anime.title || anime.judul || 'Unknown');
-            const status = getStatus(anime.status || anime.type || '');
-            const score = anime.score || anime.rating || '';
-            const eps = anime.episode || anime.eps || '';
-            const genreRaw = Array.isArray(anime.genre) ? anime.genre : [(anime.genre || '')];
-            modalTitle.textContent = title;
-            modalMeta.innerHTML = `
-                ${status ? `<span>${status}</span>`:''}
-                ${score ? `<span class="rating"><i class="fas fa-star"></i> ${String(score).substring(0,4)}</span>`:''}
-                ${eps ? `<span><i class="fas fa-film"></i> ${String(eps)}</span>`:''}
-            `;
-            modalGenres.innerHTML = genreRaw.filter(g=>g).map(g => `<span>${stripHtml(String(g))}</span>`).join('');
-            modalBody.innerHTML = `
-                <h3 class="modal-section-title"><i class="fas fa-info-circle"></i> Informasi</h3>
-                <p class="sinopsis">Detail lengkap tidak dapat dimuat. Silakan klik episode di website resmi Otakudesu.</p>
-                <br>
-                <a href="https://otakudesu.cloud/?s=${encodeURIComponent(title)}" target="_blank" rel="noopener" class="batch-btn">
-                    <i class="fas fa-external-link-alt"></i> Buka di Otakudesu
-                </a>
-            `;
-        }
-
-        function renderDetailFull(data, fallback) {
-            const d = data.data || data.anime || data.detail || data;
-            const title = stripHtml(d.title || d.judul || fallback.title || fallback.judul || 'Unknown');
-            const japTitle = stripHtml(d.japanese || d.judul_jepang || '');
-            const status = getStatus(d.status || d.status_anime || fallback.status || '');
-            const score = d.score || d.rating || d.penilaian || fallback.score || '';
-            const produser = stripHtml(d.producer || d.produser || '');
-            const tipe = stripHtml(d.type || d.tipe || '');
-            const totalEps = stripHtml(String(d.total_episode || d.episode_total || d.episode || fallback.episode || '?'));
-            const durasi = stripHtml(d.duration || d.durasi || '');
-            const rilis = stripHtml(d.release_date || d.tanggal_rilis || d.release || fallback.release || '');
-            const studio = stripHtml(d.studio || '');
-            const genreList = Array.isArray(d.genre) ? d.genre : 
-                              (d.genres && Array.isArray(d.genres)) ? d.genres :
-                              (d.genre_list && Array.isArray(d.genre_list)) ? d.genre_list :
-                              (fallback.genre && Array.isArray(fallback.genre)) ? fallback.genre : [];
-            const sinopsis = stripHtml(d.synopsis || d.sinopsis || d.desc || d.description || 'Sinopsis belum tersedia.');
-            const episodeList = Array.isArray(d.episode_list) ? d.episode_list :
-                               Array.isArray(d.episodes) ? d.episodes :
-                               Array.isArray(d.list_episode) ? d.list_episode :
-                               (d.data && Array.isArray(d.data.episode_list)) ? d.data.episode_list : [];
-            const batch = d.batch || d.batch_link || (d.download && d.download.batch) || '';
-
-            // Update currentAnime dengan data lebih lengkap
-            currentAnime = { ...currentAnime, ...d, title, slug: currentAnime.slug };
-
-            modalTitle.textContent = title;
-            modalMeta.innerHTML = `
-                ${status ? `<span>${status}</span>`:''}
-                ${score ? `<span class="rating"><i class="fas fa-star"></i> ${String(score).substring(0,4)}</span>`:''}
-                ${tipe ? `<span>${tipe}</span>`:''}
-                ${totalEps ? `<span><i class="fas fa-film"></i> ${totalEps} Eps</span>`:''}
-            `;
-            modalGenres.innerHTML = genreList.map(g => `<span>${stripHtml(String(g))}</span>`).join('');
-
-            let html = '';
-            html += `<h3 class="modal-section-title"><i class="fas fa-book-open"></i> Sinopsis</h3><p class="sinopsis">${sinopsis || 'Sinopsis belum tersedia.'}</p>`;
-
-            if(japTitle || produser || studio || durasi || rilis) {
-                html += `
-                    <h3 class="modal-section-title"><i class="fas fa-info-circle"></i> Informasi Lengkap</h3>
-                    <div style="display:grid; grid-template-columns:120px 1fr; gap:6px 12px; font-size:0.85rem;">
-                        ${japTitle ? `<div style="color:var(--text-muted);">Judul Jepang</div><div>${japTitle}</div>`:''}
-                        ${produser ? `<div style="color:var(--text-muted);">Produser</div><div>${produser}</div>`:''}
-                        ${studio ? `<div style="color:var(--text-muted);">Studio</div><div>${studio}</div>`:''}
-                        ${durasi ? `<div style="color:var(--text-muted);">Durasi</div><div>${durasi}</div>`:''}
-                        ${rilis ? `<div style="color:var(--text-muted);">Rilis</div><div>${rilis}</div>`:''}
-                        ${totalEps ? `<div style="color:var(--text-muted);">Total Eps</div><div>${totalEps}</div>`:''}
-                    </div>
+                // Update data lengkap
+                curAnime = { ...curAnime, ...det, slug };
+                upModFav();
+                if(det.title) jdlDet.textContent = sh(det.title);
+                if(det.japanese) jpnDet.textContent = sh(det.japanese);
+                tagsDet.innerHTML = `
+                    ${gs(det.status||a.status||'')?`<span class="tag-accent">${gs(det.status||a.status)}</span>`:''}
+                    ${det.rating||a.score?`<span class="tag-rate"><i class="fas fa-star"></i> ${String(det.rating||a.score).substring(0,4)}</span>`:''}
+                    ${det.type?`<span>${sh(det.type)}</span>`:''}
+                    ${det.total_ep?`<span><i class="fas fa-film"></i> ${sh(String(det.total_ep))} Eps</span>`:''}
                 `;
-            }
+                if(Array.isArray(det.genre) && det.genre.length)
+                    genreDet.innerHTML = det.genre.map(x=>`<span>${sh(String(x))}</span>`).join('');
 
-            if(batch) {
-                const batchUrl = typeof batch === 'object' ? (batch.link || batch.url || '') : String(batch);
-                const batchTitle = typeof batch === 'object' ? (batch.title || 'Batch') : 'Download Batch';
-                if(batchUrl) html += `
-                    <h3 class="modal-section-title"><i class="fas fa-download"></i> Download Batch</h3>
-                    <a href="${batchUrl}" target="_blank" rel="noopener" class="batch-btn">
-                        <i class="fas fa-file-archive"></i> ${stripHtml(batchTitle)}
-                    </a>
-                `;
-            }
+                // SIMPAN KE CACHE
+                sc('det_'+slug, det);
 
-            if(episodeList.length) {
-                html += `<h3 class="modal-section-title"><i class="fas fa-list"></i> Daftar Episode (${episodeList.length})</h3>`;
-                html += `<div class="episode-list">`;
-                const sorted = [...episodeList].reverse();
-                sorted.forEach((ep, i) => {
-                    const epTitle = stripHtml(ep.title || ep.episode || ep.judul || `Episode ${episodeList.length - i}`);
-                    const epUrl = ep.url || ep.link || ep.episode_url || '';
-                    const epNum = ep.episode || ep.number || epTitle.match(/\d+/)?.[0] || '';
-                    html += `
-                        <a href="${epUrl || '#'}" target="_blank" rel="noopener" class="episode-btn"
-                           ${!epUrl ? 'style="opacity:0.5;pointer-events:none;"' : ''} title="${epTitle}">
-                            ${epNum ? `Eps ${epNum}` : epTitle.substring(0,15)}
-                        </a>
-                    `;
-                });
-                html += `</div>`;
-                html += `<p style="margin-top:15px; font-size:0.75rem; color:var(--text-muted); text-align:center;">
-                    <i class="fas fa-external-link-alt"></i> Klik episode → akan terbuka di website Otakudesu
-                </p>`;
-            } else {
-                html += `
-                    <h3 class="modal-section-title"><i class="fas fa-list"></i> Episode</h3>
-                    <p class="sinopsis">Daftar episode belum tersedia.</p>
-                    <br>
-                    <a href="https://otakudesu.cloud/?s=${encodeURIComponent(title)}" target="_blank" rel="noopener" class="batch-btn">
-                        <i class="fas fa-search"></i> Cari Episode di Otakudesu
-                    </a>
-                `;
-            }
-            modalBody.innerHTML = html;
-        }
+                // RENDER ISI
+                let h = '';
+                // Sinopsis
+                h += `<h2 class="h2"><i class="fas fa-book-open"></i> Sinopsis</h2>`;
+                const sin = sh(det.synopsis||'').trim();
+                h += `<p class="sinopsis">${sin || '<em style="color:var(--text-muted);opacity:.8;">Sinopsis belum tersedia dari server. Biasanya karena anime baru rilis.</em>'}</p>`;
 
-        // =========================================
-        // 🔍 SEARCH
-        // =========================================
-        let searchTO = null;
-        async function doSearch(q) {
-            q = q.trim();
-            if(!q) { goHome(); return; }
-            heroTitle.textContent = `🔍 Pencarian: "${q}"`;
-            heroDesc.textContent = `Hasil terbaik untuk: ${q}`;
-            ongoingSection.style.display = 'block';
-            completeSection.style.display = 'none';
-            scheduleSection.style.display = 'none';
-            favSection.style.display = 'none';
-            try {
-                const data = await fetchAPI(`/search/${encodeURIComponent(q)}`);
-                let list = extractList(data);
-                if(!list.length) {
-                    ongoingGrid.innerHTML = `<div class="state-empty"><i class="fas fa-search"></i><p>Anime "<strong>${q}</strong>" tidak ditemukan</p></div>`;
-                    return;
+                // Info Lengkap
+                const info = [
+                    ['Judul Jepang', det.japanese],
+                    ['Produser', det.producer],
+                    ['Studio', det.studio],
+                    ['Tipe', det.type],
+                    ['Durasi', det.duration],
+                    ['Rilis', det.release],
+                    ['Total Episode', det.total_ep],
+                    ['Skor', det.rating]
+                ].filter(x=>x[1] && String(x[1]).trim());
+                if(info.length) {
+                    h += `<h2 class="h2"><i class="fas fa-info-circle"></i> Info Lengkap</h2><div class="info-grid">`;
+                    info.forEach(([k,v]) => h += `<div><span>${k}</span><span>${sh(String(v))}</span></div>`);
+                    h += `</div>`;
                 }
-                const f = document.createDocumentFragment();
-                list.forEach(a => f.appendChild(createCard(a)));
-                ongoingGrid.innerHTML=''; ongoingGrid.appendChild(f);
-            } catch(err) {
-                const all = [...FALLBACK_DATA.ongoing, ...FALLBACK_DATA.complete];
-                const list = all.filter(a => a.title.toLowerCase().includes(q.toLowerCase()));
-                if(list.length) {
-                    const f = document.createDocumentFragment();
-                    list.forEach(a => f.appendChild(createCard(a)));
-                    ongoingGrid.innerHTML=''; ongoingGrid.appendChild(f);
+
+                // ✅ DAFTAR EPISODE — WAJIB ADA!
+                h += `<h2 class="h2"><i class="fas fa-list"></i> Daftar Episode ${det.episodes.length?`(${det.episodes.length})`:''}</h2>`;
+                curEps = (det.episodes||[]).slice().reverse(); // TERBARU DI ATAS
+                if(curEps.length) {
+                    h += `<div class="ep-list">`;
+                    curEps.forEach((ep, i) => {
+                        const nm = ep.number?`Eps ${ep.number}`:(ep.title?sh(ep.title).substring(0,14):`Eps ${curEps.length-i}`);
+                        const baru = i < 3 ? 'new' : '';
+                        h += `<button class="ep-btn ${baru}" data-idx="${i}" title="${sh(ep.title||nm)}">${nm}</button>`;
+                    });
+                    h += `</div>`;
                 } else {
-                    ongoingGrid.innerHTML = `<div class="state-empty"><i class="fas fa-search"></i><p>Tidak ditemukan</p></div>`;
+                    h += `<div class="ep-empty"><i class="fas fa-exclamation-triangle"></i>Episode belum tersedia di server ini<br><span style="font-size:0.78rem;">Biasanya muncul 1-2 jam setelah rilis di Jepang</span></div>`;
                 }
+
+                isiDet.innerHTML = h;
+
+                // Pasang event klik episode
+                isiDet.querySelectorAll('.ep-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const idx = parseInt(btn.dataset.idx);
+                        bukaPlayer(idx);
+                    });
+                });
+
+            } catch(err) {
+                console.error(err);
+                isiDet.innerHTML = `
+                    <h2 class="h2"><i class="fas fa-exclamation-triangle"></i> Perhatian</h2>
+                    <p class="sinopsis">Server detail anime sedang sibuk atau dalam perbaikan.<br><br>
+                    <strong>Solusi:</strong> Coba lagi sebentar, atau cari episode ini langsung di kolom pencarian.</p>
+                    <br>
+                    <button class="ep-btn" style="width:100%;padding:14px;font-size:1rem;" onclick="location.reload()">🔄 Muat Ulang</button>
+                `;
             }
         }
 
         // =========================================
-        // 🗓️ SCHEDULE
+        // 🎬 PEMUTAR VIDEO — NONTON DI DALAM!
         // =========================================
-        async function loadSchedule() {
-            searchInput.value='';
-            ongoingSection.style.display='none';
-            completeSection.style.display='none';
-            favSection.style.display='none';
-            scheduleSection.style.display='block';
-            heroTitle.textContent='📅 Jadwal Rilis Harian';
-            heroDesc.textContent='Cek kapan anime favoritmu update!';
-            await fetchGrid('/schedule', scheduleGrid, 0, 'schedule');
+        function bukaPlayerModal() { bgPlay.classList.add('active'); modPlay.classList.add('active'); document.body.style.overflow='hidden'; }
+        function tutupPlayer() {
+            bgPlay.classList.remove('active'); modPlay.classList.remove('active');
+            document.body.style.overflow='';
+            framePlay.src='about:blank'; // Stop video
+            curEpIdx=-1; curServers=[];
+        }
+        xPlay.addEventListener('click', tutupPlayer);
+        bgPlay.addEventListener('click', e=>{ if(e.target===bgPlay) tutupPlayer(); });
+        prevEp.addEventListener('click', ()=>{ if(curEpIdx>0) bukaPlayer(curEpIdx-1); });
+        nextEp.addEventListener('click', ()=>{ if(curEpIdx<curEps.length-1) bukaPlayer(curEpIdx+1); });
+
+        async function bukaPlayer(idx) {
+            if(!curEps[idx]) return;
+            curEpIdx = idx;
+            const ep = curEps[idx];
+            bukaPlayerModal();
+
+            jdlPlay.textContent = `${sh(curAnime.title||'Anime')} — ${ep.number?`Episode ${ep.number}`:sh(ep.title||'')}`;
+            indEp.textContent = `Episode ${idx+1} dari ${curEps.length}`;
+            prevEp.disabled = idx===0;
+            nextEp.disabled = idx===curEps.length-1;
+            servers.innerHTML = `<button class="server-btn active"><i class="fas fa-spinner fa-spin"></i> Mencari server...</button>`;
+            loadPlay.style.display='flex';
+            framePlay.src='about:blank';
+            curServers=[];
+
+            if(!ep.slug) {
+                loadPlay.innerHTML = `<i class="fas fa-exclamation-triangle" style="animation:none;color:#EF4444;"></i><span>Link episode belum tersedia</span>`;
+                return;
+            }
+
+            try {
+                // 🔥 PARALLEL API untuk ambil link streaming!
+                const data = await apiCall(api => api.episode(ep.slug), (api, d) => api.parseEpisode(d));
+                curServers = (data?.streams||[]).filter(s=>s && s.url);
+
+                if(!curServers.length) {
+                    // Fallback: buka langsung ke Otakudesu
+                    curServers = [{
+                        name: 'OTAKUDESU',
+                        url: `https://otakudesu.cloud/episode/${ep.slug}/`
+                    }];
+                }
+
+                // Render tombol server
+                servers.innerHTML = '';
+                curServers.forEach((s,i) => {
+                    const b = document.createElement('button');
+                    b.className = 'server-btn' + (i===0?' active':'');
+                    b.textContent = s.name;
+                    b.dataset.i = i;
+                    b.addEventListener('click', () => {
+                        servers.querySelectorAll('.server-btn').forEach(x=>x.classList.remove('active'));
+                        b.classList.add('active');
+                        muatVideo(i);
+                    });
+                    servers.appendChild(b);
+                });
+
+                muatVideo(0);
+
+            } catch(err) {
+                loadPlay.innerHTML = `<i class="fas fa-exclamation-triangle" style="animation:none;color:#EF4444;"></i><span>Gagal memuat link video, coba server lain</span>`;
+                servers.innerHTML = `<button class="server-btn" onclick="window.open('https://otakudesu.cloud/?s=${encodeURIComponent(curAnime.title||'')}','_blank')">Buka di Otakudesu</button>`;
+            }
+        }
+
+        function muatVideo(i) {
+            if(!curServers[i]) return;
+            loadPlay.style.display='flex';
+            let url = curServers[i].url;
+            // Banyak link butuh proxy buat bisa di-embed
+            framePlay.src = url;
+            // Sembunyikan loading setelah 3 detik (asumsi video jalan)
+            setTimeout(()=>{ loadPlay.style.display='none'; }, 3500);
+            framePlay.onload = () => { loadPlay.style.display='none'; };
+            framePlay.onerror = () => { loadPlay.innerHTML=`<i class="fas fa-exclamation-triangle" style="animation:none;color:#EF4444;"></i><span>Gagal, coba server lain</span>`; };
         }
 
         // =========================================
-        // 🏠 HOME
-        // =========================================
-        async function goHome(scroll=null) {
-            searchInput.value='';
-            ongoingSection.style.display='block';
-            completeSection.style.display='block';
-            scheduleSection.style.display='none';
-            favSection.style.display='none';
-            heroTitle.textContent='Rayliziie Anime Stream';
-            heroDesc.textContent='Nonton anime subtitle Indonesia terlengkap. Update cepat, kualitas HD.';
-            await Promise.all([
-                fetchGrid('/ongoing', ongoingGrid, 12, 'ongoing'),
-                fetchGrid('/complete', completeGrid, 12, 'complete')
-            ]);
-            if(scroll) $(scroll).scrollIntoView({behavior:'smooth'});
-        }
-
-        // =========================================
-        // INIT
+        // 🚀 INIT
         // =========================================
         async function init() {
-            initTheme();        // Load tema
-            updateFavBadge();   // Load jumlah favorit
-            await goHome();
-            
-            // Event listeners
-            searchInput.addEventListener('input', () => {
-                clearTimeout(searchTO);
-                searchTO = setTimeout(() => doSearch(searchInput.value), 600);
-            });
-            searchInput.addEventListener('keypress', e => {
-                if(e.key==='Enter') { clearTimeout(searchTO); doSearch(searchInput.value); }
-            });
+            iT(); upFavBadge();
+            await home();
 
-            $('navOngoing').addEventListener('click', e => { e.preventDefault(); goHome('ongoingSection'); });
-            $('navComplete').addEventListener('click', e => { e.preventDefault(); goHome('completeSection'); });
-            $('navSchedule').addEventListener('click', e => { e.preventDefault(); loadSchedule(); });
-            navFav.addEventListener('click', e => { e.preventDefault(); showFavorites(); });
-            themeToggle.addEventListener('click', toggleTheme);
-            brandLogo.addEventListener('click', e => { e.preventDefault(); goHome(); });
-            
-            $('viewAllOngoing').addEventListener('click', e => { e.preventDefault(); ongoingSection.scrollIntoView({behavior:'smooth'}); });
-            $('viewAllComplete').addEventListener('click', e => { e.preventDefault(); completeSection.scrollIntoView({behavior:'smooth'}); });
+            cari.addEventListener('input', ()=>{ clearTimeout(tCari); tCari=setTimeout(()=>cariAnime(cari.value), 450); });
+            cari.addEventListener('keypress', e=>{ if(e.key==='Enter'){ clearTimeout(tCari); cariAnime(cari.value); }});
+            $('mOngoing').addEventListener('click', e=>{e.preventDefault(); home('secOngoing');});
+            $('mComplete').addEventListener('click', e=>{e.preventDefault(); home('secComplete');});
+            $('mSchedule').addEventListener('click', e=>{e.preventDefault(); jadwal();});
+            mFav.addEventListener('click', e=>{e.preventDefault(); showFav();});
+            mTema.addEventListener('click', tT);
+            logo.addEventListener('click', e=>{e.preventDefault(); cari.value=''; home();});
+            $('allOng').addEventListener('click', e=>{e.preventDefault(); secOng.scrollIntoView({behavior:'smooth'});});
+            $('allCom').addEventListener('click', e=>{e.preventDefault(); secCom.scrollIntoView({behavior:'smooth'});});
 
-            console.log('%c✅ Rayliziie v2.0 SIAP!', 'color:#f97316;font-weight:bold;font-size:14px;');
-            console.log('⭐ Bookmark: Aktif | 🌙 Tema: Aktif | 🔧 7 Proxy + Fallback: Aktif');
+            console.log('%c✅ Rayliziie STREAM v4 — SIAP NONTON!','color:#FF6A00;font-weight:900;font-size:15px;');
+            console.log('🔥 3 API Asli × 4 Proxy (Parallel Race)');
+            console.log('🎬 Pemutar video EMBED — nonton di dalam!');
+            console.log('💾 Cache 12m + Lazy Load — SECEPAT KILAT');
         }
 
-        if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+        if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', init);
         else init();
 
     })();
