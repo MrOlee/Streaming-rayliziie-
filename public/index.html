@@ -4,7 +4,8 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
 <meta name="theme-color" content="#0b0f19" />
-<title>Rayliziie Anime — Dramovnime API</title>
+<meta name="referrer" content="no-referrer" />
+<title>Rayliziie Anime — Indocast API</title>
 
 <!-- Fonts & Icons -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -131,17 +132,6 @@ button { cursor: pointer; border: none; font-family: inherit; }
   border-color: var(--accent-cyan);
 }
 
-.select-genre-box {
-  background: #1a2234;
-  color: #fff;
-  border: 1px solid var(--border-color);
-  padding: 6px 10px;
-  border-radius: 6px;
-  font-size: 0.82rem;
-  font-family: inherit;
-  outline: none;
-}
-
 .container {
   max-width: 1000px;
   margin: 0 auto;
@@ -166,17 +156,6 @@ button { cursor: pointer; border: none; font-family: inherit; }
 }
 .anime-card:hover { transform: translateY(-4px); border-color: var(--accent-cyan); }
 .anime-card img { width: 100%; aspect-ratio: 2/3; object-fit: cover; display: block; background: #1e293b; }
-.anime-card .badge-ep {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  background: rgba(2, 132, 199, 0.9);
-  color: #fff;
-  font-size: 0.65rem;
-  font-weight: 700;
-  padding: 2px 7px;
-  border-radius: 4px;
-}
 .anime-card .p-info { padding: 8px 10px; }
 .anime-card .p-title { font-size: 0.82rem; font-weight: 600; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 
@@ -411,9 +390,7 @@ body.cinema-active .video-container-wrap { z-index: 1000; box-shadow: 0 0 60px r
   border-color: var(--accent-blue);
 }
 
-.back-btn-bar {
-  margin-bottom: 12px;
-}
+.back-btn-bar { margin-bottom: 12px; }
 .btn-back {
   background: #1e293b;
   color: #ffffff;
@@ -445,16 +422,16 @@ body.cinema-active .video-container-wrap { z-index: 1000; box-shadow: 0 0 60px r
     </a>
 
     <!-- MENU KATEGORI -->
-    <div class="nav-menu" id="tabsNav">
-      <button class="btn-nav-menu active" id="btnTab2" onclick="switchChannel('2')"><i class="fas fa-fire"></i> Anime</button>
-      <button class="btn-nav-menu" id="btnTab1" onclick="switchChannel('1')"><i class="fas fa-tv"></i> Drama</button>
-      <button class="btn-nav-menu" id="btnTabUser" onclick="loadUserDataView()"><i class="fas fa-bookmark"></i> Favorit & Riwayat</button>
+    <div class="nav-menu">
+      <button class="btn-nav-menu active" id="btnAnimeTab"><i class="fas fa-fire"></i> Anime</button>
+      <button class="btn-nav-menu" id="btnDramaTab"><i class="fas fa-tv"></i> Drama</button>
+      <button class="btn-nav-menu" id="btnUserTab"><i class="fas fa-bookmark"></i> Favorit & Riwayat</button>
     </div>
 
     <!-- PENCARIAN -->
     <div class="search-wrap">
       <i class="fas fa-search search-icon"></i>
-      <input type="text" id="searchInput" class="search-input" placeholder="Cari anime / drama..." />
+      <input type="text" id="searchInput" class="search-input" placeholder="Cari anime..." />
     </div>
   </div>
 </div>
@@ -463,12 +440,8 @@ body.cinema-active .video-container-wrap { z-index: 1000; box-shadow: 0 0 60px r
 
   <!-- KATALOG UTAMA -->
   <div id="catalogPage">
-    <h2 style="font-size: 1.15rem; color: #fff; margin-bottom: 12px;" id="catalogTitle"><i class="fas fa-fire" style="color: #ef4444;"></i> Katalog Populer</h2>
-    
-    <!-- DAFTAR KATALOG -->
-    <div class="catalog-grid" id="catalogGrid">
-      <p style="color:#a0a0a0; grid-column:1/-1;">⏳ Memuat katalog...</p>
-    </div>
+    <h2 style="font-size: 1.15rem; color: #fff; margin-bottom: 12px;" id="catalogTitle"><i class="fas fa-fire" style="color: #ef4444;"></i> Anime Terbaru</h2>
+    <div class="catalog-grid" id="catalogGrid"></div>
   </div>
 
   <!-- KATALOG USER DATA (RIWAYAT & FAVORIT) -->
@@ -496,12 +469,12 @@ body.cinema-active .video-container-wrap { z-index: 1000; box-shadow: 0 0 60px r
     </div>
 
     <!-- JUDUL LENGKAP -->
-    <h1 class="ep-header-title" id="epHeaderTitle">Judul Anime Episode Subtitle Indonesia</h1>
+    <h1 class="ep-header-title" id="epHeaderTitle">Judul Anime Subtitle Indonesia</h1>
 
     <!-- META INFO POSTING -->
     <div class="post-meta">
       <span><i class="fas fa-user"></i> Posted by rayliziie</span>
-      <span><i class="fas fa-server"></i> Server: <strong style="color:#38bdf8;">Indocast API Direct</strong></span>
+      <span><i class="fas fa-server"></i> Server: <strong style="color:#38bdf8;">Indocast Proxy</strong></span>
       <span><i class="fas fa-eye"></i> Subtitle Indonesia</span>
     </div>
 
@@ -555,6 +528,7 @@ body.cinema-active .video-container-wrap { z-index: 1000; box-shadow: 0 0 60px r
   let currentEpisodeNumber = 1;
   let totalEpisodes = 1;
   let isCinemaOn = false;
+  let allCatalogItems = [];
 
   const $ = id => document.getElementById(id);
 
@@ -592,94 +566,85 @@ body.cinema-active .video-container-wrap { z-index: 1000; box-shadow: 0 0 60px r
     isBookmarked: (id) => Storage.getBookmarks().some(b => b.id === id)
   };
 
-  // MULTI-FETCH STRATEGY (Vercel Serverless + Fallback Direct Proxy)
-  async function fetchIndocastList(channelId, page = "1") {
-    // Pipeline 1: Vercel Serverless Function
+  // MULTI-FETCH PIPELINE UNTUK MEMASTIKAN KONEKSI SELALU BERHASIL
+  async function apiFetch(endpoint, options = {}) {
     try {
-      const res = await fetch(`/api/list?channelId=${channelId}&page=${page}`);
+      const res = await fetch(`/api${endpoint}`, options);
       if (res.ok) {
         const data = await res.json();
-        if (data && (data.data || data.items || Array.isArray(data))) return data;
+        if (data) return data;
       }
     } catch (e) {}
 
-    // Pipeline 2: Direct Fetch via CorsProxy Bypass (Mencegah Error Vercel Block)
-    const directUrl = "https://indocast.site/api/dramovnime/list";
+    // Fallback Direct ke Indocast jika Serverless Vercel terkendala
+    const directUrl = `https://indocast.site/api/dramovnime${endpoint}`;
     const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(directUrl)}`;
-    
-    const res = await fetch(proxyUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", "x-api-key": API_KEY },
-      body: JSON.stringify({ channelId: String(channelId), page: String(page), perPage: "12", sort: "ForYou", genre: "All", country: "All" })
-    });
+    const headers = { "Content-Type": "application/json", "x-api-key": API_KEY };
+    const res = await fetch(proxyUrl, { ...options, headers: { ...headers, ...options.headers } });
     return await res.json();
   }
 
-  async function fetchIndocastDetail(detailPath) {
-    try {
-      const res = await fetch(`/api/detail?detailPath=${encodeURIComponent(detailPath)}&se=0`);
-      if (res.ok) {
-        const data = await res.json();
-        if (data) return data;
-      }
-    } catch(e) {}
-
-    const directUrl = `https://indocast.site/api/dramovnime/detaildata?se=0&detailPath=${encodeURIComponent(detailPath)}`;
-    const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(directUrl)}`;
-    const res = await fetch(proxyUrl, { headers: { "Content-Type": "application/json", "x-api-key": API_KEY } });
-    return await res.json();
+  // EXTRAC COVER URL (Mencegah Gambar Abu-Abu Kosong)
+  function getPosterUrl(item) {
+    let url = item.cover || item.coverUrl || item.poster || item.posterUrl || item.img || item.image || item.pic || '';
+    if (!url || typeof url !== 'string') return 'https://via.placeholder.com/300x450?text=No+Cover';
+    if (url.startsWith('//')) url = 'https:' + url;
+    return url;
   }
 
-  async function fetchIndocastPlay(id, ep, detailPath) {
-    try {
-      const res = await fetch(`/api/play?id=${id}&se=1&ep=${ep}&detailPath=${encodeURIComponent(detailPath)}`);
-      if (res.ok) {
-        const data = await res.json();
-        if (data) return data;
-      }
-    } catch(e) {}
-
-    const directUrl = `https://indocast.site/api/dramovnime/getplay?id=${id}&se=1&ep=${ep}&lang=in_id&detailPath=${encodeURIComponent(detailPath)}`;
-    const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(directUrl)}`;
-    const res = await fetch(proxyUrl, { headers: { "Content-Type": "application/json", "x-api-key": API_KEY } });
-    return await res.json();
+  // EXTRAC VIDEO URL (Mencegah Alert "Link Video Tidak Tersedia")
+  function getVideoUrl(result) {
+    if (!result) return '';
+    if (typeof result === 'string' && result.startsWith('http')) return result;
+    const d = result.data || result;
+    return d.playUrl || d.url || d.embed || d.embedUrl || d.play_url || d.video || d.link || (d.stream && d.stream.url) || '';
   }
 
-  // PEMUATAN KATALOG
-  async function loadCatalog(channelId = "2", page = "1") {
+  // LOAD KATALOG
+  async function loadCatalog(channelId = "2") {
     showView('catalog');
-    $('catalogGrid').innerHTML = '<p style="color:#a0a0a0; grid-column: 1/-1;">⏳ Memuat katalog...</p>';
+    currentChannel = channelId;
+    $('catalogGrid').innerHTML = '<p style="color:#a0a0a0; grid-column: 1/-1;">⏳ Memuat katalog anime...</p>';
 
     try {
-      const result = await fetchIndocastList(channelId, page);
-      const items = result?.data?.list || result?.data?.items || result?.data || result?.items || (Array.isArray(result) ? result : []);
-
-      if (!items || items.length === 0) {
-        $('catalogGrid').innerHTML = '<p style="color:#a0a0a0; grid-column: 1/-1;">Katalog kosong atau tidak ditemukan.</p>';
-        return;
-      }
-
-      $('catalogGrid').innerHTML = '';
-      items.forEach(item => {
-        const card = document.createElement('div');
-        card.className = 'anime-card';
-        const title = item.title || item.name || item.bookName || 'Tanpa Judul';
-        const poster = item.cover || item.coverUrl || item.poster || item.img || 'https://via.placeholder.com/300x450?text=No+Cover';
-        const id = item.id || item.bookId || '';
-        const path = item.detailPath || item.slug || '';
-
-        card.innerHTML = `
-          <img src="${poster}" alt="${title}" loading="lazy" onerror="this.src='https://via.placeholder.com/300x450?text=No+Cover'" />
-          <div class="p-info">
-            <div class="p-title">${title}</div>
-          </div>
-        `;
-        card.onclick = () => openAnimeDetail(id, path, title, poster);
-        $('catalogGrid').appendChild(card);
+      const result = await apiFetch(`/list?channelId=${channelId}&page=1`, {
+        method: "POST",
+        body: JSON.stringify({ channelId: String(channelId), page: "1", perPage: "24", sort: "ForYou", genre: "All", country: "All" })
       });
+
+      const items = result?.data?.list || result?.data?.items || result?.data || result?.items || (Array.isArray(result) ? result : []);
+      allCatalogItems = items;
+
+      renderCatalogGrid(items);
     } catch (e) {
-      $('catalogGrid').innerHTML = `<p style="color:#f87171; grid-column: 1/-1;">Gagal memuat katalog (${e.message}). Coba tekan refresh.</p>`;
+      $('catalogGrid').innerHTML = `<p style="color:#f87171; grid-column: 1/-1;">Gagal memuat katalog: ${e.message}</p>`;
     }
+  }
+
+  function renderCatalogGrid(items) {
+    if (!items || items.length === 0) {
+      $('catalogGrid').innerHTML = '<p style="color:#a0a0a0; grid-column: 1/-1;">Tidak ada anime ditemukan.</p>';
+      return;
+    }
+
+    $('catalogGrid').innerHTML = '';
+    items.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'anime-card';
+      const title = item.title || item.name || item.bookName || 'Tanpa Judul';
+      const poster = getPosterUrl(item);
+      const id = item.id || item.bookId || '';
+      const path = item.detailPath || item.slug || '';
+
+      card.innerHTML = `
+        <img src="${poster}" alt="${title}" loading="lazy" referrerpolicy="no-referrer" onerror="this.src='https://via.placeholder.com/300x450?text=No+Cover'" />
+        <div class="p-info">
+          <div class="p-title">${title}</div>
+        </div>
+      `;
+      card.onclick = () => openAnimeDetail(id, path, title, poster);
+      $('catalogGrid').appendChild(card);
+    });
   }
 
   // BUKA DETAIL & EPISODE
@@ -697,10 +662,10 @@ body.cinema-active .video-container-wrap { z-index: 1000; box-shadow: 0 0 60px r
     $('playerLoader').style.display = 'flex';
 
     try {
-      const result = await fetchIndocastDetail(path);
+      const result = await apiFetch(`/detail?detailPath=${encodeURIComponent(path)}&se=0`);
       const data = result?.data || result;
 
-      const epList = data?.chapterList || data?.episodes || data?.items || [];
+      const epList = data?.chapterList || data?.episodes || data?.items || data?.list || [];
       totalEpisodes = epList.length > 0 ? epList.length : 1;
 
       const select = $('selectEpisode');
@@ -735,7 +700,7 @@ body.cinema-active .video-container-wrap { z-index: 1000; box-shadow: 0 0 60px r
     }
   }
 
-  // PLAY VIDEO STREAM
+  // PLAY EPISODE
   async function playEpisode(epNum) {
     currentEpisodeNumber = parseInt(epNum);
     $('playerLoader').style.display = 'flex';
@@ -760,18 +725,18 @@ body.cinema-active .video-container-wrap { z-index: 1000; box-shadow: 0 0 60px r
     });
 
     try {
-      const result = await fetchIndocastPlay(currentAnimeId, currentEpisodeNumber, currentAnimePath);
-      const videoUrl = result.playUrl || result.url || result.embed || (result.data && result.data.playUrl);
+      const result = await apiFetch(`/play?id=${currentAnimeId}&se=1&ep=${currentEpisodeNumber}&detailPath=${encodeURIComponent(currentAnimePath)}`);
+      const videoUrl = getVideoUrl(result);
 
       if (videoUrl) {
         $('iframePlayer').src = videoUrl;
       } else {
-        alert(`Link stream untuk Episode ${currentEpisodeNumber} tidak tersedia.`);
+        alert(`Video untuk Episode ${currentEpisodeNumber} sedang disiapkan. Silakan coba episode lainnya.`);
       }
     } catch (e) {
       alert("Gagal memuat player video.");
     } finally {
-      setTimeout(() => { $('playerLoader').style.display = 'none'; }, 800);
+      setTimeout(() => { $('playerLoader').style.display = 'none'; }, 600);
     }
   }
 
@@ -780,23 +745,38 @@ body.cinema-active .video-container-wrap { z-index: 1000; box-shadow: 0 0 60px r
     $('btnBookmark').innerHTML = isBookmarked ? '<i class="fas fa-star"></i> Tersimpan' : '<i class="far fa-star"></i> Simpan Favorit';
   }
 
-  window.switchChannel = function(ch) {
-    currentChannel = ch;
+  function showView(viewName) {
+    $('catalogPage').style.display = viewName === 'catalog' ? 'block' : 'none';
+    $('userPage').style.display = viewName === 'user' ? 'block' : 'none';
+    $('playerPage').classList.toggle('active', viewName === 'player');
+
+    if (viewName !== 'player') $('iframePlayer').src = 'about:blank';
+  }
+
+  // EVENT LISTENERS MENU
+  $('btnAnimeTab').onclick = () => {
     document.querySelectorAll('.btn-nav-menu').forEach(b => b.classList.remove('active'));
-    $(`btnTab${ch}`).classList.add('active');
-    $('catalogTitle').innerHTML = ch === '2' ? `<i class="fas fa-fire" style="color: #ef4444;"></i> Anime Terbaru` : `<i class="fas fa-tv" style="color: var(--accent-cyan);"></i> Drama Terbaru`;
-    loadCatalog(ch, "1");
+    $('btnAnimeTab').classList.add('active');
+    $('catalogTitle').innerHTML = `<i class="fas fa-fire" style="color: #ef4444;"></i> Anime Terbaru`;
+    loadCatalog("2");
   };
 
-  window.loadUserDataView = function() {
+  $('btnDramaTab').onclick = () => {
+    document.querySelectorAll('.btn-nav-menu').forEach(b => b.classList.remove('active'));
+    $('btnDramaTab').classList.add('active');
+    $('catalogTitle').innerHTML = `<i class="fas fa-tv" style="color: var(--accent-cyan);"></i> Drama Terbaru`;
+    loadCatalog("1");
+  };
+
+  $('btnUserTab').onclick = () => {
     showView('user');
     document.querySelectorAll('.btn-nav-menu').forEach(b => b.classList.remove('active'));
-    $('btnTabUser').classList.add('active');
+    $('btnUserTab').classList.add('active');
 
+    // History
     const history = Storage.getHistory();
     const historyBox = $('historyContainer');
     historyBox.innerHTML = '';
-
     if (history.length === 0) {
       historyBox.innerHTML = '<p style="color: var(--text-sub); font-size: 0.85rem;">Belum ada riwayat tontonan.</p>';
     } else {
@@ -817,10 +797,10 @@ body.cinema-active .video-container-wrap { z-index: 1000; box-shadow: 0 0 60px r
       });
     }
 
+    // Favorit
     const bookmarks = Storage.getBookmarks();
     const bookmarkGrid = $('bookmarkGrid');
     bookmarkGrid.innerHTML = '';
-
     if (bookmarks.length === 0) {
       bookmarkGrid.innerHTML = '<p style="color: var(--text-sub); font-size: 0.85rem;">Belum ada favorit disimpan.</p>';
     } else {
@@ -828,7 +808,7 @@ body.cinema-active .video-container-wrap { z-index: 1000; box-shadow: 0 0 60px r
         const card = document.createElement('div');
         card.className = 'anime-card';
         card.innerHTML = `
-          <img src="${b.poster}" alt="${b.title}" loading="lazy" />
+          <img src="${b.poster}" alt="${b.title}" loading="lazy" referrerpolicy="no-referrer" />
           <div class="p-info">
             <div class="p-title">${b.title}</div>
           </div>
@@ -839,24 +819,26 @@ body.cinema-active .video-container-wrap { z-index: 1000; box-shadow: 0 0 60px r
     }
   };
 
-  function showView(viewName) {
-    $('catalogPage').style.display = viewName === 'catalog' ? 'block' : 'none';
-    $('userPage').style.display = viewName === 'user' ? 'block' : 'none';
-    $('playerPage').classList.toggle('active', viewName === 'player');
+  // SEARCH IN-MEMORY & API
+  $('searchInput').addEventListener('input', (e) => {
+    const q = e.target.value.toLowerCase().trim();
+    if (!q) {
+      renderCatalogGrid(allCatalogItems);
+      return;
+    }
+    const filtered = allCatalogItems.filter(item => {
+      const title = (item.title || item.name || item.bookName || '').toLowerCase();
+      return title.includes(q);
+    });
+    renderCatalogGrid(filtered);
+  });
 
-    if (viewName !== 'player') $('iframePlayer').src = 'about:blank';
-  }
-
-  // EVENT LISTENERS
   $('btnBookmark').onclick = () => {
     Storage.toggleBookmark({ id: currentAnimeId, path: currentAnimePath, title: currentAnimeTitle, poster: currentAnimePoster });
     updateBookmarkButtonState();
   };
 
-  $('selectEpisode').addEventListener('change', (e) => {
-    if (e.target.value) playEpisode(e.target.value);
-  });
-
+  $('selectEpisode').addEventListener('change', (e) => { if (e.target.value) playEpisode(e.target.value); });
   $('btnPrevEp').onclick = () => { if (currentEpisodeNumber > 1) playEpisode(currentEpisodeNumber - 1); };
   $('btnNextEp').onclick = () => { if (currentEpisodeNumber < totalEpisodes) playEpisode(currentEpisodeNumber + 1); };
   $('btnAllEp').onclick = () => { $('epListGrid').scrollIntoView({ behavior: 'smooth' }); };
@@ -874,9 +856,10 @@ body.cinema-active .video-container-wrap { z-index: 1000; box-shadow: 0 0 60px r
   };
 
   $('btnBackCatalog').onclick = () => showView('catalog');
-  $('navHome').onclick = (e) => { e.preventDefault(); switchChannel('2'); 
+  $('navHome').onclick = (e) => { e.preventDefault(); $('btnAnimeTab').click(); };
+
   // INITIAL LOAD
-  loadCatalog("2", "1");
+  loadCatalog("2");
 
 })();
 </script>
