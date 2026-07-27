@@ -1,97 +1,54 @@
 async function initWatchPage() {
   const urlParams = new URLSearchParams(window.location.search);
-  const epSlug = urlParams.get('ep');
-  const animeSlug = urlParams.get('slug');
+  const id = urlParams.get('id') || '753945081585059560';
+  const detailPath = urlParams.get('detailPath') || 'teach-you-a-lesson-2Z8swXJ4HT';
+  const se = urlParams.get('se') || '1';
+  const ep = urlParams.get('ep') || '1';
 
   const player = document.getElementById('videoPlayer');
   const titleElem = document.getElementById('animeTitle');
-  const synopsisElem = document.getElementById('synopsis');
 
-  if (epSlug) {
-    titleElem.innerText = "Memuat player...";
-    try {
-      const res = await fetch(`/api/watch/${encodeURIComponent(epSlug)}`);
-      const data = await res.json();
-      const streamData = data.data || data;
+  titleElem.innerText = "Memuat pemutar video...";
 
-      titleElem.innerText = streamData.title || `Nonton Episode: ${epSlug.replace(/-/g, ' ')}`;
-      
-      const streamUrl = streamData.stream_url || streamData.url || streamData.iframe || (streamData.sources && streamData.sources[0]?.url);
+  try {
+    // Memanggil API /getplay
+    const playUrl = `/api/getplay?id=${encodeURIComponent(id)}&se=${se}&ep=${ep}&lang=in_id&detailPath=${encodeURIComponent(detailPath)}`;
+    const res = await fetch(playUrl);
+    const result = await res.json();
 
-      if (streamUrl) {
-        player.src = streamUrl;
-      } else {
-        player.src = "https://www.youtube.com/embed/dQw4w9WgXcQ";
-      }
+    const playData = result.data || result;
+    titleElem.innerText = playData.title || `Memutar Episode ${ep}`;
 
-      if (streamData.anime_slug) {
-        loadEpisodes(streamData.anime_slug);
-      }
-    } catch (err) {
-      titleElem.innerText = "Nonton Episode Anime";
-      player.src = "https://www.youtube.com/embed/dQw4w9WgXcQ";
+    // Link video stream m3u8 / mp4 / iframe embed
+    const videoSrc = playData.url || playData.playUrl || playData.streamUrl || playData.videoUrl;
+
+    if (videoSrc) {
+      player.src = videoSrc;
+    } else {
+      titleElem.innerText = "Sumber video tidak ditemukan.";
     }
-  } else if (animeSlug) {
-    try {
-      const res = await fetch(`/api/info/${encodeURIComponent(animeSlug)}`);
-      const data = await res.json();
-      const info = data.data || data;
 
-      titleElem.innerText = info.title || 'Detail Anime';
-      synopsisElem.innerText = info.synopsis || info.description || 'Sinopsis belum tersedia.';
-
-      const episodes = info.episodes || info.episode_list || [];
-      renderEpisodeButtons(episodes);
-
-      if (episodes.length > 0) {
-        const firstEpSlug = episodes[0].slug || episodes[0].endpoint || episodes[0].id;
-        fetchAndPlayEpisode(firstEpSlug);
-      }
-    } catch (err) {
-      titleElem.innerText = "Detail Anime";
-    }
+    // Render daftar episode sederhana
+    renderEpisodes(id, detailPath, playData.totalEpisode || 12);
+  } catch (err) {
+    console.error('Watch page error:', err);
+    titleElem.innerText = "Gagal memuat video streaming.";
   }
 }
 
-async function fetchAndPlayEpisode(epSlug) {
-  const player = document.getElementById('videoPlayer');
-  try {
-    const res = await fetch(`/api/watch/${encodeURIComponent(epSlug)}`);
-    const data = await res.json();
-    const streamData = data.data || data;
-    const streamUrl = streamData.stream_url || streamData.url || streamData.iframe;
-    if (streamUrl) player.src = streamUrl;
-  } catch (e) {}
-}
-
-async function loadEpisodes(animeSlug) {
-  try {
-    const res = await fetch(`/api/info/${encodeURIComponent(animeSlug)}`);
-    const data = await res.json();
-    const info = data.data || data;
-    const episodes = info.episodes || info.episode_list || [];
-    renderEpisodeButtons(episodes);
-  } catch (err) {}
-}
-
-function renderEpisodeButtons(episodes) {
+function renderEpisodes(id, detailPath, totalEps) {
   const epContainer = document.getElementById('episodeList');
-  if (!Array.isArray(episodes) || episodes.length === 0) {
-    epContainer.innerHTML = '<span class="col-span-full text-xs text-gray-500">Tidak ada episode.</span>';
-    return;
-  }
+  let html = '';
 
-  epContainer.innerHTML = episodes.map((ep, idx) => {
-    const epSlug = ep.slug || ep.endpoint || ep.id;
-    const epNum = ep.episode || ep.title || `Eps ${idx + 1}`;
-
-    return `
-      <a href="/watch.html?ep=${encodeURIComponent(epSlug)}" 
+  for (let i = 1; i <= totalEps; i++) {
+    html += `
+      <a href="/watch.html?id=${encodeURIComponent(id)}&detailPath=${encodeURIComponent(detailPath)}&se=1&ep=${i}" 
          class="bg-gray-800 hover:bg-red-600 text-center py-2 px-1 rounded text-xs transition font-semibold truncate">
-        ${epNum}
+        Eps ${i}
       </a>
     `;
-  }).join('');
+  }
+  epContainer.innerHTML = html;
 }
 
 document.addEventListener('DOMContentLoaded', initWatchPage);
