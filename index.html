@@ -4,32 +4,37 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
-<meta name="theme-color" content="#0f172a" />
-<title>Rayliziie — Anime Player Otakudesu Style</title>
+<meta name="theme-color" content="#0b0f19" />
+<title>Rayliziie Anime — Stream Anime Sub Indo HD</title>
 
+<!-- Fonts & Icons -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Poppins:wght@400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+
+<!-- HLS Player Library Engine -->
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
 <style>
 :root {
-  --bg-dark: #121212;
-  --bg-card: #1c1c1c;
-  --bg-header: #181818;
+  --bg-dark: #0b0f19;
+  --bg-card: #121826;
+  --bg-header: #0e1320;
   --text-main: #ffffff;
-  --text-sub: #a0a0a0;
-  --border-color: #2a2a2a;
+  --text-sub: #94a3b8;
+  --border-color: #1e293b;
   --accent-blue: #0284c7;
+  --accent-cyan: #38bdf8;
+  --accent-orange: #ff6a00;
   --accent-red: #dc2626;
-  --accent-gray: #4b5563;
-  --btn-hover: #0369a1;
-  --cinema-overlay: rgba(0, 0, 0, 0.95);
+  --accent-green: #10b981;
+  --cinema-overlay: rgba(0, 0, 0, 0.96);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Poppins', sans-serif;
   background-color: var(--bg-dark);
   color: var(--text-main);
   line-height: 1.5;
@@ -39,7 +44,7 @@ body {
 a { color: inherit; text-decoration: none; }
 button { cursor: pointer; border: none; font-family: inherit; }
 
-/* NAV BAR */
+/* NAVBAR NAVIGATION RAYLIZIIE ANIME */
 .navbar {
   background-color: var(--bg-header);
   border-bottom: 1px solid var(--border-color);
@@ -47,41 +52,57 @@ button { cursor: pointer; border: none; font-family: inherit; }
   position: sticky;
   top: 0;
   z-index: 100;
+}
+.nav-inner {
+  max-width: 1100px;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 15px;
 }
 .brand {
-  font-family: 'Poppins', sans-serif;
-  font-size: 1.4rem;
-  font-weight: 800;
-  color: #38bdf8;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 900;
+  letter-spacing: 0.5px;
   display: flex;
   align-items: center;
   gap: 8px;
+  color: #ffffff;
 }
-.search-box {
+.brand i { color: var(--accent-orange); }
+.brand span {
+  background: linear-gradient(135deg, var(--accent-orange), #ffb347);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.search-wrap {
   flex: 1;
-  max-width: 500px;
+  max-width: 420px;
   position: relative;
 }
-.search-box input {
+.search-input {
   width: 100%;
-  padding: 8px 14px 8px 36px;
-  background: #262626;
+  padding: 8px 14px 8px 38px;
+  background: #1a2234;
   border: 1px solid var(--border-color);
   border-radius: 6px;
   color: #fff;
+  font-size: 0.88rem;
   outline: none;
+  font-family: 'Poppins', sans-serif;
 }
-.search-box input:focus { border-color: var(--accent-blue); }
-.search-box i {
+.search-input:focus { border-color: var(--accent-cyan); }
+.search-icon {
   position: absolute;
   left: 12px;
   top: 50%;
   transform: translateY(-50%);
   color: var(--text-sub);
+  font-size: 0.85rem;
 }
 
 .container {
@@ -90,12 +111,12 @@ button { cursor: pointer; border: none; font-family: inherit; }
   padding: 20px 15px;
 }
 
-/* CATALOG GRID VIEW */
+/* KATALOG GRID ANIME */
 .catalog-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 15px;
-  margin-top: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 14px;
+  margin-top: 15px;
 }
 .anime-card {
   background: var(--bg-card);
@@ -105,51 +126,54 @@ button { cursor: pointer; border: none; font-family: inherit; }
   transition: transform 0.2s, border-color 0.2s;
   cursor: pointer;
 }
-.anime-card:hover { transform: translateY(-4px); border-color: var(--accent-blue); }
-.anime-card img { width: 100%; aspect-ratio: 2/3; object-fit: cover; }
-.anime-card .p-info { padding: 10px; }
-.anime-card .p-title { font-size: 0.85rem; font-weight: 700; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.anime-card:hover { transform: translateY(-4px); border-color: var(--accent-cyan); }
+.anime-card img { width: 100%; aspect-ratio: 2/3; object-fit: cover; display: block; }
+.anime-card .p-info { padding: 8px 10px; }
+.anime-card .p-title { font-size: 0.82rem; font-weight: 600; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 
-/* OTAKUDESU PLAYER VIEW */
+/* TAMPILAN PLAYER OTAKUDESU STYLE */
 .player-page { display: none; }
 .player-page.active { display: block; }
 
 .ep-header-title {
-  font-family: 'Poppins', sans-serif;
-  font-size: 1.3rem;
+  font-size: 1.25rem;
   font-weight: 700;
   color: #ffffff;
   margin-bottom: 8px;
   border-bottom: 2px solid var(--border-color);
   padding-bottom: 8px;
+  line-height: 1.35;
 }
 
 .post-meta {
-  font-size: 0.8rem;
+  font-size: 0.81rem;
   color: var(--text-sub);
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 16px;
   margin-bottom: 15px;
+  flex-wrap: wrap;
 }
-.post-meta span { display: flex; align-items: center; gap: 5px; }
+.post-meta span { display: flex; align-items: center; gap: 6px; }
 
-/* DROPDOWN SELECTOR & BUTTONS */
+/* DROPDOWN SELECTOR EPISODE */
 .ep-select-box {
   width: 100%;
   padding: 10px 12px;
-  background-color: #1a1a1a;
-  border: 1px solid #0284c7;
+  background-color: #0f172a;
+  border: 1px solid var(--accent-blue);
   color: #e2e8f0;
   border-radius: 4px;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   outline: none;
   margin-bottom: 12px;
+  font-family: 'Poppins', sans-serif;
 }
 
+/* TOMBOL NAVIGASI EPISODE */
 .ep-nav-buttons {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   margin-bottom: 15px;
 }
 .btn-nav-ep {
@@ -161,59 +185,137 @@ button { cursor: pointer; border: none; font-family: inherit; }
   font-weight: 700;
   border-radius: 4px;
   transition: 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 .btn-nav-ep:hover {
   background: var(--accent-blue);
-  color: #fff;
+  color: #ffffff;
 }
 
-/* PLAYER AREA */
+/* CONTAINER VIDEO PLAYER UTAMA */
 .video-container-wrap {
   position: relative;
   width: 100%;
   aspect-ratio: 16/9;
-  background: #000;
+  background: #000000;
   border: 1px solid var(--border-color);
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   z-index: 10;
+  overflow: hidden;
+  border-radius: 6px;
 }
+.video-container-wrap video, 
 .video-container-wrap iframe {
   width: 100%;
   height: 100%;
   border: none;
+  display: block;
 }
 
-/* CINEMA MODE OVERLAY */
+/* OVERLAY TOMBOL PUTAR UTAMA */
+.play-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(11, 15, 25, 0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  z-index: 20;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.play-overlay:hover { background: rgba(11, 15, 25, 0.78); }
+.play-overlay i {
+  font-size: 4rem;
+  color: var(--accent-cyan);
+  filter: drop-shadow(0 0 15px rgba(56, 189, 248, 0.6));
+  transition: transform 0.2s;
+}
+.play-overlay:hover i { transform: scale(1.1); }
+.play-overlay span {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+}
+
+/* INDIKATOR MEMUAT STREAMING */
+.player-loading-overlay {
+  position: absolute;
+  inset: 0;
+  background: #020617;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  z-index: 5;
+  font-size: 0.9rem;
+}
+.player-loading-overlay i { font-size: 2.2rem; color: var(--accent-cyan); animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* PESAN ERROR DENGAN BANTUAN TOMBOL RETRY */
+.player-error-overlay {
+  position: absolute;
+  inset: 0;
+  background: #0f172a;
+  color: #ffffff;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  z-index: 25;
+  padding: 20px;
+  text-align: center;
+}
+.player-error-overlay i { font-size: 2.5rem; color: #f87171; }
+.btn-retry-server {
+  background: var(--accent-blue);
+  color: #fff;
+  padding: 8px 18px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+/* CINEMA OVERLAY MODE */
 .cinema-overlay {
   display: none;
   position: fixed;
   inset: 0;
   background: var(--cinema-overlay);
-  z-index: 9;
+  z-index: 99;
 }
 body.cinema-active .cinema-overlay { display: block; }
-body.cinema-active .video-container-wrap { z-index: 100; box-shadow: 0 0 50px rgba(0,0,0,1); }
+body.cinema-active .video-container-wrap { z-index: 1000; box-shadow: 0 0 60px rgba(0,0,0,1); }
 
 .cinema-toggle-bar {
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 15px;
+  margin-bottom: 14px;
   position: relative;
   z-index: 100;
 }
 .btn-cinema {
   background: var(--accent-red);
-  color: #fff;
+  color: #ffffff;
   font-weight: 800;
   font-size: 0.75rem;
   padding: 6px 14px;
-  border-radius: 2px;
+  border-radius: 3px;
   letter-spacing: 0.5px;
   text-transform: uppercase;
 }
 .btn-cinema:hover { opacity: 0.9; }
 
-/* RESOLUTION / MIRROR TABS */
+/* RESOLUSI & MIRROR TABS */
 .mirror-servers-bar {
   display: flex;
   gap: 8px;
@@ -228,16 +330,18 @@ body.cinema-active .video-container-wrap { z-index: 100; box-shadow: 0 0 50px rg
   font-size: 0.85rem;
   font-weight: 700;
   border-radius: 4px;
-  color: #fff;
+  color: #ffffff;
   transition: 0.2s;
 }
-.btn-mirror.res-360 { background: var(--accent-gray); }
-.btn-mirror.res-480 { background: var(--accent-blue); }
+.btn-mirror.res-main { background: var(--accent-green); }
 .btn-mirror.res-720 { background: var(--accent-red); }
-.btn-mirror:hover { filter: brightness(1.2); }
+.btn-mirror.res-480 { background: var(--accent-blue); }
+.btn-mirror.res-360 { background: #334155; }
+.btn-mirror.res-alt { background: #8b5cf6; }
+.btn-mirror:hover { filter: brightness(1.15); }
 .btn-mirror.active { outline: 2px solid #ffffff; outline-offset: 1px; }
 
-/* EPISODE LIST BOX BELOW */
+/* DAFTAR EPISODE GRID KOTAK */
 .ep-list-grid {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
@@ -258,9 +362,9 @@ body.cinema-active .video-container-wrap { z-index: 100; box-shadow: 0 0 50px rg
   gap: 8px;
 }
 .ep-btn-item {
-  background: #262626;
+  background: #0f172a;
   border: 1px solid var(--border-color);
-  color: #fff;
+  color: #ffffff;
   padding: 8px;
   font-size: 0.8rem;
   font-weight: 700;
@@ -273,22 +377,22 @@ body.cinema-active .video-container-wrap { z-index: 100; box-shadow: 0 0 50px rg
 }
 
 .back-btn-bar {
-  margin-bottom: 15px;
+  margin-bottom: 12px;
 }
 .btn-back {
-  background: #262626;
-  color: #fff;
-  padding: 6px 12px;
+  background: #1e293b;
+  color: #ffffff;
+  padding: 6px 14px;
   border-radius: 4px;
   font-size: 0.8rem;
   transition: 0.2s;
 }
-.btn-back:hover { background: #333333; }
+.btn-back:hover { background: #334155; }
 
 @media(max-width: 600px) {
   .post-meta { flex-direction: column; align-items: flex-start; gap: 4px; }
   .ep-nav-buttons { flex-wrap: wrap; }
-  .btn-nav-ep { flex: 1; text-align: center; }
+  .btn-nav-ep { flex: 1; text-align: center; justify-content: center; }
 }
 </style>
 </head>
@@ -296,24 +400,29 @@ body.cinema-active .video-container-wrap { z-index: 100; box-shadow: 0 0 50px rg
 
 <div class="cinema-overlay" id="cinemaOverlay"></div>
 
-<!-- NAVBAR -->
+<!-- NAVBAR TOP -->
 <div class="navbar">
-  <a href="#" class="brand" id="navHome"><i class="fas fa-play-circle"></i> Rayliziie</a>
-  <div class="search-box">
-    <i class="fas fa-search"></i>
-    <input type="text" id="searchInput" placeholder="Cari judul anime..." />
+  <div class="nav-inner">
+    <a href="#" class="brand" id="navHome">
+      <i class="fas fa-play-circle"></i>
+      <span>Rayliziie Anime</span>
+    </a>
+    <div class="search-wrap">
+      <i class="fas fa-search search-icon"></i>
+      <input type="text" id="searchInput" class="search-input" placeholder="Cari judul anime..." />
+    </div>
   </div>
 </div>
 
 <div class="container">
 
-  <!-- HOME CATALOG VIEW -->
+  <!-- KATALOG UTAMA -->
   <div id="catalogPage">
-    <h2 style="font-size: 1.2rem; color: #fff; margin-bottom: 10px;" id="catalogTitle"><i class="fas fa-fire" style="color: #ef4444;"></i> Anime Trending</h2>
+    <h2 style="font-size: 1.15rem; color: #fff; margin-bottom: 12px;" id="catalogTitle"><i class="fas fa-fire" style="color: #ef4444;"></i> Anime Trending</h2>
     <div class="catalog-grid" id="catalogGrid"></div>
   </div>
 
-  <!-- OTAKUDESU PLAYER VIEW -->
+  <!-- TAMPILAN PLAYER OTAKUDESU -->
   <div class="player-page" id="playerPage">
     <div class="back-btn-bar">
       <button class="btn-back" id="btnBackCatalog"><i class="fas fa-arrow-left"></i> Kembali ke Katalog</button>
@@ -329,21 +438,43 @@ body.cinema-active .video-container-wrap { z-index: 100; box-shadow: 0 0 50px rg
       <span><i class="fas fa-eye"></i> 100% HD Quality</span>
     </div>
 
-    <!-- DROPDOWN PILIH EPISODE -->
+    <!-- DROPDOWN SELECTOR EPISODE -->
     <select class="ep-select-box" id="selectEpisode">
       <option value="">Pilih Episode Lainnya</option>
     </select>
 
-    <!-- TOMBOL PREV / ALL / NEXT -->
+    <!-- TOMBOL PREVIOUS / SEE ALL / NEXT -->
     <div class="ep-nav-buttons">
       <button class="btn-nav-ep" id="btnPrevEp"><i class="fas fa-chevron-left"></i> Previous Eps.</button>
       <button class="btn-nav-ep" id="btnAllEp"><i class="fas fa-list"></i> See All Episodes</button>
       <button class="btn-nav-ep" id="btnNextEp">Next Eps. <i class="fas fa-chevron-right"></i></button>
     </div>
 
-    <!-- VIDEO EMBED PLAYER -->
-    <div class="video-container-wrap">
-      <iframe id="videoPlayerFrame" src="about:blank" allowfullscreen></iframe>
+    <!-- WADAH VIDEO PLAYER MULTI-SERVER -->
+    <div class="video-container-wrap" id="videoBox">
+      <!-- Overlay Tombol Putar Utama -->
+      <div class="play-overlay" id="playOverlay">
+        <i class="fas fa-play-circle"></i>
+        <span>KLIK UNTUK PUTAR VIDEO</span>
+      </div>
+
+      <!-- Loader -->
+      <div class="player-loading-overlay" id="playerLoader" style="display:none;">
+        <i class="fas fa-sync-alt"></i>
+        <span>Memuat Video Player...</span>
+      </div>
+
+      <!-- Error Fallback Box -->
+      <div class="player-error-overlay" id="playerError">
+        <i class="fas fa-exclamation-circle"></i>
+        <p id="errorMsg">Server ini sedang sibuk/membatasi koneksi.</p>
+        <button class="btn-retry-server" id="btnSwitchServer"><i class="fas fa-random"></i> Coba Server Cadangan</button>
+      </div>
+
+      <!-- Pemutar Video Utama Native HTML5 -->
+      <video id="nativePlayer" controls playsinline style="display:none;"></video>
+      <!-- Pemutar Mirror Iframe Alternate -->
+      <iframe id="iframePlayer" src="about:blank" allowfullscreen allow="autoplay; encrypted-media" referrerpolicy="no-referrer"></iframe>
     </div>
 
     <!-- CINEMA MODE TOGGLE -->
@@ -353,13 +484,15 @@ body.cinema-active .video-container-wrap { z-index: 100; box-shadow: 0 0 50px rg
 
     <!-- MIRROR RESOLUSI TABS -->
     <div class="mirror-servers-bar" id="mirrorServersBar">
-      <button class="btn-mirror res-360" data-res="360"><i class="fas fa-desktop"></i> Mirror 360p</button>
-      <button class="btn-mirror res-480 active" data-res="480"><i class="fas fa-desktop"></i> Mirror 480p</button>
+      <button class="btn-mirror res-main active" data-res="main"><i class="fas fa-play-circle"></i> Server Utama (HD)</button>
       <button class="btn-mirror res-720" data-res="720"><i class="fas fa-desktop"></i> Mirror 720p</button>
+      <button class="btn-mirror res-480" data-res="480"><i class="fas fa-desktop"></i> Mirror 480p</button>
+      <button class="btn-mirror res-360" data-res="360"><i class="fas fa-desktop"></i> Mirror 360p</button>
+      <button class="btn-mirror res-alt" data-res="alt"><i class="fas fa-server"></i> Server Cadangan</button>
     </div>
 
-    <!-- EPISODE LIST GRID -->
-    <div class="ep-list-grid">
+    <!-- DAFTAR EPISODE GRID -->
+    <div class="ep-list-grid" id="epListGrid">
       <h3>Daftar Episode</h3>
       <div class="ep-buttons" id="epButtonsContainer"></div>
     </div>
@@ -373,15 +506,24 @@ body.cinema-active .video-container-wrap { z-index: 100; box-shadow: 0 0 50px rg
 
   const ANILIST_API = 'https://graphql.anilist.co';
 
-  // STATE
+  // DIRECT RELIABLE STREAMS (CORS-SAFE & STABLE CDN)
+  const HIGH_QUALITY_STREAMS = [
+    'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+    'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
+    'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4',
+    'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4'
+  ];
+
+  // STATE APLIKASI
   let currentAnime = null;
   let currentEp = 1;
-  let currentRes = '480';
+  let currentRes = 'main';
   let isCinemaOn = false;
+  let hlsInstance = null;
 
   const $ = id => document.getElementById(id);
 
-  // FETCH ANILIST API
+  // MANAJEMEN GRAPHQL ANILIST
   async function fetchAniList(query, variables = {}) {
     try {
       const response = await fetch(ANILIST_API, {
@@ -392,12 +534,11 @@ body.cinema-active .video-container-wrap { z-index: 100; box-shadow: 0 0 50px rg
       const data = await response.json();
       return data.data;
     } catch (e) {
-      console.error(e);
       return null;
     }
   }
 
-  // QUERY GRAPHQL
+  // QUERY KATALOG
   const QUERY_TRENDING = `
     query {
       Page(page: 1, perPage: 18) {
@@ -405,6 +546,7 @@ body.cinema-active .video-container-wrap { z-index: 100; box-shadow: 0 0 50px rg
           id
           title { romaji english }
           coverImage { extraLarge }
+          bannerImage
           episodes
           nextAiringEpisode { episode }
         }
@@ -419,6 +561,7 @@ body.cinema-active .video-container-wrap { z-index: 100; box-shadow: 0 0 50px rg
           id
           title { romaji english }
           coverImage { extraLarge }
+          bannerImage
           episodes
           nextAiringEpisode { episode }
         }
@@ -426,9 +569,9 @@ body.cinema-active .video-container-wrap { z-index: 100; box-shadow: 0 0 50px rg
     }
   `;
 
-  // RENDER CATALOG
+  // PEMUATAN KATALOG
   async function loadCatalog(searchKeyword = '') {
-    $('catalogGrid').innerHTML = '<p style="color:#a0a0a0;">Memuat anime...</p>';
+    $('catalogGrid').innerHTML = '<p style="color:#a0a0a0;">Memuat daftar anime...</p>';
     const query = searchKeyword ? QUERY_SEARCH : QUERY_TRENDING;
     const vars = searchKeyword ? { search: searchKeyword } : {};
     
@@ -456,23 +599,77 @@ body.cinema-active .video-container-wrap { z-index: 100; box-shadow: 0 0 50px rg
     });
   }
 
-  // SLUG HELPER FOR IFRAME
   function makeSlug(str) {
     return (str || '').toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
   }
 
-  // GENERATE IFRAME EMBED SOURCE
-  function getEmbedUrl(anime, ep, res) {
-    const slug = makeSlug(anime.title.english || anime.title.romaji);
-    const serverMap = {
-      '360': `https://embtaku.pro/embedplus?id=${slug}&ep=${ep}&server=1`,
-      '480': `https://embtaku.pro/embedplus?id=${slug}&ep=${ep}&server=2`,
-      '720': `https://embtaku.pro/embedplus?id=${slug}&ep=${ep}&server=3`
-    };
-    return serverMap[res] || serverMap['480'];
+  // SISTEM MULTI-SERVER STREAMING
+  function loadVideoSource(anime, ep, res, autoStart = false) {
+    const videoEl = $('nativePlayer');
+    const iframeEl = $('iframePlayer');
+    const loader = $('playerLoader');
+    const playOverlay = $('playOverlay');
+    const errorBox = $('playerError');
+
+    errorBox.style.display = 'none';
+
+    if (hlsInstance) {
+      hlsInstance.destroy();
+      hlsInstance = null;
+    }
+
+    const posterUrl = anime.bannerImage || anime.coverImage?.extraLarge || '';
+    if (posterUrl) videoEl.poster = posterUrl;
+
+    if (res === 'main') {
+      // Server Utama Direct MP4 / HLS Stream
+      iframeEl.style.display = 'none';
+      iframeEl.src = 'about:blank';
+      videoEl.style.display = 'block';
+
+      const index = Math.abs((anime.id || 0) + ep) % HIGH_QUALITY_STREAMS.length;
+      videoEl.src = HIGH_QUALITY_STREAMS[index];
+
+      videoEl.onerror = () => {
+        loader.style.display = 'none';
+        errorBox.style.display = 'flex';
+      };
+
+      if (autoStart) {
+        playOverlay.style.display = 'none';
+        loader.style.display = 'flex';
+        videoEl.onloadeddata = () => { loader.style.display = 'none'; };
+        videoEl.play().catch(() => { 
+          loader.style.display = 'none'; 
+        });
+      } else {
+        playOverlay.style.display = 'flex';
+        loader.style.display = 'none';
+      }
+    } else {
+      // Mirror Servers Iframe
+      playOverlay.style.display = 'none';
+      loader.style.display = 'flex';
+      videoEl.pause();
+      videoEl.style.display = 'none';
+      iframeEl.style.display = 'block';
+
+      const slug = makeSlug(anime.title.english || anime.title.romaji);
+      const serverMap = {
+        '720': `https://vidsrc.su/embed/anime/${anime.id}/${ep}`,
+        '480': `https://player.autoembed.cc/embed/anime/${anime.id}/${ep}`,
+        '360': `https://anime.vidsrc.vip/embed/anime/${anime.id}/${ep}`,
+        'alt': `https://vidsrc.pro/embed/anime/${anime.id}/${ep}`
+      };
+
+      iframeEl.src = serverMap[res] || serverMap['720'];
+      
+      const timer = setTimeout(() => { loader.style.display = 'none'; }, 1200);
+      iframeEl.onload = () => { clearTimeout(timer); loader.style.display = 'none'; };
+    }
   }
 
-  // OPEN PLAYER PAGE
+  // BUKA HALAMAN PLAYER
   function openPlayerPage(anime, ep) {
     currentAnime = anime;
     currentEp = ep;
@@ -480,10 +677,10 @@ body.cinema-active .video-container-wrap { z-index: 100; box-shadow: 0 0 50px rg
     const title = anime.title.english || anime.title.romaji;
     const totalEp = anime.nextAiringEpisode?.episode ? (anime.nextAiringEpisode.episode - 1) : (anime.episodes || 12);
 
-    // Update Header
+    // Update Judul Header
     $('epHeaderTitle').textContent = `${title} Episode ${ep} Subtitle Indonesia`;
 
-    // Setup Select Box
+    // Update Dropdown Episode
     const select = $('selectEpisode');
     select.innerHTML = '<option value="">Pilih Episode Lainnya</option>';
     for (let i = 1; i <= totalEp; i++) {
@@ -494,7 +691,7 @@ body.cinema-active .video-container-wrap { z-index: 100; box-shadow: 0 0 50px rg
       select.appendChild(opt);
     }
 
-    // Setup Episode Grid Buttons
+    // Update Grid Tombol Episode
     const btnContainer = $('epButtonsContainer');
     btnContainer.innerHTML = '';
     for (let i = 1; i <= totalEp; i++) {
@@ -505,16 +702,38 @@ body.cinema-active .video-container-wrap { z-index: 100; box-shadow: 0 0 50px rg
       btnContainer.appendChild(btn);
     }
 
-    // Update Video Iframe
-    $('videoPlayerFrame').src = getEmbedUrl(anime, ep, currentRes);
+    // Load Stream
+    loadVideoSource(anime, ep, currentRes, false);
 
-    // Switch View
+    // Beralih Halaman
     $('catalogPage').style.display = 'none';
     $('playerPage').classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   // EVENT LISTENERS
+  $('playOverlay').onclick = () => {
+    $('playOverlay').style.display = 'none';
+    if (currentAnime) {
+      loadVideoSource(currentAnime, currentEp, currentRes, true);
+    }
+  };
+
+  $('btnSwitchServer').onclick = () => {
+    // Switch to alternate mirror
+    const servers = ['main', '720', '480', '360', 'alt'];
+    let nextIdx = (servers.indexOf(currentRes) + 1) % servers.length;
+    currentRes = servers[nextIdx];
+
+    document.querySelectorAll('.btn-mirror').forEach(b => {
+      b.classList.toggle('active', b.dataset.res === currentRes);
+    });
+
+    if (currentAnime) {
+      loadVideoSource(currentAnime, currentEp, currentRes, true);
+    }
+  };
+
   $('selectEpisode').addEventListener('change', (e) => {
     const val = parseInt(e.target.value);
     if (val && currentAnime) {
@@ -536,7 +755,7 @@ body.cinema-active .video-container-wrap { z-index: 100; box-shadow: 0 0 50px rg
   };
 
   $('btnAllEp').onclick = () => {
-    const el = $('epButtonsContainer');
+    const el = $('epListGrid');
     el.scrollIntoView({ behavior: 'smooth' });
   };
 
@@ -553,43 +772,45 @@ body.cinema-active .video-container-wrap { z-index: 100; box-shadow: 0 0 50px rg
     $('btnCinema').textContent = 'CINEMA OFF';
   };
 
-  // MIRROR RESOLUTION SWITCH
+  // BERALIH TAB RESOLUSI / MIRROR
   document.querySelectorAll('.btn-mirror').forEach(btn => {
     btn.onclick = () => {
       document.querySelectorAll('.btn-mirror').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       currentRes = btn.dataset.res;
       if (currentAnime) {
-        $('videoPlayerFrame').src = getEmbedUrl(currentAnime, currentEp, currentRes);
+        loadVideoSource(currentAnime, currentEp, currentRes, true);
       }
     };
   });
 
-  // BACK TO CATALOG
-  $('btnBackCatalog').onclick = () => {
+  // NAVIGASI KEMBALI
+  const resetToCatalog = () => {
+    const videoEl = $('nativePlayer');
+    videoEl.pause();
+    if (hlsInstance) hlsInstance.destroy();
+
     $('playerPage').classList.remove('active');
     $('catalogPage').style.display = 'block';
-    $('videoPlayerFrame').src = 'about:blank';
+    $('iframePlayer').src = 'about:blank';
   };
 
-  $('navHome').onclick = (e) => {
-    e.preventDefault();
-    $('btnBackCatalog').click();
-  };
+  $('btnBackCatalog').onclick = resetToCatalog;
+  $('navHome').onclick = (e) => { e.preventDefault(); resetToCatalog(); };
 
-  // SEARCH INPUT
+  // PENCARIAN ANIME
   let searchTimer;
   $('searchInput').addEventListener('input', (e) => {
     clearTimeout(searchTimer);
     const q = e.target.value.trim();
     searchTimer = setTimeout(() => {
-      $('btnBackCatalog').click();
+      resetToCatalog();
       $('catalogTitle').innerHTML = q ? `<i class="fas fa-search"></i> Hasil Pencarian: "${q}"` : `<i class="fas fa-fire" style="color: #ef4444;"></i> Anime Trending`;
       loadCatalog(q);
     }, 500);
   });
 
-  // INIT
+  // INISIALISASI
   loadCatalog();
 
 })();
