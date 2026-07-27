@@ -1,41 +1,107 @@
-async function loadCatalog() {
-  const grid = document.getElementById('anime-grid');
-  try {
-    const res = await fetch('/api/list?page=1');
-    const result = await res.json();
-    
-    if (!res.ok) {
-      grid.innerHTML = `<p style="color: #ff4d4d; padding: 20px;">Error: ${result.error || 'Gagal koneksi backend'}</p>`;
-      return;
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nonton Anime</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
+    body { background-color: #0f172a; color: #f8fafc; padding: 15px; }
+    .header { margin-bottom: 15px; }
+    .back-btn { color: #38bdf8; text-decoration: none; font-weight: bold; font-size: 14px; }
+    .player-box { position: relative; width: 100%; max-width: 800px; margin: 0 auto 20px; padding-top: 56.25%; background: #000; border-radius: 8px; overflow: hidden; }
+    .player-box iframe { position: absolute; top:0; left:0; width:100%; height:100%; border:0; }
+    .info { max-width: 800px; margin: 0 auto 20px; }
+    .info h2 { font-size: 18px; color: #f1f5f9; margin-bottom: 8px; }
+    .info p { font-size: 13px; color: #94a3b8; line-height: 1.5; }
+    .episodes { max-width: 800px; margin: 0 auto; }
+    .episodes h3 { font-size: 15px; margin-bottom: 10px; color: #38bdf8; }
+    .ep-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+    .ep-btn { background: #1e293b; color: #f8fafc; border: 1px solid #334155; padding: 8px 14px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: bold; }
+    .ep-btn:hover, .ep-btn.active { background: #0284c7; border-color: #38bdf8; }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <a href="/" class="back-btn">⬅️ Kembali ke Katalog</a>
+  </div>
+
+  <div class="player-box">
+    <iframe id="video-player" src="" allowfullscreen></iframe>
+  </div>
+
+  <div class="info">
+    <h2 id="title">Memuat judul...</h2>
+    <p id="desc">Memuat deskripsi...</p>
+  </div>
+
+  <div class="episodes">
+    <h3>Daftar Episode</h3>
+    <div id="ep-list" class="ep-grid">Memuat episode...</div>
+  </div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('id');
+    const path = urlParams.get('path');
+
+    const player = document.getElementById('video-player');
+    const titleEl = document.getElementById('title');
+    const descEl = document.getElementById('desc');
+    const epListEl = document.getElementById('ep-list');
+
+    async function loadDetail() {
+      try {
+        const res = await fetch(`/api/detail?detailPath=${encodeURIComponent(path || '')}&se=0`);
+        const result = await res.json();
+        const data = result.data || result;
+
+        titleEl.innerText = data.title || data.name || "Nonton Anime";
+        descEl.innerText = data.introduction || data.synopsis || "Tidak ada deskripsi.";
+
+        const episodes = data.chapterList || data.episodes || data.items || [];
+        if (episodes.length > 0) {
+          epListEl.innerHTML = '';
+          episodes.forEach((ep, i) => {
+            const epNum = ep.episode || ep.ep || (i + 1);
+            const btn = document.createElement('button');
+            btn.className = 'ep-btn';
+            btn.innerText = `Ep ${epNum}`;
+            btn.onclick = () => {
+              document.querySelectorAll('.ep-btn').forEach(b => b.classList.remove('active'));
+              btn.classList.add('active');
+              playEp(epNum);
+            };
+            epListEl.appendChild(btn);
+          });
+          epListEl.children[0].click();
+        } else {
+          epListEl.innerHTML = '<p>Tidak ada daftar episode.</p>';
+          playEp(1);
+        }
+      } catch (err) {
+        titleEl.innerText = "Gagal memuat detail";
+      }
     }
 
-    grid.innerHTML = '';
-    const items = result.data?.list || result.data || result.items || (Array.isArray(result) ? result : []);
-
-    if (!items || items.length === 0) {
-      grid.innerHTML = `<p style="padding: 20px;">Data tidak ditemukan.</p>`;
-      return;
+    async function playEp(epNum) {
+      player.src = '';
+      try {
+        const res = await fetch(`/api/play?id=${id}&se=1&ep=${epNum}&detailPath=${encodeURIComponent(path || '')}`);
+        const data = await res.json();
+        const videoUrl = data.playUrl || data.url || data.embed || (data.data && data.data.playUrl);
+        if (videoUrl) {
+          player.src = videoUrl;
+        } else {
+          alert('Link video tidak tersedia untuk episode ini.');
+        }
+      } catch (err) {
+        console.error(err);
+      }
     }
 
-    items.forEach(item => {
-      const card = document.createElement('div');
-      card.className = 'card';
-      
-      const title = item.title || item.name || item.bookName || 'Tanpa Judul';
-      const cover = item.cover || item.coverUrl || item.poster || item.img || '';
-      const id = item.id || item.bookId || '';
-      const path = item.detailPath || item.slug || '';
-
-      card.innerHTML = `
-        <img src="${cover}" alt="${title}" onerror="this.src='https://via.placeholder.com/200x300?text=No+Cover'">
-        <h3>${title}</h3>
-        <a href="/watch.html?id=${id}&path=${encodeURIComponent(path)}" class="btn">Tonton</a>
-      `;
-      grid.appendChild(card);
-    });
-  } catch (err) {
-    grid.innerHTML = `<p style="color: #ff4d4d; padding: 20px;">Gagal memuat katalog: ${err.message}</p>`;
-  }
-}
-
-document.addEventListener('DOMContentLoaded', loadCatalog);
+    loadDetail();
+  </script>
+</body>
+</html>
