@@ -1,8 +1,5 @@
 {
-  "name": "anime-streaming-vercel",
+  "name": "streaming-anime-vercel",
   "version": "1.0.0",
-  "scripts": {
-    "start": "vercel dev"
-  },
-  "dependencies": {}
+  "private": true
 }
