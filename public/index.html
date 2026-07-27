@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
 <meta name="theme-color" content="#0b0f19" />
 <meta name="referrer" content="no-referrer" />
-<title>Rayliziie Anime — Indocast API</title>
+<title>Rayliziie Anime — Streaming Multi-Server</title>
 
 <!-- Fonts & Icons -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -474,7 +474,7 @@ body.cinema-active .video-container-wrap { z-index: 1000; box-shadow: 0 0 60px r
     <!-- META INFO POSTING -->
     <div class="post-meta">
       <span><i class="fas fa-user"></i> Posted by rayliziie</span>
-      <span><i class="fas fa-server"></i> Server: <strong style="color:#38bdf8;">Indocast Proxy</strong></span>
+      <span><i class="fas fa-server"></i> Server: <strong style="color:#38bdf8;">Indocast Auto-Fallback</strong></span>
       <span><i class="fas fa-eye"></i> Subtitle Indonesia</span>
     </div>
 
@@ -566,6 +566,10 @@ body.cinema-active .video-container-wrap { z-index: 1000; box-shadow: 0 0 60px r
     isBookmarked: (id) => Storage.getBookmarks().some(b => b.id === id)
   };
 
+  function slugify(str) {
+    return (str || '').toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
+  }
+
   // MULTI-FETCH PIPELINE UNTUK MEMASTIKAN KONEKSI SELALU BERHASIL
   async function apiFetch(endpoint, options = {}) {
     try {
@@ -584,7 +588,7 @@ body.cinema-active .video-container-wrap { z-index: 1000; box-shadow: 0 0 60px r
     return await res.json();
   }
 
-  // EXTRAC COVER URL (Mencegah Gambar Abu-Abu Kosong)
+  // EXTRAC COVER URL
   function getPosterUrl(item) {
     let url = item.cover || item.coverUrl || item.poster || item.posterUrl || item.img || item.image || item.pic || '';
     if (!url || typeof url !== 'string') return 'https://via.placeholder.com/300x450?text=No+Cover';
@@ -592,7 +596,7 @@ body.cinema-active .video-container-wrap { z-index: 1000; box-shadow: 0 0 60px r
     return url;
   }
 
-  // EXTRAC VIDEO URL (Mencegah Alert "Link Video Tidak Tersedia")
+  // EXTRAC VIDEO URL DENGAN MULTI-PROP SEARCH
   function getVideoUrl(result) {
     if (!result) return '';
     if (typeof result === 'string' && result.startsWith('http')) return result;
@@ -617,7 +621,7 @@ body.cinema-active .video-container-wrap { z-index: 1000; box-shadow: 0 0 60px r
 
       renderCatalogGrid(items);
     } catch (e) {
-      $('catalogGrid').innerHTML = `<p style="color:#f87171; grid-column: 1/-1;">Gagal memuat katalog: ${e.message}</p>`;
+      $('catalogGrid').innerHTML = `<p style="color:#f87171; grid-column: 1/-1;">Gagal memuat katalog. Silakan refresh halaman.</p>`;
     }
   }
 
@@ -700,7 +704,7 @@ body.cinema-active .video-container-wrap { z-index: 1000; box-shadow: 0 0 60px r
     }
   }
 
-  // PLAY EPISODE
+  // PLAY EPISODE (DENGAN EMBED AUTO-FALLBACK LENGKAP TANPA POPUP ERROR)
   async function playEpisode(epNum) {
     currentEpisodeNumber = parseInt(epNum);
     $('playerLoader').style.display = 'flex';
@@ -726,15 +730,18 @@ body.cinema-active .video-container-wrap { z-index: 1000; box-shadow: 0 0 60px r
 
     try {
       const result = await apiFetch(`/play?id=${currentAnimeId}&se=1&ep=${currentEpisodeNumber}&detailPath=${encodeURIComponent(currentAnimePath)}`);
-      const videoUrl = getVideoUrl(result);
+      let videoUrl = getVideoUrl(result);
 
-      if (videoUrl) {
-        $('iframePlayer').src = videoUrl;
-      } else {
-        alert(`Video untuk Episode ${currentEpisodeNumber} sedang disiapkan. Silakan coba episode lainnya.`);
+      // Auto Fallback jika Indocast API tidak mengembalikan video link
+      if (!videoUrl || videoUrl.length < 10) {
+        const slug = slugify(currentAnimeTitle);
+        videoUrl = `https://embtaku.pro/embedplus?id=${slug}-episode-${currentEpisodeNumber}&server=1`;
       }
+
+      $('iframePlayer').src = videoUrl;
     } catch (e) {
-      alert("Gagal memuat player video.");
+      const slug = slugify(currentAnimeTitle);
+      $('iframePlayer').src = `https://embtaku.pro/embedplus?id=${slug}-episode-${currentEpisodeNumber}&server=1`;
     } finally {
       setTimeout(() => { $('playerLoader').style.display = 'none'; }, 600);
     }
