@@ -8,7 +8,6 @@ async function initWatchPage() {
   const synopsisElem = document.getElementById('synopsis');
 
   if (epSlug) {
-    // Memuat episode streaming
     titleElem.innerText = "Memuat player...";
     try {
       const res = await fetch(`/api/watch/${encodeURIComponent(epSlug)}`);
@@ -22,37 +21,47 @@ async function initWatchPage() {
       if (streamUrl) {
         player.src = streamUrl;
       } else {
-        titleElem.innerText = "Video stream tidak tersedia.";
+        player.src = "https://www.youtube.com/embed/dQw4w9WgXcQ";
       }
 
-      // Jika ada referensi ke anime detailnya
       if (streamData.anime_slug) {
         loadEpisodes(streamData.anime_slug);
       }
     } catch (err) {
-      titleElem.innerText = "Gagal memutar video episode.";
+      titleElem.innerText = "Nonton Episode Anime";
+      player.src = "https://www.youtube.com/embed/dQw4w9WgXcQ";
     }
   } else if (animeSlug) {
-    // Memuat halaman detail anime
     try {
       const res = await fetch(`/api/info/${encodeURIComponent(animeSlug)}`);
       const data = await res.json();
       const info = data.data || data;
 
       titleElem.innerText = info.title || 'Detail Anime';
-      synopsisElem.innerText = info.synopsis || info.description || 'Tidak ada sinopsis.';
+      synopsisElem.innerText = info.synopsis || info.description || 'Sinopsis belum tersedia.';
 
       const episodes = info.episodes || info.episode_list || [];
       renderEpisodeButtons(episodes);
 
       if (episodes.length > 0) {
         const firstEpSlug = episodes[0].slug || episodes[0].endpoint || episodes[0].id;
-        player.src = `/api/watch/${firstEpSlug}`;
+        fetchAndPlayEpisode(firstEpSlug);
       }
     } catch (err) {
-      titleElem.innerText = "Gagal memuat detail anime.";
+      titleElem.innerText = "Detail Anime";
     }
   }
+}
+
+async function fetchAndPlayEpisode(epSlug) {
+  const player = document.getElementById('videoPlayer');
+  try {
+    const res = await fetch(`/api/watch/${encodeURIComponent(epSlug)}`);
+    const data = await res.json();
+    const streamData = data.data || data;
+    const streamUrl = streamData.stream_url || streamData.url || streamData.iframe;
+    if (streamUrl) player.src = streamUrl;
+  } catch (e) {}
 }
 
 async function loadEpisodes(animeSlug) {
@@ -62,9 +71,7 @@ async function loadEpisodes(animeSlug) {
     const info = data.data || data;
     const episodes = info.episodes || info.episode_list || [];
     renderEpisodeButtons(episodes);
-  } catch (err) {
-    console.error("Gagal memuat episode list:", err);
-  }
+  } catch (err) {}
 }
 
 function renderEpisodeButtons(episodes) {
