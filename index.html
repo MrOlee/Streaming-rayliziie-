@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -640,7 +641,7 @@ const state = {
   genre: null
 };
 let curDetail = null;
-let curPlayer = { anime:null, list:[], idx:-1, servers:[] };
+let curPlayer = { anime:null, ep:1, total:0, servers:[] };
 
 // ========== ROUTER / KATEGORI ==========
 function setCat(cat, opts={}) {
@@ -721,7 +722,7 @@ async function renderHome(force=false) {
       data.list.forEach(a => g.appendChild(renderCard(a)));
       wrap.appendChild(g);
     } catch (e) {
-      dot.className = 'dot bad';
+      if (dot) dot.className = 'dot bad';
       wrap.innerHTML = '';
       const g = document.createElement('div'); g.className = 'grid';
       FALLBACK.slice(0,8).forEach(a => g.appendChild(renderCard(a)));
@@ -773,7 +774,7 @@ async function renderList(title, vars={}, force=false) {
     $('loadMore').disabled = false;
     $('loadMore').onclick = () => loadMore(vars);
   } catch (e) {
-    dot.className = 'dot bad';
+    if (dot) dot.className = 'dot bad';
     wrap.innerHTML = '';
     const st = document.createElement('div');
     st.className = 'state grid';
@@ -821,7 +822,7 @@ function renderGenres() {
     <section class="section">
       <div class="section-title">
         <h2><i class="fas fa-th-large"></i> Pilih Genre Anime</h2>
-        <span class="meta"><span class="dot ok"></i></span> ${GENRES.length} Genre</span>
+        <span class="meta"><span class="dot ok"></span> ${GENRES.length} Genre</span>
       </div>
       <div class="genre-list"></div>
     </section>`;
@@ -1012,7 +1013,7 @@ function renderDetailBody(m, lite=false) {
     }
     h += `</div>`;
   } else {
-    h += `<div class="eemp">Episode belum tersedia — anime ini belum tayang atau status belum diketahui.</div>`;
+    h += `<div class="eemp" style="color:var(--muted);font-size:.85rem;padding:12px 0">Episode belum tersedia — anime ini belum tayang atau status belum diketahui.</div>`;
   }
 
   // Rekomendasi
@@ -1133,4 +1134,86 @@ let searchT;
 function onSearch(e) {
   const q = e.target.value.trim();
   clearTimeout(searchT);
-  if (!q) { if (state.cat === 'search') setCat('
+  if (!q) {
+    if (state.cat === 'search') setCat('home');
+    return;
+  }
+  searchT = setTimeout(() => {
+    setCat('search', { search: q });
+  }, 400);
+}
+
+// ========== INIT & EVENT LISTENERS ==========
+function init() {
+  initTheme();
+  updateFavBadge();
+
+  // Listener Navbar & Kategori
+  $('logo').onclick = (e) => { e.preventDefault(); setCat('home'); };
+  $('btnCW').onclick = () => setCat('continue');
+  $('btnFav').onclick = () => setCat('favorites');
+  $('btnTheme').onclick = () => toggleTheme();
+
+  $('searchInput').addEventListener('input', onSearch);
+  $('searchInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      clearTimeout(searchT);
+      const q = e.target.value.trim();
+      if (q) setCat('search', { search: q });
+      else if (state.cat === 'search') setCat('home');
+    }
+  });
+
+  qsa('.cat').forEach(btn => {
+    btn.onclick = () => setCat(btn.dataset.cat);
+  });
+
+  // Modal Events
+  $('detailClose').onclick = closeDetail;
+  $('detailBg').onclick = closeDetail;
+  $('detailFav').onclick = () => {
+    if (curDetail) {
+      toggleFav(curDetail);
+      updateDetailFavBtn();
+      if (state.cat === 'favorites') renderCurrent(true);
+    }
+  };
+
+  $('playerClose').onclick = closePlayer;
+  $('playerBg').onclick = closePlayer;
+
+  $('prevEp').onclick = () => {
+    if (curPlayer.anime && curPlayer.ep > 1) {
+      openPlayer(curPlayer.anime, curPlayer.ep - 1);
+    }
+  };
+  $('nextEp').onclick = () => {
+    if (curPlayer.anime && curPlayer.total && curPlayer.ep < curPlayer.total) {
+      openPlayer(curPlayer.anime, curPlayer.ep + 1);
+    }
+  };
+
+  window.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      closePlayer();
+      closeDetail();
+    }
+  });
+
+  // Render halaman awal
+  renderCurrent();
+}
+
+// Jalankan aplikasi saat DOM siap
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
+
+})();
+</script>
+</body>
+</html>
+
+```
