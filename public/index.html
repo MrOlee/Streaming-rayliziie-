@@ -1,50 +1,49 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Streaming Anime & Drama</title>
-  <link rel="stylesheet" href="/css/style.css">
-</head>
-<body>
-  <header>
-    <h1>🎬 AnimeStreaming</h1>
-  </header>
-
-  <main>
-    <div id="anime-grid" class="grid">
-      <p class="loading">Memuat data...</p>
-    </div>
-  </main>
-
-  <script>
-    async function loadCatalog() {
-      try {
-        const res = await fetch('/api/list?page=1');
-        const result = await res.json();
-        
-        const grid = document.getElementById('anime-grid');
-        grid.innerHTML = '';
-
-        // Sesuaikan key json sesuai struktur response asli dari API indocast
-        const items = result.data || result.items || result;
-
-        items.forEach(item => {
-          const card = document.createElement('div');
-          card.className = 'card';
-          card.innerHTML = `
-            <img src="${item.cover || item.poster || '/assets/cover1.jpg'}" alt="${item.title || item.name}">
-            <h3>${item.title || item.name}</h3>
-            <a href="/watch.html?id=${item.id}&path=${item.detailPath || ''}" class="btn">Tonton</a>
-          `;
-          grid.appendChild(card);
-        });
-      } catch (err) {
-        document.getElementById('anime-grid').innerHTML = '<p>Gagal memuat katalog.</p>';
+<script>
+  async function loadCatalog() {
+    const grid = document.getElementById('anime-grid');
+    try {
+      const res = await fetch('/api/list?page=1');
+      const result = await res.json();
+      
+      // Jika terjadi error dari backend serverless
+      if (!res.ok) {
+        grid.innerHTML = `<p style="color: #ff4d4d;">Error Backend: ${result.error || res.statusText}</p>`;
+        return;
       }
-    }
 
-    loadCatalog();
-  </script>
-</body>
-</html>
+      grid.innerHTML = '';
+
+      // Menyesuaikan berbagai kemungkinan format array dari Indocast API
+      const items = result.data?.list || result.data || result.items || (Array.isArray(result) ? result : []);
+
+      if (items.length === 0) {
+        grid.innerHTML = `<p>Data tidak ditemukan atau format API berbeda.</p>`;
+        console.log("Raw Response API:", result);
+        return;
+      }
+
+      items.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        
+        // Pembacaan nama properti fleksibel
+        const title = item.title || item.name || item.bookName || 'Tanpa Judul';
+        const cover = item.cover || item.coverUrl || item.poster || item.img || '/assets/cover1.jpg';
+        const id = item.id || item.bookId || '';
+        const path = item.detailPath || item.slug || '';
+
+        card.innerHTML = `
+          <img src="${cover}" alt="${title}">
+          <h3>${title}</h3>
+          <a href="/watch.html?id=${id}&path=${encodeURIComponent(path)}" class="btn">Tonton</a>
+        `;
+        grid.appendChild(card);
+      });
+    } catch (err) {
+      console.error("Fetch Error:", err);
+      grid.innerHTML = `<p style="color: #ff4d4d;">Gagal memuat katalog: ${err.message}</p>`;
+    }
+  }
+
+  loadCatalog();
+</script>
