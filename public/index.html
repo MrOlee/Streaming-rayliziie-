@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -5,30 +6,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Streaming Anime & Drama</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
     body { background-color: #0f172a; color: #f8fafc; padding: 20px; min-height: 100vh; }
-    header { text-align: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #334155; }
-    header h1 { font-size: 24px; color: #38bdf8; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; }
-    .card { background: #1e293b; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; border: 1px solid #334155; }
-    .card img { width: 100%; height: 230px; object-fit: cover; background-color: #334155; }
-    .card-content { padding: 12px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
-    .card h3 { font-size: 14px; margin-bottom: 10px; color: #f1f5f9; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-    .btn { display: block; text-align: center; background: #0284c7; color: #ffffff; padding: 8px 12px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 13px; }
+    header { text-align: center; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid #334155; }
+    header h1 { font-size: 22px; color: #38bdf8; display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px; max-width: 1100px; margin: 0 auto; }
+    .card { background: #1e293b; border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; border: 1px solid #334155; }
+    .card img { width: 100%; height: 210px; object-fit: cover; background: #334155; }
+    .card-body { padding: 10px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; gap: 8px; }
+    .card h3 { font-size: 13px; color: #f1f5f9; line-height: 1.3; height: 34px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+    .btn { display: block; text-align: center; background: #0284c7; color: #fff; padding: 7px; border-radius: 6px; text-decoration: none; font-size: 12px; font-weight: bold; }
     .btn:hover { background: #0369a1; }
-    .status-msg { text-align: center; grid-column: 1 / -1; padding: 40px; font-size: 16px; color: #94a3b8; }
-    .error-msg { color: #f87171; }
+    .status { text-align: center; grid-column: 1 / -1; padding: 40px; color: #94a3b8; font-size: 15px; }
+    .error { color: #f87171; background: #450a0a; border: 1px solid #991b1b; padding: 15px; border-radius: 8px; margin: 20px auto; max-width: 600px; }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>🎬 Anime & Drama Streaming</h1>
+    <h1>🎬 AnimeStreaming</h1>
   </header>
 
   <main>
     <div id="anime-grid" class="grid">
-      <div class="status-msg">⏳ Memuat katalog anime...</div>
+      <div class="status">⏳ Memuat katalog anime...</div>
     </div>
   </main>
 
@@ -40,14 +41,15 @@
         const result = await res.json();
         
         if (!res.ok) {
-          grid.innerHTML = `<div class="status-msg error-msg">❌ Serverless Error (${res.status}): ${result.error || 'Gagal terhubung ke API Proxy'}</div>`;
+          grid.innerHTML = `<div class="status error">❌ Server Error (${res.status}): ${result.error || 'Gagal koneksi serverless'}<br><small>${result.raw || ''}</small></div>`;
           return;
         }
 
-        const items = result.data?.list || result.data || result.items || (Array.isArray(result) ? result : []);
+        // Tangkap array dari berbagai kemungkinan struktur JSON Indocast
+        const items = result.data?.list || result.data?.items || result.data || result.items || (Array.isArray(result) ? result : []);
 
         if (!items || items.length === 0) {
-          grid.innerHTML = `<div class="status-msg">📭 Data tidak ditemukan dari server API.</div>`;
+          grid.innerHTML = `<div class="status">📭 Data tidak ditemukan dari API.</div>`;
           return;
         }
 
@@ -63,7 +65,7 @@
 
           card.innerHTML = `
             <img src="${cover}" alt="${title}" loading="lazy" onerror="this.src='https://via.placeholder.com/200x300?text=No+Cover'">
-            <div class="card-content">
+            <div class="card-body">
               <h3>${title}</h3>
               <a href="/watch.html?id=${id}&path=${encodeURIComponent(path)}" class="btn">▶ Tonton</a>
             </div>
@@ -71,7 +73,7 @@
           grid.appendChild(card);
         });
       } catch (err) {
-        grid.innerHTML = `<div class="status-msg error-msg">⚠️ Terjadi kesalahan JavaScript: ${err.message}</div>`;
+        grid.innerHTML = `<div class="status error">⚠️ Error Client: ${err.message}</div>`;
       }
     }
 
