@@ -1,1097 +1,287 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
-<meta name="theme-color" content="#0b0f19" />
-<title>Rayliziie Anime — Sansekai API Full Features</title>
-
-<!-- Fonts & Icons -->
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Poppins:wght@400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
-
-<style>
-:root {
-  --bg-dark: #0b0f19;
-  --bg-card: #121826;
-  --bg-header: #0e1320;
-  --text-main: #ffffff;
-  --text-sub: #94a3b8;
-  --border-color: #1e293b;
-  --accent-blue: #0284c7;
-  --accent-cyan: #38bdf8;
-  --accent-orange: #ff6a00;
-  --accent-red: #dc2626;
-  --accent-green: #10b981;
-  --accent-yellow: #eab308;
-  --cinema-overlay: rgba(0, 0, 0, 0.96);
-}
-
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  font-family: 'Poppins', sans-serif;
-  background-color: var(--bg-dark);
-  color: var(--text-main);
-  line-height: 1.5;
-  min-height: 100vh;
-}
-
-a { color: inherit; text-decoration: none; }
-button { cursor: pointer; border: none; font-family: inherit; }
-
-/* NAVBAR NAVIGATION */
-.navbar {
-  background-color: var(--bg-header);
-  border-bottom: 1px solid var(--border-color);
-  padding: 12px 20px;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-.nav-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 15px;
-  flex-wrap: wrap;
-}
-.brand {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 1.35rem;
-  font-weight: 900;
-  letter-spacing: 0.5px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #ffffff;
-}
-.brand i { color: var(--accent-orange); }
-.brand span {
-  background: linear-gradient(135deg, var(--accent-orange), #ffb347);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.search-wrap {
-  flex: 1;
-  max-width: 320px;
-  position: relative;
-}
-.search-input {
-  width: 100%;
-  padding: 8px 14px 8px 38px;
-  background: #1a2234;
-  border: 1px solid var(--border-color);
-  border-radius: 6px;
-  color: #fff;
-  font-size: 0.88rem;
-  outline: none;
-  font-family: 'Poppins', sans-serif;
-}
-.search-input:focus { border-color: var(--accent-cyan); }
-.search-icon {
-  position: absolute;
-  left: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--text-sub);
-  font-size: 0.85rem;
-}
-
-/* MENU NAVIGASI KATEGORI */
-.nav-menu {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  overflow-x: auto;
-  padding-bottom: 4px;
-}
-.btn-nav-menu {
-  background: #1a2234;
-  color: var(--text-sub);
-  padding: 6px 14px;
-  border-radius: 6px;
-  font-size: 0.82rem;
-  font-weight: 600;
-  border: 1px solid var(--border-color);
-  transition: 0.2s;
-  white-space: nowrap;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.btn-nav-menu:hover, .btn-nav-menu.active {
-  background: var(--accent-blue);
-  color: #ffffff;
-  border-color: var(--accent-cyan);
-}
-
-.select-genre-box {
-  background: #1a2234;
-  color: #fff;
-  border: 1px solid var(--border-color);
-  padding: 6px 10px;
-  border-radius: 6px;
-  font-size: 0.82rem;
-  font-family: inherit;
-  outline: none;
-}
-
-.container {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 20px 15px;
-}
-
-/* KATALOG GRID ANIME */
-.catalog-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 14px;
-  margin-top: 15px;
-}
-.anime-card {
-  background: var(--bg-card);
-  border-radius: 8px;
-  overflow: hidden;
-  border: 1px solid var(--border-color);
-  transition: transform 0.2s, border-color 0.2s;
-  cursor: pointer;
-  position: relative;
-}
-.anime-card:hover { transform: translateY(-4px); border-color: var(--accent-cyan); }
-.anime-card img { width: 100%; aspect-ratio: 2/3; object-fit: cover; display: block; background: #1e293b; }
-.anime-card .badge-ep {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  background: rgba(2, 132, 199, 0.9);
-  color: #fff;
-  font-size: 0.65rem;
-  font-weight: 700;
-  padding: 2px 7px;
-  border-radius: 4px;
-}
-.anime-card .p-info { padding: 8px 10px; }
-.anime-card .p-title { font-size: 0.82rem; font-weight: 600; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-
-/* RIWAYAT & FAVORIT LIST */
-.user-data-section {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  padding: 16px;
-  margin-bottom: 20px;
-}
-.user-data-section h3 {
-  font-size: 1rem;
-  color: var(--accent-cyan);
-  margin-bottom: 12px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.history-list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.history-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #0f172a;
-  padding: 10px 14px;
-  border-radius: 6px;
-  border: 1px solid var(--border-color);
-  gap: 10px;
-}
-.history-item .info { font-size: 0.85rem; }
-.history-item .info strong { display: block; color: #fff; }
-.history-item .info span { font-size: 0.75rem; color: var(--text-sub); }
-.history-item .btn-play-history {
-  background: var(--accent-blue);
-  color: #fff;
-  padding: 6px 12px;
-  border-radius: 4px;
-  font-size: 0.78rem;
-  font-weight: 600;
-}
-
-/* TAMPILAN PLAYER */
-.player-page { display: none; }
-.player-page.active { display: block; }
-
-.ep-header-title {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #ffffff;
-  margin-bottom: 8px;
-  border-bottom: 2px solid var(--border-color);
-  padding-bottom: 8px;
-  line-height: 1.35;
-}
-
-.post-meta {
-  font-size: 0.81rem;
-  color: var(--text-sub);
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 15px;
-  flex-wrap: wrap;
-}
-.post-meta span { display: flex; align-items: center; gap: 6px; }
-
-.btn-bookmark-action {
-  background: #1a2234;
-  color: var(--accent-yellow);
-  border: 1px solid var(--accent-yellow);
-  padding: 6px 14px;
-  border-radius: 4px;
-  font-size: 0.8rem;
-  font-weight: 700;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  cursor: pointer;
-  transition: 0.2s;
-}
-.btn-bookmark-action:hover {
-  background: var(--accent-yellow);
-  color: #000;
-}
-
-/* DROPDOWN SELECTOR EPISODE */
-.ep-select-box {
-  width: 100%;
-  padding: 10px 12px;
-  background-color: #0f172a;
-  border: 1px solid var(--accent-blue);
-  color: #e2e8f0;
-  border-radius: 4px;
-  font-size: 0.88rem;
-  outline: none;
-  margin-bottom: 12px;
-  font-family: 'Poppins', sans-serif;
-}
-
-/* TOMBOL NAVIGASI EPISODE */
-.ep-nav-buttons {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 15px;
-}
-.btn-nav-ep {
-  background: #0f172a;
-  border: 1px solid var(--accent-blue);
-  color: #38bdf8;
-  padding: 8px 16px;
-  font-size: 0.85rem;
-  font-weight: 700;
-  border-radius: 4px;
-  transition: 0.2s;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-.btn-nav-ep:hover {
-  background: var(--accent-blue);
-  color: #ffffff;
-}
-.btn-nav-ep:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
-  pointer-events: none;
-  border-color: var(--border-color);
-  color: var(--text-sub);
-}
-
-/* CONTAINER VIDEO PLAYER UTAMA */
-.video-container-wrap {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 16/9;
-  background: #000000;
-  border: 1px solid var(--border-color);
-  margin-bottom: 8px;
-  z-index: 10;
-  overflow: hidden;
-  border-radius: 6px;
-}
-.video-container-wrap iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
-  display: block;
-}
-
-.player-loading-overlay {
-  position: absolute;
-  inset: 0;
-  background: #020617;
-  color: #ffffff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  z-index: 5;
-  font-size: 0.9rem;
-}
-.player-loading-overlay i { font-size: 2.2rem; color: var(--accent-cyan); animation: spin 1s linear infinite; }
-@keyframes spin { to { transform: rotate(360deg); } }
-
-.player-error-overlay {
-  position: absolute;
-  inset: 0;
-  background: #0f172a;
-  color: #ffffff;
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  z-index: 25;
-  padding: 20px;
-  text-align: center;
-}
-.player-error-overlay i { font-size: 2.5rem; color: #f87171; }
-.btn-retry-server {
-  background: var(--accent-blue);
-  color: #fff;
-  padding: 8px 18px;
-  border-radius: 4px;
-  font-weight: 700;
-  font-size: 0.85rem;
-}
-
-/* CINEMA OVERLAY MODE */
-.cinema-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: var(--cinema-overlay);
-  z-index: 99;
-}
-body.cinema-active .cinema-overlay { display: block; }
-body.cinema-active .video-container-wrap { z-index: 1000; box-shadow: 0 0 60px rgba(0,0,0,1); }
-
-.cinema-toggle-bar {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 14px;
-  position: relative;
-  z-index: 100;
-}
-.btn-cinema {
-  background: var(--accent-red);
-  color: #ffffff;
-  font-weight: 800;
-  font-size: 0.75rem;
-  padding: 6px 14px;
-  border-radius: 3px;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-}
-
-/* RESOLUSI TABS */
-.mirror-servers-bar {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
-}
-.btn-mirror {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 16px;
-  font-size: 0.85rem;
-  font-weight: 700;
-  border-radius: 4px;
-  color: #ffffff;
-  transition: 0.2s;
-}
-.btn-mirror.res-main { background: var(--accent-green); }
-.btn-mirror.res-720 { background: var(--accent-red); }
-.btn-mirror.res-480 { background: var(--accent-blue); }
-.btn-mirror.res-360 { background: #334155; }
-.btn-mirror:hover { filter: brightness(1.15); }
-.btn-mirror.active { outline: 2px solid #ffffff; outline-offset: 1px; }
-
-/* DAFTAR EPISODE GRID */
-.ep-list-grid {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  padding: 15px;
-  border-radius: 6px;
-  margin-top: 25px;
-}
-.ep-list-grid h3 {
-  font-size: 1rem;
-  margin-bottom: 12px;
-  color: #38bdf8;
-  border-bottom: 1px dashed var(--border-color);
-  padding-bottom: 6px;
-}
-.ep-buttons {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-  gap: 8px;
-}
-.ep-btn-item {
-  background: #0f172a;
-  border: 1px solid var(--border-color);
-  color: #ffffff;
-  padding: 8px;
-  font-size: 0.8rem;
-  font-weight: 700;
-  border-radius: 4px;
-  text-align: center;
-}
-.ep-btn-item:hover, .ep-btn-item.active {
-  background: var(--accent-blue);
-  border-color: var(--accent-blue);
-}
-
-.back-btn-bar {
-  margin-bottom: 12px;
-}
-.btn-back {
-  background: #1e293b;
-  color: #ffffff;
-  padding: 6px 14px;
-  border-radius: 4px;
-  font-size: 0.8rem;
-  transition: 0.2s;
-}
-.btn-back:hover { background: #334155; }
-
-@media(max-width: 600px) {
-  .post-meta { flex-direction: column; align-items: flex-start; gap: 4px; }
-  .ep-nav-buttons { flex-wrap: wrap; }
-  .btn-nav-ep { flex: 1; text-align: center; justify-content: center; }
-  .search-wrap { max-width: 100%; order: 3; flex-basis: 100%; }
-}
-</style>
-</head>
-<body>
-
-<div class="cinema-overlay" id="cinemaOverlay"></div>
-
-<!-- NAVBAR TOP -->
-<div class="navbar">
-  <div class="nav-inner">
-    <a href="#" class="brand" id="navHome">
-      <i class="fas fa-play-circle"></i>
-      <span>Rayliziie Anime</span>
-    </a>
-
-    <!-- MENU KATEGORI -->
-    <div class="nav-menu">
-      <button class="btn-nav-menu active" id="btnTabOngoing"><i class="fas fa-fire"></i> Ongoing</button>
-      <button class="btn-nav-menu" id="btnTabCompleted"><i class="fas fa-check-circle"></i> Tamat</button>
-      <select class="select-genre-box" id="selectGenre">
-        <option value="">Pilih Genre...</option>
-      </select>
-      <button class="btn-nav-menu" id="btnTabUser"><i class="fas fa-bookmark"></i> Favorit & Riwayat</button>
-    </div>
-
-    <!-- PENCARIAN -->
-    <div class="search-wrap">
-      <i class="fas fa-search search-icon"></i>
-      <input type="text" id="searchInput" class="search-input" placeholder="Cari anime..." />
-    </div>
-  </div>
-</div>
-
-<div class="container">
-
-  <!-- KATALOG UTAMA -->
-  <div id="catalogPage">
-    <h2 style="font-size: 1.15rem; color: #fff; margin-bottom: 12px;" id="catalogTitle"><i class="fas fa-fire" style="color: #ef4444;"></i> Ongoing Anime</h2>
-    
-    <!-- DAFTAR KATALOG -->
-    <div class="catalog-grid" id="catalogGrid"></div>
-  </div>
-
-  <!-- KATALOG USER DATA (RIWAYAT & FAVORIT) -->
-  <div id="userPage" style="display:none;">
-    <div class="user-data-section">
-      <h3><i class="fas fa-history"></i> Riwayat Terakhir Ditonton</h3>
-      <div class="history-list" id="historyContainer">
-        <p style="color: var(--text-sub); font-size: 0.85rem;">Belum ada riwayat tontonan.</p>
-      </div>
-    </div>
-
-    <div class="user-data-section">
-      <h3><i class="fas fa-star" style="color: var(--accent-yellow);"></i> Anime Favorit Saya</h3>
-      <div class="catalog-grid" id="bookmarkGrid">
-        <p style="color: var(--text-sub); font-size: 0.85rem;">Belum ada anime favorit disimpan.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- TAMPILAN PLAYER -->
-  <div class="player-page" id="playerPage">
-    <div class="back-btn-bar" style="display: flex; justify-content: space-between; align-items: center;">
-      <button class="btn-back" id="btnBackCatalog"><i class="fas fa-arrow-left"></i> Kembali</button>
-      <button class="btn-bookmark-action" id="btnBookmark"><i class="far fa-star"></i> Simpan Favorit</button>
-    </div>
-
-    <!-- JUDUL LENGKAP -->
-    <h1 class="ep-header-title" id="epHeaderTitle">Judul Anime Episode Subtitle Indonesia</h1>
-
-    <!-- META INFO POSTING -->
-    <div class="post-meta">
-      <span><i class="fas fa-user"></i> Posted by rayliziie</span>
-      <span><i class="fas fa-server"></i> API: api.sansekai.my.id/anime</span>
-      <span><i class="fas fa-eye"></i> Subtitle Indonesia</span>
-    </div>
-
-    <!-- DROPDOWN SELECTOR EPISODE -->
-    <select class="ep-select-box" id="selectEpisode">
-      <option value="">Pilih Episode Lainnya</option>
-    </select>
-
-    <!-- TOMBOL PREVIOUS / SEE ALL / NEXT -->
-    <div class="ep-nav-buttons">
-      <button class="btn-nav-ep" id="btnPrevEp"><i class="fas fa-chevron-left"></i> Previous Eps.</button>
-      <button class="btn-nav-ep" id="btnAllEp"><i class="fas fa-list"></i> See All Episodes</button>
-      <button class="btn-nav-ep" id="btnNextEp">Next Eps. <i class="fas fa-chevron-right"></i></button>
-    </div>
-
-    <!-- WADAH VIDEO PLAYER EMBED -->
-    <div class="video-container-wrap" id="videoBox">
-      <div class="player-loading-overlay" id="playerLoader" style="display:none;">
-        <i class="fas fa-sync-alt"></i>
-        <span>Memuat Video Player...</span>
-      </div>
-
-      <div class="player-error-overlay" id="playerError">
-        <i class="fas fa-exclamation-circle"></i>
-        <p id="errorMsg">Gagal memuat video player.</p>
-        <button class="btn-retry-server" id="btnRetry"><i class="fas fa-redo"></i> Coba Lagi</button>
-      </div>
-
-      <iframe id="iframePlayer" src="about:blank" allowfullscreen allow="autoplay; encrypted-media" referrerpolicy="no-referrer"></iframe>
-    </div>
-
-    <!-- CINEMA MODE TOGGLE -->
-    <div class="cinema-toggle-bar">
-      <button class="btn-cinema" id="btnCinema">CINEMA OFF</button>
-    </div>
-
-    <!-- MIRROR RESOLUSI TABS -->
-    <div class="mirror-servers-bar" id="mirrorServersBar">
-      <button class="btn-mirror res-main active" data-res="main"><i class="fas fa-play-circle"></i> Server Utama</button>
-      <button class="btn-mirror res-720" data-res="720"><i class="fas fa-desktop"></i> Mirror 720p</button>
-      <button class="btn-mirror res-480" data-res="480"><i class="fas fa-desktop"></i> Mirror 480p</button>
-      <button class="btn-mirror res-360" data-res="360"><i class="fas fa-desktop"></i> Mirror 360p</button>
-    </div>
-
-    <!-- DAFTAR EPISODE GRID -->
-    <div class="ep-list-grid" id="epListGrid">
-      <h3>Daftar Episode</h3>
-      <div class="ep-buttons" id="epButtonsContainer"></div>
-    </div>
-  </div>
-
-</div>
-
-<script>
-(function(){
-  'use strict';
-
-  const SANSEKAI_BASE = 'https://api.sansekai.my.id/anime';
-
-  // STATE APLIKASI
-  let currentAnimeSlug = '';
-  let currentAnimeTitle = '';
-  let currentAnimePoster = '';
-  let currentEpisodeData = null;
-  let currentEpEndpoint = '';
-  let currentRes = 'main';
-  let isCinemaOn = false;
-
-  const $ = id => document.getElementById(id);
-
-  // LOCAL STORAGE MANAGERS
-  const Storage = {
-    getHistory: () => {
-      try { return JSON.parse(localStorage.getItem('rayliziie_history') || '[]'); } catch(e) { return []; }
-    },
-    saveHistory: (item) => {
-      try {
-        let list = Storage.getHistory().filter(h => h.epEndpoint !== item.epEndpoint);
-        list.unshift(item);
-        if (list.length > 10) list = list.slice(0, 10); // Simpan 10 riwayat terakhir
-        localStorage.setItem('rayliziie_history', JSON.stringify(list));
-      } catch(e) {}
-    },
-    getBookmarks: () => {
-      try { return JSON.parse(localStorage.getItem('rayliziie_bookmarks') || '[]'); } catch(e) { return []; }
-    },
-    toggleBookmark: (anime) => {
-      try {
-        let list = Storage.getBookmarks();
-        const index = list.findIndex(b => b.endpoint === anime.endpoint);
-        if (index > -1) {
-          list.splice(index, 1);
-          localStorage.setItem('rayliziie_bookmarks', JSON.stringify(list));
-          return false;
-        } else {
-          list.unshift(anime);
-          localStorage.setItem('rayliziie_bookmarks', JSON.stringify(list));
-          return true;
-        }
-      } catch(e) { return false; }
-    },
-    isBookmarked: (endpoint) => {
-      return Storage.getBookmarks().some(b => b.endpoint === endpoint);
-    }
-  };
-
-  // UNIVERSAL CORS PROXY ROUTER
-  async function fetchSansekaiApi(path) {
-    const cleanPath = path.startsWith('/') ? path : '/' + path;
-    const targetUrl = SANSEKAI_BASE + cleanPath;
-
-    const proxyPipeline = [
-      targetUrl,
-      `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`,
-      `https://corsproxy.io/?${encodeURIComponent(targetUrl)}`,
-      `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(targetUrl)}`
-    ];
-
-    for (const url of proxyPipeline) {
-      try {
-        const controller = new AbortController();
-        const timer = setTimeout(() => controller.abort(), 6000);
-        const res = await fetch(url, { signal: controller.signal });
-        clearTimeout(timer);
-
-        if (res.ok) {
-          const text = await res.text();
-          try {
-            const json = JSON.parse(text);
-            if (json && (json.status === 'success' || json.status === true || json.data || Array.isArray(json))) {
-              return json;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>rayliziie nime - Nonton Anime Sub Indo</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                            700: '#6d28d9',
+                        }
+                    }
+                }
             }
-          } catch (err) {}
         }
-      } catch (err) {}
-    }
-    throw new Error('API Sansekai tidak merespons');
-  }
+    </script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans">
 
-  function makeSlug(str) {
-    return (str || '').toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
-  }
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+            <!-- Logo -->
+            <a href="#" onclick="showHome()" class="flex items-center gap-2 font-bold text-xl sm:text-2xl tracking-wider text-white">
+                <span class="text-brand-500"><i class="fa-solid fa-play-circle"></i> rayliziie</span>
+                <span class="text-slate-300">nime</span>
+            </a>
 
-  function syncActiveEpisodeUI(epEndpoint) {
-    const select = $('selectEpisode');
-    if (select) select.value = epEndpoint;
+            <!-- Search Bar -->
+            <div class="flex-1 max-w-md">
+                <div class="relative">
+                    <input 
+                        type="text" 
+                        id="searchInput"
+                        placeholder="Cari anime..." 
+                        onkeypress="handleSearch(event)"
+                        class="w-full bg-slate-800 border border-slate-700 rounded-full py-2 pl-4 pr-10 text-sm focus:outline-none focus:border-brand-500 transition-colors placeholder-slate-400"
+                    />
+                    <button onclick="executeSearch()" class="absolute right-3 top-2.5 text-slate-400 hover:text-white">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
 
-    document.querySelectorAll('.ep-btn-item').forEach(btn => {
-      if (btn.dataset.endpoint === epEndpoint) {
-        btn.classList.add('active');
-      } else {
-        btn.classList.remove('active');
-      }
-    });
-  }
+    <!-- Main Container -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        
+        <!-- Hero / Alert Banner -->
+        <div class="bg-gradient-to-r from-brand-700 to-indigo-900 rounded-2xl p-6 sm:p-8 mb-8 shadow-lg shadow-brand-500/10">
+            <h1 class="text-2xl sm:text-4xl font-extrabold mb-2 text-white">Selamat Datang di rayliziie nime</h1>
+            <p class="text-slate-200 text-sm sm:text-base">Streaming anime subtitle Indonesia gratis dan terupdate setiap hari.</p>
+        </div>
 
-  // LOAD DAFTAR GENRE KE DROPDOWN
-  async function loadGenresList() {
-    try {
-      const res = await fetchSansekaiApi('/genre');
-      const genres = res?.data || res?.genre || res?.result || [];
-      const select = $('selectGenre');
-      select.innerHTML = '<option value="">Pilih Genre...</option>';
+        <!-- Section Title -->
+        <div class="flex items-center justify-between mb-6">
+            <h2 id="sectionTitle" class="text-xl font-bold flex items-center gap-2">
+                <i class="fa-solid fa-fire text-brand-500"></i> Anime Terbaru
+            </h2>
+            <button id="backBtn" onclick="showHome()" class="hidden text-sm text-brand-500 hover:underline">
+                <i class="fa-solid fa-arrow-left mr-1"></i> Kembali ke Beranda
+            </button>
+        </div>
 
-      if (Array.isArray(genres)) {
-        genres.forEach(g => {
-          const opt = document.createElement('option');
-          opt.value = g.endpoint || g.slug || makeSlug(g.name || g.genre);
-          opt.textContent = g.name || g.genre || 'Genre';
-          select.appendChild(opt);
-        });
-      }
-    } catch(e) {}
-  }
+        <!-- Loading State -->
+        <div id="loading" class="flex flex-col justify-center items-center py-20 gap-3">
+            <div class="animate-spin rounded-full h-12 w-12 border-4 border-brand-500 border-t-transparent"></div>
+            <p class="text-slate-400 text-sm">Memuat data dari server...</p>
+        </div>
 
-  // PEMUATAN KATALOG ANIME (ONGOING, TAMAT, GENRE, SEARCH)
-  async function loadCatalog(type = 'ongoing', query = '') {
-    showView('catalog');
-    $('catalogGrid').innerHTML = '<p style="color:#a0a0a0;">Memuat anime dari Sansekai API...</p>';
-    
-    try {
-      let endpoint = '/latest';
-      if (type === 'search') endpoint = `/search?q=${encodeURIComponent(query)}`;
-      else if (type === 'completed') endpoint = '/completed';
-      else if (type === 'genre') endpoint = `/genre/${query}`;
+        <!-- Content Area: Anime Grid -->
+        <div id="animeGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 sm:gap-6 hidden">
+            <!-- Card items will be inserted dynamically by JS -->
+        </div>
 
-      let res;
-      try {
-        res = await fetchSansekaiApi(endpoint);
-      } catch(err) {
-        if (type === 'ongoing') res = await fetchSansekaiApi('/ongoing');
-        else throw err;
-      }
-      
-      let items = res?.data || res?.latest || res?.completed || res?.ongoing || res?.result || (Array.isArray(res) ? res : []);
-      if (!Array.isArray(items)) items = [];
+        <!-- Content Area: Player & Detail View -->
+        <div id="detailView" class="hidden space-y-6">
+            <!-- Video Player -->
+            <div class="bg-black rounded-xl overflow-hidden aspect-video shadow-2xl border border-slate-800 relative">
+                <iframe id="videoPlayer" class="w-full h-full" src="" frameborder="0" allowfullscreen></iframe>
+            </div>
 
-      $('catalogGrid').innerHTML = '';
-      if (items.length === 0) {
-        $('catalogGrid').innerHTML = '<p style="color:#a0a0a0;">Anime tidak ditemukan.</p>';
-        return;
-      }
+            <!-- Detail Info -->
+            <div class="bg-slate-900 rounded-xl p-6 border border-slate-800">
+                <h2 id="animeTitle" class="text-2xl font-bold mb-2">Title Placeholder</h2>
+                <p id="animeSynopsis" class="text-slate-400 text-sm leading-relaxed mb-4">Synopsis goes here...</p>
 
-      items.forEach(item => {
-        const card = document.createElement('div');
-        card.className = 'anime-card';
-        const title = item.title || item.name || 'Anime';
-        const poster = item.thumb || item.poster || item.cover || 'https://via.placeholder.com/300x450?text=No+Cover';
-        const ep = item.total_episode || item.episode || '';
-        const endpointStr = item.endpoint || item.id || makeSlug(title);
+                <!-- Episode List -->
+                <h3 class="text-lg font-bold mb-3 border-b border-slate-800 pb-2">Daftar Episode</h3>
+                <div id="episodeList" class="flex flex-wrap gap-2 max-h-60 overflow-y-auto pr-2">
+                    <!-- Episodes dynamic list -->
+                </div>
+            </div>
+        </div>
+    </main>
 
-        card.innerHTML = `
-          <img src="${poster}" alt="${title}" loading="lazy" onerror="this.src='https://via.placeholder.com/300x450?text=No+Cover'" />
-          ${ep ? `<span class="badge-ep">Eps ${ep}</span>` : ''}
-          <div class="p-info">
-            <div class="p-title">${title}</div>
-          </div>
-        `;
-        card.onclick = () => openAnimeDetail(endpointStr, title, poster);
-        $('catalogGrid').appendChild(card);
-      });
-    } catch (e) {
-      $('catalogGrid').innerHTML = `<p style="color:#f87171;">Gagal mengambil data Sansekai API (${e.message}). Coba refresh halaman.</p>`;
-    }
-  }
+    <!-- Footer -->
+    <footer class="bg-slate-900 border-t border-slate-800 py-6 mt-12 text-center text-slate-500 text-sm">
+        <p>© 2026 <strong class="text-slate-300">rayliziie nime</strong>. API Powered by Indocast.</p>
+    </footer>
 
-  // TAMPILAN FAVORIT & RIWAYAT USER
-  function loadUserDataView() {
-    showView('user');
+    <!-- JavaScript Logic -->
+    <script>
+        const API_BASE = 'https://indocast.site/animekompi';
 
-    // Load History
-    const history = Storage.getHistory();
-    const historyBox = $('historyContainer');
-    historyBox.innerHTML = '';
+        const loading = document.getElementById('loading');
+        const animeGrid = document.getElementById('animeGrid');
+        const detailView = document.getElementById('detailView');
+        const sectionTitle = document.getElementById('sectionTitle');
+        const backBtn = document.getElementById('backBtn');
 
-    if (history.length === 0) {
-      historyBox.innerHTML = '<p style="color: var(--text-sub); font-size: 0.85rem;">Belum ada riwayat tontonan.</p>';
-    } else {
-      history.forEach(h => {
-        const item = document.createElement('div');
-        item.className = 'history-item';
-        item.innerHTML = `
-          <div class="info">
-            <strong>${h.animeTitle}</strong>
-            <span>${h.epTitle}</span>
-          </div>
-          <button class="btn-play-history"><i class="fas fa-play"></i> Tonton</button>
-        `;
-        item.querySelector('.btn-play-history').onclick = () => {
-          openAnimeDetail(h.animeEndpoint, h.animeTitle, h.poster).then(() => {
-            loadEpisodeStream(h.epEndpoint, h.animeSlug);
-          });
-        };
-        historyBox.appendChild(item);
-      });
-    }
-
-    // Load Bookmarks
-    const bookmarks = Storage.getBookmarks();
-    const bookmarkGrid = $('bookmarkGrid');
-    bookmarkGrid.innerHTML = '';
-
-    if (bookmarks.length === 0) {
-      bookmarkGrid.innerHTML = '<p style="color: var(--text-sub); font-size: 0.85rem;">Belum ada anime favorit disimpan.</p>';
-    } else {
-      bookmarks.forEach(b => {
-        const card = document.createElement('div');
-        card.className = 'anime-card';
-        card.innerHTML = `
-          <img src="${b.poster}" alt="${b.title}" loading="lazy" />
-          <div class="p-info">
-            <div class="p-title">${b.title}</div>
-          </div>
-        `;
-        card.onclick = () => openAnimeDetail(b.endpoint, b.title, b.poster);
-        bookmarkGrid.appendChild(card);
-      });
-    }
-  }
-
-  // MEMUAT STREAM EPISODE & MIRROR RESOLUSI
-  async function loadEpisodeStream(epEndpoint, fallbackSlug = '') {
-    currentEpEndpoint = epEndpoint;
-    syncActiveEpisodeUI(epEndpoint);
-
-    const loader = $('playerLoader');
-    const iframeEl = $('iframePlayer');
-    const errorBox = $('playerError');
-
-    errorBox.style.display = 'none';
-    loader.style.display = 'flex';
-
-    try {
-      const res = await fetchSansekaiApi(`/episode/${epEndpoint}`);
-      const data = res?.data || res?.result || res || {};
-      currentEpisodeData = data;
-
-      const title = data.title || 'Episode Anime';
-      $('epHeaderTitle').textContent = `${title} Subtitle Indonesia`;
-
-      // Simpan ke Riwayat
-      Storage.saveHistory({
-        animeTitle: currentAnimeTitle,
-        animeEndpoint: currentAnimeSlug,
-        animeSlug: fallbackSlug,
-        epTitle: title,
-        epEndpoint: epEndpoint,
-        poster: currentAnimePoster
-      });
-
-      const mainStream = data.stream_url || data.embed_url || data.iframe_url || data.stream_link || '';
-      const mirrors = data.mirror_embed || data.mirrorEmbed || {};
-      
-      const streamMap = {
-        'main': mainStream || mirrors.m720p || mirrors.st720 || mirrors.m480p || mirrors.st480 || mirrors.m360p || mirrors.st360,
-        '720': mirrors.m720p || mirrors.st720 || mirrors['720p'] || mainStream,
-        '480': mirrors.m480p || mirrors.st480 || mirrors['480p'] || mainStream,
-        '360': mirrors.m360p || mirrors.st360 || mirrors['360p'] || mainStream
-      };
-
-      let targetUrl = streamMap[currentRes] || mainStream;
-
-      if (!targetUrl || targetUrl === 'about:blank') {
-        const slug = fallbackSlug || makeSlug(title);
-        targetUrl = `https://embtaku.pro/embedplus?id=${slug}&server=1`;
-      }
-
-      iframeEl.src = targetUrl;
-
-      let isLoaded = false;
-      iframeEl.onload = () => {
-        isLoaded = true;
-        loader.style.display = 'none';
-      };
-      setTimeout(() => {
-        if (!isLoaded) loader.style.display = 'none';
-      }, 2000);
-
-      $('btnPrevEp').disabled = !data.has_prev && !data.prev_endpoint;
-      $('btnNextEp').disabled = !data.has_next && !data.next_endpoint;
-
-    } catch (e) {
-      const slug = fallbackSlug || makeSlug(epEndpoint);
-      iframeEl.src = `https://embtaku.pro/embedplus?id=${slug}&server=1`;
-      setTimeout(() => { loader.style.display = 'none'; }, 1000);
-    }
-  }
-
-  // BUKA HALAMAN DETAIL ANIME & DAFTAR EPISODE
-  async function openAnimeDetail(animeEndpoint, defaultTitle, poster = '') {
-    currentAnimeSlug = animeEndpoint;
-    currentAnimeTitle = defaultTitle;
-    currentAnimePoster = poster;
-
-    updateBookmarkButtonState();
-    showView('player');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-
-    $('epHeaderTitle').textContent = `${defaultTitle} Subtitle Indonesia`;
-    $('playerLoader').style.display = 'flex';
-
-    try {
-      const res = await fetchSansekaiApi(`/detail/${animeEndpoint}`);
-      const data = res?.data || res?.result || res || {};
-
-      const epList = data.episode_list || data.episodes || data.list_episode || [];
-
-      const select = $('selectEpisode');
-      select.innerHTML = '<option value="">Pilih Episode Lainnya</option>';
-      
-      const btnContainer = $('epButtonsContainer');
-      btnContainer.innerHTML = '';
-
-      if (epList.length > 0) {
-        epList.forEach((ep, idx) => {
-          const epTitle = ep.title || ep.name || `Episode ${idx + 1}`;
-          const epEpStr = ep.endpoint || ep.id || '';
-
-          const opt = document.createElement('option');
-          opt.value = epEpStr;
-          opt.textContent = epTitle;
-          select.appendChild(opt);
-
-          const btn = document.createElement('button');
-          btn.className = `ep-btn-item ${idx === 0 ? 'active' : ''}`;
-          btn.dataset.endpoint = epEpStr;
-          btn.textContent = `Eps ${idx + 1}`;
-          btn.onclick = () => loadEpisodeStream(epEpStr, currentAnimeSlug);
-          btnContainer.appendChild(btn);
+        // Fetch Data Awal saat website dibuka
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchLatestAnime();
         });
 
-        const firstEp = epList[0].endpoint || epList[0].id || '';
-        await loadEpisodeStream(firstEp, currentAnimeSlug);
-      } else {
-        await loadEpisodeStream(animeEndpoint, currentAnimeSlug);
-      }
+        // 1. Ambil Anime Terbaru / Beranda
+        async function fetchLatestAnime() {
+            showLoading();
+            try {
+                const response = await fetch(`${API_BASE}`);
+                const data = await response.json();
+                
+                // Menyesuaikan struktur JSON dari endpoint
+                const animeList = Array.isArray(data) ? data : (data.data || data.results || []);
+                renderGrid(animeList);
+            } catch (error) {
+                console.error('Gagal mengambil data:', error);
+                animeGrid.innerHTML = `<p class="col-span-full text-center text-red-400 py-10">Gagal memuat data dari API. Silakan coba lagi nanti.</p>`;
+                hideLoading();
+            }
+        }
 
-    } catch (e) {
-      await loadEpisodeStream(animeEndpoint, currentAnimeSlug);
-    }
-  }
+        // 2. Render List Card Anime
+        function renderGrid(list) {
+            animeGrid.innerHTML = '';
+            
+            if (!list || list.length === 0) {
+                animeGrid.innerHTML = `<p class="col-span-full text-center text-slate-400 py-10">Anime tidak ditemukan.</p>`;
+                hideLoading();
+                return;
+            }
 
-  function updateBookmarkButtonState() {
-    const isBookmarked = Storage.isBookmarked(currentAnimeSlug);
-    const btn = $('btnBookmark');
-    btn.innerHTML = isBookmarked ? '<i class="fas fa-star"></i> Tersimpan' : '<i class="far fa-star"></i> Simpan Favorit';
-  }
+            list.forEach(item => {
+                // Handling fleksibel untuk property nama/gambar/endpoint
+                const title = item.title || item.name || 'Judul Tidak Tersedia';
+                const image = item.thumb || item.image || item.poster || 'https://via.placeholder.com/300x400?text=No+Cover';
+                const endpoint = item.endpoint || item.slug || item.id || '';
+                const episode = item.episode || item.latest_episode || '';
 
-  // SWITCH PAGE VIEWS
-  function showView(viewName) {
-    $('catalogPage').style.display = viewName === 'catalog' ? 'block' : 'none';
-    $('userPage').style.display = viewName === 'user' ? 'block' : 'none';
-    $('playerPage').classList.toggle('active', viewName === 'player');
+                const card = document.createElement('div');
+                card.className = 'bg-slate-900 rounded-xl overflow-hidden border border-slate-800 hover:border-brand-500 transition-all duration-300 hover:-translate-y-1 group cursor-pointer flex flex-col';
+                card.onclick = () => loadDetail(endpoint);
 
-    if (viewName !== 'player') {
-      $('iframePlayer').src = 'about:blank';
-    }
-  }
+                card.innerHTML = `
+                    <div class="relative aspect-[3/4] overflow-hidden bg-slate-800">
+                        <img src="${image}" alt="${title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
+                        ${episode ? `<span class="absolute top-2 right-2 bg-brand-600 text-xs text-white font-bold px-2 py-1 rounded-md shadow">${episode}</span>` : ''}
+                    </div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <h3 class="font-semibold text-sm text-slate-200 line-clamp-2 group-hover:text-brand-500 transition-colors">${title}</h3>
+                    </div>
+                `;
+                animeGrid.appendChild(card);
+            });
 
-  function setActiveNavBtn(btnId) {
-    document.querySelectorAll('.btn-nav-menu').forEach(b => b.classList.remove('active'));
-    if (btnId) $(btnId).classList.add('active');
-  }
+            hideLoading();
+        }
 
-  // EVENT LISTENERS MENU
-  $('btnTabOngoing').onclick = () => {
-    setActiveNavBtn('btnTabOngoing');
-    $('catalogTitle').innerHTML = `<i class="fas fa-fire" style="color: #ef4444;"></i> Ongoing Anime`;
-    loadCatalog('ongoing');
-  };
+        // 3. Pencarian Anime
+        async function executeSearch() {
+            const query = document.getElementById('searchInput').value.trim();
+            if (!query) return;
 
-  $('btnTabCompleted').onclick = () => {
-    setActiveNavBtn('btnTabCompleted');
-    $('catalogTitle').innerHTML = `<i class="fas fa-check-circle" style="color: var(--accent-green);"></i> Anime Tamat (Completed)`;
-    loadCatalog('completed');
-  };
+            showLoading();
+            sectionTitle.innerHTML = `<i class="fa-solid fa-magnifying-glass text-brand-500"></i> Hasil Pencarian: "${query}"`;
+            backBtn.classList.remove('hidden');
 
-  $('btnTabUser').onclick = () => {
-    setActiveNavBtn('btnTabUser');
-    loadUserDataView();
-  };
+            try {
+                const response = await fetch(`${API_BASE}/search?q=${encodeURIComponent(query)}`);
+                const data = await response.json();
+                const searchResults = Array.isArray(data) ? data : (data.data || data.results || []);
+                renderGrid(searchResults);
+            } catch (error) {
+                console.error('Error saat pencarian:', error);
+                animeGrid.innerHTML = `<p class="col-span-full text-center text-red-400 py-10">Pencarian gagal dilakukan.</p>`;
+                hideLoading();
+            }
+        }
 
-  $('selectGenre').onchange = (e) => {
-    const genreSlug = e.target.value;
-    if (genreSlug) {
-      setActiveNavBtn('');
-      const genreName = e.target.options[e.target.selectedIndex].text;
-      $('catalogTitle').innerHTML = `<i class="fas fa-filter" style="color: var(--accent-cyan);"></i> Genre: ${genreName}`;
-      loadCatalog('genre', genreSlug);
-    }
-  };
+        function handleSearch(e) {
+            if (e.key === 'Enter') {
+                executeSearch();
+            }
+        }
 
-  $('btnBookmark').onclick = () => {
-    Storage.toggleBookmark({
-      title: currentAnimeTitle,
-      endpoint: currentAnimeSlug,
-      poster: currentAnimePoster
-    });
-    updateBookmarkButtonState();
-  };
+        // 4. Load Detail Anime & Stream Player
+        async function loadDetail(endpoint) {
+            if (!endpoint) return;
+            showLoading();
 
-  $('btnRetry').onclick = () => {
-    if (currentEpEndpoint) loadEpisodeStream(currentEpEndpoint, currentAnimeSlug);
-  };
+            try {
+                const response = await fetch(`${API_BASE}/detail/${endpoint}`);
+                const data = await response.json();
+                const anime = data.data || data;
 
-  $('selectEpisode').addEventListener('change', (e) => {
-    const epEpStr = e.target.value;
-    if (epEpStr) loadEpisodeStream(epEpStr, currentAnimeSlug);
-  });
+                document.getElementById('animeTitle').textContent = anime.title || 'Detail Anime';
+                document.getElementById('animeSynopsis').textContent = anime.synopsis || anime.description || 'Tidak ada sinopsis.';
 
-  $('btnPrevEp').onclick = () => {
-    if (currentEpisodeData && currentEpisodeData.prev_endpoint) {
-      loadEpisodeStream(currentEpisodeData.prev_endpoint, currentAnimeSlug);
-    }
-  };
+                // Embed Video / Player
+                const videoIframe = document.getElementById('videoPlayer');
+                if (anime.stream_url || anime.streamLink) {
+                    videoIframe.src = anime.stream_url || anime.streamLink;
+                } else {
+                    videoIframe.src = 'about:blank';
+                }
 
-  $('btnNextEp').onclick = () => {
-    if (currentEpisodeData && currentEpisodeData.next_endpoint) {
-      loadEpisodeStream(currentEpisodeData.next_endpoint, currentAnimeSlug);
-    }
-  };
+                // Render Daftar Episode
+                const epListContainer = document.getElementById('episodeList');
+                epListContainer.innerHTML = '';
 
-  $('btnAllEp').onclick = () => {
-    $('epListGrid').scrollIntoView({ behavior: 'smooth' });
-  };
+                const episodes = anime.episodes || anime.episode_list || [];
+                if (episodes.length > 0) {
+                    episodes.forEach((ep, index) => {
+                        const btn = document.createElement('button');
+                        btn.className = 'px-3 py-1.5 bg-slate-800 hover:bg-brand-600 text-xs font-semibold rounded border border-slate-700 transition-colors';
+                        btn.textContent = ep.title || `Ep ${index + 1}`;
+                        btn.onclick = () => {
+                            if (ep.stream_url || ep.link) {
+                                videoIframe.src = ep.stream_url || ep.link;
+                            }
+                        };
+                        epListContainer.appendChild(btn);
+                    });
+                } else {
+                    epListContainer.innerHTML = `<p class="text-xs text-slate-500">Tidak ada daftar episode tersedia.</p>`;
+                }
 
-  // CINEMA MODE TOGGLE
-  $('btnCinema').onclick = () => {
-    isCinemaOn = !isCinemaOn;
-    document.body.classList.toggle('cinema-active', isCinemaOn);
-    $('btnCinema').textContent = isCinemaOn ? 'CINEMA ON' : 'CINEMA OFF';
-  };
+                // Tampilkan Tampilan Detail
+                animeGrid.classList.add('hidden');
+                detailView.classList.remove('hidden');
+                backBtn.classList.remove('hidden');
+                sectionTitle.innerHTML = `<i class="fa-solid fa-circle-play text-brand-500"></i> Memutar Anime`;
 
-  $('cinemaOverlay').onclick = () => {
-    isCinemaOn = false;
-    document.body.classList.remove('cinema-active');
-    $('btnCinema').textContent = 'CINEMA OFF';
-  };
+            } catch (error) {
+                console.error('Gagal memuat detail:', error);
+                alert('Gagal memuat detail anime.');
+            } finally {
+                hideLoading();
+            }
+        }
 
-  // RESOLUTION SWITCHING
-  document.querySelectorAll('.btn-mirror').forEach(btn => {
-    btn.onclick = () => {
-      document.querySelectorAll('.btn-mirror').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      currentRes = btn.dataset.res;
-      if (currentEpEndpoint) {
-        loadEpisodeStream(currentEpEndpoint, currentAnimeSlug);
-      }
-    };
-  });
+        // Helpers untuk Navigasi & Tampilan State
+        function showHome() {
+            detailView.classList.add('hidden');
+            document.getElementById('videoPlayer').src = ''; // stop video
+            document.getElementById('searchInput').value = '';
+            backBtn.classList.add('hidden');
+            sectionTitle.innerHTML = `<i class="fa-solid fa-fire text-brand-500"></i> Anime Terbaru`;
+            fetchLatestAnime();
+        }
 
-  $('btnBackCatalog').onclick = () => showView('catalog');
-  $('navHome').onclick = (e) => {
-    e.preventDefault();
-    setActiveNavBtn('btnTabOngoing');
-    $('catalogTitle').innerHTML = `<i class="fas fa-fire" style="color: #ef4444;"></i> Ongoing Anime`;
-    loadCatalog('ongoing');
-  };
+        function showLoading() {
+            loading.classList.remove('hidden');
+            animeGrid.classList.add('hidden');
+            detailView.classList.add('hidden');
+        }
 
-  // SEARCH WITH DEBOUNCE
-  let searchTimer;
-  $('searchInput').addEventListener('input', (e) => {
-    clearTimeout(searchTimer);
-    const q = e.target.value.trim();
-    searchTimer = setTimeout(() => {
-      if (q) {
-        setActiveNavBtn('');
-        $('catalogTitle').innerHTML = `<i class="fas fa-search"></i> Hasil Pencarian: "${q}"`;
-        loadCatalog('search', q);
-      } else {
-        $('btnTabOngoing').click();
-      }
-    }, 500);
-  });
-
-  // INITIALIZATION
-  loadGenresList();
-  loadCatalog('ongoing');
-
-})();
-</script>
+        function hideLoading() {
+            loading.classList.add('hidden');
+            if (detailView.classList.contains('hidden')) {
+                animeGrid.classList.remove('hidden');
+            }
+        }
+    </script>
 </body>
 </html>
