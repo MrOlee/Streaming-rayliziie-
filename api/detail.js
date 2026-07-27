@@ -1,32 +1,20 @@
 module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+
+  if (req.method === 'OPTIONS') return res.status(200).end();
 
   const apiKey = process.env.INDOCAST_API_KEY || "bb47332ceca91e3a2c97128a40c798a69306400072cc4b5a352800697069e45c";
-  const baseUrl = process.env.INDOCAST_BASE_URL || "https://indocast.site/api/dramovnime";
-
   const { detailPath = "", se = "0" } = req.query;
 
   try {
-    const targetUrl = `${baseUrl}/detaildata?se=${se}&detailPath=${encodeURIComponent(detailPath)}`;
-    const response = await fetch(targetUrl, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "x-api-key": apiKey,
-        "User-Agent": "Mozilla/5.0"
-      }
+    const url = `https://indocast.site/api/dramovnime/detaildata?se=${se}&detailPath=${encodeURIComponent(detailPath)}`;
+    const response = await fetch(url, {
+      headers: { "Content-Type": "application/json", "x-api-key": apiKey, "User-Agent": "Mozilla/5.0" }
     });
-
-    const text = await response.text();
-    let data;
-    try {
-      data = JSON.parse(text);
-    } catch (e) {
-      return res.status(500).json({ error: "Respon detail bukan JSON", raw: text.substring(0, 150) });
-    }
-
+    const data = await response.json();
     return res.status(200).json(data);
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
   }
 };
