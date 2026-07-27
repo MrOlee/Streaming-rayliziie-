@@ -1,37 +1,41 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Detail & Nonton Anime</title>
-  <link rel="stylesheet" href="/css/style.css">
-</head>
-<body>
-  <header>
-    <a href="/" class="back-btn">⬅️ Kembali ke Katalog</a>
-  </header>
+async function loadCatalog() {
+  const grid = document.getElementById('anime-grid');
+  try {
+    const res = await fetch('/api/list?page=1');
+    const result = await res.json();
+    
+    if (!res.ok) {
+      grid.innerHTML = `<p style="color: #ff4d4d; padding: 20px;">Error: ${result.error || 'Gagal koneksi backend'}</p>`;
+      return;
+    }
 
-  <main class="container">
-    <!-- Player Video -->
-    <div class="player-wrapper">
-      <iframe id="video-player" src="" frameborder="0" allowfullscreen></iframe>
-    </div>
+    grid.innerHTML = '';
+    const items = result.data?.list || result.data || result.items || (Array.isArray(result) ? result : []);
 
-    <!-- Informasi Detail Anime -->
-    <div class="info-section">
-      <h1 id="anime-title">Memuat judul...</h1>
-      <p id="anime-desc" class="desc">Memuat deskripsi...</p>
-    </div>
+    if (!items || items.length === 0) {
+      grid.innerHTML = `<p style="padding: 20px;">Data tidak ditemukan.</p>`;
+      return;
+    }
 
-    <!-- Pilihan Episode -->
-    <div class="episodes-section">
-      <h3>Daftar Episode</h3>
-      <div id="episodes-list" class="episodes-grid">
-        <p>Memuat daftar episode...</p>
-      </div>
-    </div>
-  </main>
+    items.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      
+      const title = item.title || item.name || item.bookName || 'Tanpa Judul';
+      const cover = item.cover || item.coverUrl || item.poster || item.img || '';
+      const id = item.id || item.bookId || '';
+      const path = item.detailPath || item.slug || '';
 
-  <script src="/js/watch.js"></script>
-</body>
-</html>
+      card.innerHTML = `
+        <img src="${cover}" alt="${title}" onerror="this.src='https://via.placeholder.com/200x300?text=No+Cover'">
+        <h3>${title}</h3>
+        <a href="/watch.html?id=${id}&path=${encodeURIComponent(path)}" class="btn">Tonton</a>
+      `;
+      grid.appendChild(card);
+    });
+  } catch (err) {
+    grid.innerHTML = `<p style="color: #ff4d4d; padding: 20px;">Gagal memuat katalog: ${err.message}</p>`;
+  }
+}
+
+document.addEventListener('DOMContentLoaded', loadCatalog);
