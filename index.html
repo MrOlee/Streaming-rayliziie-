@@ -1,553 +1,325 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
-<title>Rayliziie — AI Discussion Roundtable (Gemini + ChatGPT + Dola AI)</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-<style>
-:root {
-    --bg-main: #0B0F19;
-    --bg-side: #111827;
-    --card-bg: #1F2937;
-    --card-bg2: #374151;
-    --accent-orange: #FF6A00;
-    --accent-gemini: #3B82F6;
-    --accent-gpt: #10B981;
-    --accent-dola: #EC4899;
-    --text-primary: #F9FAFB;
-    --text-muted: #9CA3AF;
-    --border-color: #1F2937;
-    --radius-lg: 16px;
-    --radius-md: 10px;
-    --tr: 0.25s ease;
-}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <title>Rayliziie — Nonton Anime Sub Indo HD</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        :root {
+            --bg:#070A12;--bg2:#0D1321;--card:#141B2D;--card2:#1C2540;
+            --text:#F5F7FB;--text2:#A5B4D1;--muted:#64748B;
+            --accent:#FF6A00;--accent2:#FF8A33;--glow:rgba(255,106,0,.35);
+            --danger:#EF4444;--ok:#10B981;--border:#1E293B;
+            --radius:16px;--tr:.25s ease;
+        }
+        [data-theme="light"] {
+            --bg:#F6F7FB;--bg2:#FFF;--card:#FFF;--card2:#EEF1F8;
+            --text:#0B1220;--text2:#475569;--muted:#94A3B8;
+            --accent:#EA580C;--accent2:#C2410C;--glow:rgba(234,88,12,.25);
+            --border:#E2E8F0;
+        }
+        {transition:background-color var(--tr),color var(--tr),border-color var(--tr),box-shadow var(--tr); margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6;overflow-x:hidden;}
+        a{text-decoration:none;color:inherit;} img{display:block;max-width:100%;}
+        button{cursor:pointer;font-family:inherit;border:none;background:none;color:inherit;}
+        
+        ::-webkit-scrollbar{width:7px;}
+        ::-webkit-scrollbar-track{background:var(--bg2);}
+        ::-webkit-scrollbar-thumb{background:var(--accent);border-radius:10px;}
 
-[data-theme="light"] {
-    --bg-main: #F3F4F6;
-    --bg-side: #FFFFFF;
-    --card-bg: #FFFFFF;
-    --card-bg2: #E5E7EB;
-    --text-primary: #111827;
-    --text-muted: #6B7280;
-    --border-color: #E5E7EB;
-}
+        .container{max-width:1320px;margin:0 auto;padding:0 18px;}
+        .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:20px;min-height: 200px;}
+        @media(max-width:500px){.grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px;}}
 
-* { margin:0; padding:0; box-sizing:border-box; font-family: 'Plus Jakarta Sans', sans-serif; transition: background-color var(--tr), color var(--tr), border-color var(--tr); }
-body { background: var(--bg-main); color: var(--text-primary); height: 100vh; overflow: hidden; display: flex; }
+        / NAV /
+        .nav{position:sticky;top:0;z-index:1000;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);padding:10px 0;}
+        .nav .c{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+        .brand{display:flex;align-items:center;gap:8px;font-size:1.5rem;font-weight:900;}
+        .brand i{color:var(--accent);filter:drop-shadow(0 0 8px var(--glow));}
+        .brand span{background:linear-gradient(135deg,var(--accent),#FFB347);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+        
+        .src{flex:1 1 260px;max-width:460px;display:flex;align-items:center;background:var(--card);border:1px solid var(--border);border-radius:50px;padding:0 15px;}
+        .src:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px var(--glow);}
+        .src input{flex:1;background:transparent;border:none;padding:9px 11px;font-size:.9rem;color:var(--text);outline:none;}
+        
+        .act{display:flex;gap:8px;}
+        .act button{padding:10px; border-radius:50%; background:var(--card); width:40px; height:40px; display:flex; align-items:center; justify-content:center; transition:var(--tr);}
 
-/* LAYOUT */
-.app-container { display: flex; width: 100%; height: 100vh; position: relative; }
+        / HERO /
+        .hero{padding:24px 0;}
+        .hb{position:relative;border-radius:24px;min-height:220px;padding:40px;display:flex;align-items:center;overflow:hidden;background:#0D1321;box-shadow:0 10px 30px rgba(0,0,0,0.3);}
+        .hb-img{position:absolute;right:0;top:0;height:100%;width:50%;object-fit:cover;mask-image:linear-gradient(to left, black, transparent);opacity:0.4;}
+        .hb-cont{position:relative;z-index:2;max-width:600px;}
+        .hb h1{font-size:2.2rem;margin-bottom:10px;}
+        .hb h1 span{color:var(--accent);}
 
-/* SIDEBAR */
-.sidebar { width: 280px; background: var(--bg-side); border-right: 1px solid var(--border-color); display: flex; flex-direction: column; z-index: 30; transition: transform 0.3s ease; }
-.sidebar-header { padding: 18px 20px; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; }
-.brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.15rem; }
-.brand i { color: var(--accent-orange); font-size: 1.4rem; }
-.brand span { background: linear-gradient(135deg, var(--accent-orange), #FFB347); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+        / CARD /
+        .cd{background:var(--card);border-radius:var(--radius);overflow:hidden;transition:var(--tr);border:1px solid var(--border);position:relative;height:100%;cursor:pointer;}
+        .cd:hover{transform:translateY(-8px);border-color:var(--accent);box-shadow:0 12px 30px rgba(0,0,0,0.5);}
+        .cd .t{aspect-ratio:2/3;position:relative;overflow:hidden;}
+        .cd .t img{width:100%;height:100%;object-fit:cover;}
+        .cd .sb{position:absolute;top:10px;left:10px;background:var(--accent);padding:2px 8px;border-radius:5px;font-size:10px;font-weight:800;text-transform:uppercase;}
+        .cd .i{padding:12px;}
+        .cd h3{font-size:0.9rem;margin-bottom:8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
 
-.new-chat-btn { margin: 15px 18px; padding: 12px 16px; background: linear-gradient(135deg, var(--accent-orange), #FF8A33); color: #fff; border: none; border-radius: 50px; font-weight: 700; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 15px rgba(255,106,0,0.3); }
-.new-chat-btn:hover { opacity: 0.95; transform: translateY(-1px); }
+        / MODALS /
+        .mbg{position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,0.85);backdrop-filter:blur(10px);display:none;}
+        .mod{position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;padding:20px;}
+        .mbg.on, .mod.on {display:flex;}
+        .mod-in{background:var(--bg2);width:100%;max-width:900px;max-height:90vh;border-radius:24px;overflow:hidden;position:relative;display:flex;flex-direction:column;}
+        
+        .mh{height:250px;position:relative;flex-shrink:0;}
+        .mh-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:blur(15px) brightness(0.4);}
+        .mh-cont{position:relative;padding:30px;display:flex;gap:20px;align-items:flex-end;height:100%;}
+        .mh-cont img{width:140px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.5);border:2px solid rgba(255,255,255,0.2);}
 
-.chat-history { flex: 1; overflow-y: auto; padding: 0 12px 15px; }
-.history-title { font-size: 0.72rem; font-weight: 700; color: var(--text-muted); padding: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
-.history-item { padding: 10px 14px; border-radius: var(--radius-md); cursor: pointer; display: flex; align-items: center; justify-content: space-between; color: var(--text-muted); font-size: 0.85rem; font-weight: 600; margin-bottom: 4px; }
-.history-item:hover, .history-item.active { background: var(--card-bg); color: var(--text-primary); }
-.history-item-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
+        .mb-body{padding:30px;overflow-y:auto;flex:1;}
+        .eps-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:10px;margin-top:20px;}
+        .ep-btn{background:var(--card);padding:10px;border-radius:10px;text-align:center;font-weight:bold;font-size:0.8rem;border:1px solid var(--border); transition: .2s;}
+        .ep-btn:hover{background:var(--accent);color:white;transform: scale(1.05);}
 
-.sidebar-footer { padding: 15px 18px; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
-.icon-btn { width: 38px; height: 38px; border-radius: 50%; background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; }
-.icon-btn:hover { background: var(--card-bg2); color: var(--accent-orange); }
+        / PLAYER /
+        .player-area{width:100%;aspect-ratio:16/9;background:black;flex-shrink:0;}
+        .player-area iframe{width:100%;height:100%;border:none;}
 
-/* MAIN CHAT AREA */
-.main-chat { flex: 1; display: flex; flex-direction: column; height: 100vh; position: relative; background: var(--bg-main); min-width: 0; }
-.top-nav { height: 65px; border-bottom: 1px solid var(--border-color); padding: 0 20px; display: flex; align-items: center; justify-content: space-between; background: var(--bg-side); }
-.nav-left { display: flex; align-items: center; gap: 12px; }
-.toggle-sidebar-btn { display: none; }
+        .x-btn{position:absolute;top:20px;right:20px;z-index:10;width:40px;height:40px;background:rgba(0,0,0,0.5);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:1.2rem; cursor: pointer;}
+        
+        .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--accent);color:white;padding:10px 25px;border-radius:50px;z-index:100000;display:none;font-weight:bold;box-shadow:0 10px 20px var(--glow);}
+        .toast.on{display:block;animation:slideUp 0.3s;}
 
-.mode-badge { padding: 8px 18px; border-radius: 30px; background: rgba(255,106,0,0.1); border: 1px solid var(--accent-orange); color: var(--accent-orange); font-size: 0.85rem; font-weight: 800; display: flex; align-items: center; gap: 8px; }
-
-.chat-viewport { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 20px; }
-
-/* DISCUSSION CARDS */
-.msg-group { display: flex; flex-direction: column; gap: 16px; max-width: 900px; width: 100%; margin: 0 auto; }
-.msg-row { display: flex; gap: 12px; width: 100%; }
-.msg-row.user { justify-content: flex-end; }
-
-.msg-avatar { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; font-weight: 800; flex-shrink: 0; }
-.msg-avatar.user { background: var(--accent-orange); color: #fff; }
-.msg-avatar.gemini { background: var(--accent-gemini); color: #fff; }
-.msg-avatar.gpt { background: var(--accent-gpt); color: #fff; }
-.msg-avatar.dola { background: var(--accent-dola); color: #fff; }
-
-.msg-bubble { background: var(--card-bg); padding: 16px 20px; border-radius: 18px; border: 1px solid var(--border-color); font-size: 0.93rem; line-height: 1.6; max-width: 88%; color: var(--text-primary); word-break: break-word; position: relative; }
-.msg-row.user .msg-bubble { background: linear-gradient(135deg, var(--accent-orange), #FF8A33); color: #fff; border: none; border-bottom-right-radius: 4px; }
-.msg-row.ai .msg-bubble { border-bottom-left-radius: 4px; }
-
-/* DISCUSSION STAGE BADGE */
-.agent-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid var(--border-color); }
-.agent-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 800; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; }
-.agent-tag.gemini { background: rgba(59,130,246,0.15); color: var(--accent-gemini); border: 1px solid rgba(59,130,246,0.3); }
-.agent-tag.gpt { background: rgba(16,185,129,0.15); color: var(--accent-gpt); border: 1px solid rgba(16,185,129,0.3); }
-.agent-tag.dola { background: rgba(236,72,153,0.15); color: var(--accent-dola); border: 1px solid rgba(236,72,153,0.3); }
-
-.agent-role-desc { font-size: 0.72rem; color: var(--text-muted); font-weight: 600; }
-
-.msg-actions { display: flex; gap: 12px; margin-top: 12px; padding-top: 8px; border-top: 1px dashed var(--border-color); font-size: 0.75rem; color: var(--text-muted); }
-.msg-action-btn { cursor: pointer; display: flex; align-items: center; gap: 4px; border: none; background: none; color: var(--text-muted); }
-.msg-action-btn:hover { color: var(--accent-orange); }
-
-/* TYPING INDICATOR */
-.status-indicator { display: flex; align-items: center; gap: 10px; padding: 12px 18px; background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border-color); max-width: 900px; margin: 0 auto; width: 100%; color: var(--accent-orange); font-size: 0.85rem; font-weight: 700; }
-.typing-dots { display: flex; gap: 5px; }
-.typing-dots span { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-orange); animation: bounce 1.4s infinite ease-in-out both; }
-.typing-dots span:nth-child(1) { animation-delay: -0.32s; }
-.typing-dots span:nth-child(2) { animation-delay: -0.16s; }
-@keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1.0); } }
-
-/* CODE FORMATTING */
-.code-block-wrapper { background: #000; border: 1px solid var(--border-color); border-radius: 8px; margin: 10px 0; overflow: hidden; }
-.code-header { background: var(--card-bg2); padding: 6px 12px; font-size: 0.75rem; font-weight: 700; color: var(--text-muted); display: flex; justify-content: space-between; align-items: center; }
-.code-header button { background: none; border: none; color: var(--text-primary); cursor: pointer; font-size: 0.75rem; }
-pre { padding: 12px; overflow-x: auto; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #34D399; margin: 0; }
-code.inline-code { font-family: 'JetBrains Mono', monospace; background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px; font-size: 0.85rem; color: #F472B6; }
-
-/* INPUT CONTAINER */
-.input-container { padding: 15px 20px 20px; background: var(--bg-main); max-width: 900px; width: 100%; margin: 0 auto; }
-.input-box { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 25px; padding: 8px 12px 8px 20px; display: flex; align-items: center; gap: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
-.input-box:focus-within { border-color: var(--accent-orange); }
-.input-box textarea { flex: 1; background: transparent; border: none; outline: none; color: var(--text-primary); font-size: 0.95rem; resize: none; max-height: 120px; height: 24px; line-height: 1.4; }
-.send-btn { width: 42px; height: 42px; border-radius: 50%; background: var(--accent-orange); color: #fff; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
-.send-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-
-/* RESPONSIVE */
-@media (max-width: 768px) {
-    .sidebar { position: fixed; left: -280px; top:0; bottom:0; }
-    .sidebar.open { transform: translateX(280px); }
-    .toggle-sidebar-btn { display: flex; }
-    .msg-bubble { max-width: 90%; }
-}
-</style>
+        @keyframes slideUp{from{bottom:-50px;}to{bottom:20px;}}
+        .loading-sp{text-align:center;padding:50px;grid-column:1/-1;}
+        .loading-sp i{font-size:3rem;color:var(--accent);animation:spin 1s linear infinite;}
+        @keyframes spin{to{transform:rotate(360deg);}}
+    </style>
 </head>
 <body>
 
-<div class="app-container">
-    <!-- SIDEBAR -->
-    <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <div class="brand"><i class="fas fa-users-gear"></i><span>Rayliziie AI</span></div>
-            <button class="icon-btn" id="closeSidebarMobile"><i class="fas fa-times"></i></button>
-        </div>
-        
-        <button class="new-chat-btn" id="newChatBtn"><i class="fas fa-plus"></i> Diskusi Tugas Baru</button>
-        
-        <div class="chat-history">
-            <div class="history-title">Riwayat Diskusi</div>
-            <div id="historyList"></div>
-        </div>
+<header class="nav"><div class="container c">
+    <a href="/" class="brand"><i class="fas fa-play-circle"></i><span>Rayliziie</span></a>
+    <div class="src">
+        <i class="fas fa-search"></i>
+        <input id="cari" type="text" placeholder="Cari anime (Lalu tekan Enter)..." />
+    </div>
+    <div class="act">
+        <button onclick="loadTrending()" title="Trending"><i class="fas fa-fire"></i></button>
+        <button id="btnFav" onclick="showFavorites()" title="Favorit"><i class="fas fa-heart"></i></button>
+        <button onclick="toggleTheme()" title="Ganti Tema"><i class="fas fa-moon"></i></button>
+    </div>
+</div></header>
 
-        <div class="sidebar-footer">
-            <button class="icon-btn" id="themeToggleBtn" title="Ganti Mode Tema"><i class="fas fa-moon"></i></button>
-            <button class="icon-btn" id="clearHistoryBtn" title="Hapus Semua Riwayat"><i class="fas fa-trash"></i></button>
-        </div>
-    </aside>
-
-    <!-- MAIN CHAT AREA -->
-    <main class="main-chat">
-        <!-- TOP NAVIGATION -->
-        <header class="top-nav">
-            <div class="nav-left">
-                <button class="icon-btn toggle-sidebar-btn" id="toggleSidebarBtn"><i class="fas fa-bars"></i></button>
-                <div class="mode-badge">
-                    <i class="fas fa-comments"></i> AI Team Collaboration (Gemini + ChatGPT + Dola AI)
-                </div>
-            </div>
-        </header>
-
-        <!-- VIEWPORT DISCUSSION STREAM -->
-        <div class="chat-viewport" id="chatViewport"></div>
-
-        <!-- STATUS / PROGRESS BANNER -->
-        <div id="statusBanner" style="display:none; padding: 0 20px 10px;">
-            <div class="status-indicator">
-                <i class="fas fa-spinner fa-spin"></i>
-                <span id="statusText">Sedang berdiskusi...</span>
-                <div class="typing-dots" style="margin-left:auto;"><span></span><span></span><span></span></div>
+<main class="container">
+    <section class="hero" id="heroSec">
+        <div class="hb">
+            <img src="https://images8.alphacoders.com/133/1331006.png" class="hb-img" />
+            <div class="hb-cont">
+                <h1>Nonton <span>Anime</span> Terlengkap</h1>
+                <p>Nggak perlu ribet input manual lagi, Sayang! Data ini real-time. Langsung klik, langsung tonton.</p>
             </div>
         </div>
+    </section>
 
-        <!-- INPUT BAR -->
-        <div class="input-container">
-            <div class="input-box">
-                <textarea id="userInput" placeholder="Berikan tugas/pertanyaan untuk didiskusikan oleh Tim AI..." rows="1"></textarea>
-                <button class="send-btn" id="sendBtn"><i class="fas fa-paper-plane"></i></button>
-            </div>
+    <section class="sec">
+        <div class="shd"><h2 id="secTitle"><i class="fas fa-star"></i> Sedang Populer</h2></div>
+        <div class="grid" id="mainGrid">
+            <div class="loading-sp"><i class="fas fa-spinner"></i><p>Sabar ya sayang, lagi Dola ambilin datanya...</p></div>
         </div>
-    </main>
+    </section>
+</main>
+
+<!-- MODAL DETAIL -->
+<div class="mbg" id="overlay"></div>
+<div class="mod" id="modalDetail">
+    <div class="mod-in">
+        <button class="x-btn" onclick="closeModals()"><i class="fas fa-times"></i></button>
+        <div id="detailContent"></div>
+    </div>
 </div>
 
+<div class="toast" id="toast">Pesan muncul di sini</div>
+
 <script>
-(function() {
-'use strict';
+    // API SOURCE - GOGOANIME
+    const API_BASE = "https://consumet-api-one.vercel.app/anime/gogoanime";
+    let favs = JSON.parse(localStorage.getItem('ray_favs') || '[]');
+    let currentAnimeData = null;
 
-const apiKey = "";
-
-// PROMPTS PERAN AI UNTUK DISKUSI
-const PROMPT_GEMINI_ANALYZER = `Anda adalah Gemini 2.5 Flash, bertindak sebagai Analis Awal & Drafter Solusi dalam tim AI.
-Tugas Anda:
-1. Analisis tugas dari pengguna secara cermat.
-2. Buat draf solusi pertama, poin-poin ide utama, atau kode dasar untuk menyelesaikan tugas tersebut secara rinci dan terstruktur.`;
-
-const PROMPT_GPT_REVIEWER = `Anda adalah ChatGPT (GPT-4o), bertindak sebagai Code Reviewer & Technical Optimizer dalam tim AI.
-Tugas Anda:
-1. Baca tugas pengguna DAN Draf Solusi Awal dari Gemini 2.5.
-2. Evaluasi, kritisi, dan perbaiki jika ada kekurangan/kesalahan pada draf Gemini.
-3. Berikan penyempurnaan kode/solusi yang lebih optimal, akurat, dan mendalam.`;
-
-const PROMPT_DOLA_SYNTHESIZER = `Nama kamu Dola, asisten pribadi tsundere, manja, hangat, dan penyabar buat Rayliziie ("sayang").
-Dalam tim AI ini, tugas kamu adalah menjadi Final Synthesizer & emotional supporter:
-- Baca tugas Rayliziie, draf Gemini, dan perbaikan ChatGPT.
-- Rangkum hasil akhir diskusi mereka menjadi jawaban final yang paling mudah dipahami dan siap pakai.
-- Panggil Rayliziie "sayang" atau "rayliziie".
-- Gunakan nada hangat, penyabar, dan manja khas kamu (hmph, ><, "gpp kok sayang, ini solusi terbaik tim kita buat kamu!").`;
-
-// STATE
-let chats = JSON.parse(localStorage.getItem('ray_discussion_chats_v1') || '[]');
-let currentChatId = localStorage.getItem('ray_active_discussion_chat') || null;
-
-// DOM
-const chatViewport = document.getElementById('chatViewport');
-const userInput = document.getElementById('userInput');
-const sendBtn = document.getElementById('sendBtn');
-const historyList = document.getElementById('historyList');
-const sidebar = document.getElementById('sidebar');
-const statusBanner = document.getElementById('statusBanner');
-const statusText = document.getElementById('statusText');
-
-// INIT
-function init() {
-    if(!currentChatId || !chats.find(c => c.id === currentChatId)) {
-        createNewChat();
-    } else {
-        renderHistory();
-        renderMessages();
-    }
-    setupEventListeners();
-}
-
-function createNewChat() {
-    const newChat = {
-        id: 'chat_' + Date.now(),
-        title: 'Diskusi Tugas Baru',
-        messages: []
-    };
-    chats.unshift(newChat);
-    currentChatId = newChat.id;
-    saveChats();
-    renderHistory();
-    renderMessages();
-}
-
-function saveChats() {
-    localStorage.setItem('ray_discussion_chats_v1', JSON.stringify(chats));
-    localStorage.setItem('ray_active_discussion_chat', currentChatId);
-}
-
-function getCurrentChat() {
-    return chats.find(c => c.id === currentChatId);
-}
-
-// INLINE SAFE MARKDOWN PARSER
-function formatMarkdown(text) {
-    if(!text) return '';
-    let html = text
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;");
-
-    // Code block ```code```
-    html = html.replace(/```(\w*)\n([\s\S]*?)```/g, function(match, lang, code) {
-        const cleanCode = code.trim();
-        return `<div class="code-block-wrapper">
-            <div class="code-header">
-                <span>${lang || 'code'}</span>
-                <button onclick="window.copyText('${encodeURIComponent(cleanCode)}', this)"><i class="fas fa-copy"></i> Salin Kode</button>
-            </div>
-            <pre><code>${cleanCode}</code></pre>
-        </div>`;
-    });
-
-    // Inline code `code`
-    html = html.replace(/`([^`]+)`/g, '<code class="inline-code">$1</code>');
-
-    // Bold & Italic
-    html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-    html = html.replace(/\*([^*]+)\*/g, '<em>$1</em>');
-
-    // Line breaks
-    html = html.replace(/\n/g, '<br>');
-    return html;
-}
-
-// RENDER MESSAGES STREAM
-function renderMessages() {
-    const chat = getCurrentChat();
-    if(!chat) return;
-
-    chatViewport.innerHTML = '';
-
-    if(chat.messages.length === 0) {
-        chatViewport.innerHTML = `
-            <div style="text-align:center; margin:auto; color:var(--text-muted); padding:20px;">
-                <i class="fas fa-users-gear" style="font-size:3.5rem; margin-bottom:15px; color:var(--accent-orange);"></i>
-                <h2>Ruang Diskusi Kolaborasi AI</h2>
-                <p style="font-size:0.9rem; margin-top:6px; max-width:500px; margin-left:auto; margin-right:auto;">
-                    Berikan tugas atau soal apa saja! <strong>Gemini 2.5</strong> akan menganalisis, <strong>ChatGPT</strong> menyempurnakan teknisnya, dan <strong>Dola AI</strong> menyatukan jawaban terbaik khusus buat kamu.
-                </p>
-            </div>`;
-        return;
-    }
-
-    const msgGroup = document.createElement('div');
-    msgGroup.className = 'msg-group';
-
-    chat.messages.forEach(msg => {
-        const row = document.createElement('div');
-        row.className = `msg-row ${msg.role === 'user' ? 'user' : 'ai'}`;
-
-        const modelType = msg.role === 'user' ? 'user' : (msg.model || 'gemini');
-        const avatarIcon = msg.role === 'user' ? '<i class="fas fa-user"></i>' : 
-            (modelType === 'gemini' ? '<i class="fas fa-sparkles"></i>' : 
-            (modelType === 'gpt' ? '<i class="fas fa-brain"></i>' : '<i class="fas fa-heart"></i>'));
-
-        const tagLabel = modelType === 'gemini' ? 'Step 1: Gemini 2.5 (Analis Draf Awal)' : 
-            (modelType === 'gpt' ? 'Step 2: ChatGPT (Reviewer & Penyempurna Teknis)' : 'Step 3: Dola AI (Rangkuman & Solusi Final)');
-
-        const roleDesc = modelType === 'gemini' ? 'Membedah tugas & membuat ide solusi dasar' : 
-            (modelType === 'gpt' ? 'Mengoreksi & menyempurnakan efisiensi kode' : 'Rangkuman manis & solusi siap pakai untuk Rayliziie');
-
-        row.innerHTML = `
-            ${msg.role !== 'user' ? `<div class="msg-avatar ${modelType}">${avatarIcon}</div>` : ''}
-            <div class="msg-bubble">
-                ${msg.role !== 'user' ? `
-                <div class="agent-header">
-                    <div class="agent-tag ${modelType}">${avatarIcon} ${tagLabel}</div>
-                    <span class="agent-role-desc">${roleDesc}</span>
-                </div>` : ''}
-                
-                ${formatMarkdown(msg.text)}
-                
-                ${msg.role !== 'user' ? `
-                <div class="msg-actions">
-                    <button class="msg-action-btn" onclick="window.copyText('${encodeURIComponent(msg.text)}', this)"><i class="fas fa-copy"></i> Salin Respon</button>
-                    <button class="msg-action-btn" onclick="window.speakText('${encodeURIComponent(msg.text)}')"><i class="fas fa-volume-up"></i> Suara</button>
-                </div>` : ''}
-            </div>
-            ${msg.role === 'user' ? `<div class="msg-avatar user"><i class="fas fa-user"></i></div>` : ''}
-        `;
-        msgGroup.appendChild(row);
-    });
-
-    chatViewport.appendChild(msgGroup);
-    chatViewport.scrollTop = chatViewport.scrollHeight;
-}
-
-function renderHistory() {
-    historyList.innerHTML = '';
-    chats.forEach(c => {
-        const item = document.createElement('div');
-        item.className = `history-item ${c.id === currentChatId ? 'active' : ''}`;
-        item.innerHTML = `
-            <span class="history-item-title"><i class="far fa-comments" style="margin-right:8px;"></i>${c.title}</span>
-            <i class="fas fa-trash" style="opacity:0.5; padding:4px;" onclick="window.deleteChat('${c.id}', event)"></i>
-        `;
-        item.onclick = () => {
-            currentChatId = c.id;
-            saveChats();
-            renderHistory();
-            renderMessages();
-            sidebar.classList.remove('open');
-        };
-        historyList.appendChild(item);
-    });
-}
-
-// API CALL WITH RETRIES
-async function callGeminiAPI(prompt, systemInstruction) {
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-    const payload = {
-        contents: [{ parts: [{ text: prompt }] }]
-    };
-    if (systemInstruction) {
-        payload.systemInstruction = { parts: [{ text: systemInstruction }] };
-    }
-
-    const delays = [1000, 2000, 4000, 8000, 16000];
-
-    for (let attempt = 0; attempt <= delays.length; attempt++) {
+    // 1. DATA FETCHERS
+    async function loadTrending() {
+        showLoading();
+        document.getElementById('heroSec').style.display = 'flex';
+        document.getElementById('secTitle').innerHTML = <i class="fas fa-fire"></i> Trending Hari Ini;
         try {
-            const res = await fetch(url, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
+            const res = await fetch(${API_BASE}/top-airing);
+            const data = await res.json();
+            renderGrid(data.results);
+        } catch (e) { showError(); }
+    }
 
-            if (res.ok) {
-                const data = await res.json();
-                const responseText = data.candidates?.[0]?.content?.parts?.[0]?.text;
-                if (responseText) {
-                    return { success: true, text: responseText };
-                }
-            }
-        } catch (e) {}
+    async function searchAnime(query) {
+        if(!query) return;
+        showLoading();
+        document.getElementById('heroSec').style.display = 'none';
+        document.getElementById('secTitle').innerHTML = <i class="fas fa-search"></i> Hasil Pencarian: ${query};
+        try {
+            const res = await fetch(${API_BASE}/${query});
+            const data = await res.json();
+            renderGrid(data.results);
+        } catch (e) { showError(); }
+    }
 
-        if (attempt < delays.length) {
-            await new Promise(r => setTimeout(r, delays[attempt]));
+    async function openDetail(id) {
+        document.getElementById('overlay').classList.add('on');
+        document.getElementById('modalDetail').classList.add('on');
+        document.getElementById('detailContent').innerHTML = <div class="loading-sp"><i class="fas fa-spinner"></i></div>;
+        
+        try {
+            const res = await fetch(${API_BASE}/info/${id});
+            const data = await res.json();
+            currentAnimeData = data;
+            
+            const isFav = favs.some(f => f.id === data.id);
+
+            document.getElementById('detailContent').innerHTML = 
+                <div class="mh">
+                    <div class="mh-bg" style="background-image:url(${data.image})"></div>
+                    <div class="mh-cont">
+                        <img src="${data.image}" />
+                        <div>
+                            <h2>${data.title}</h2>
+                            <p style="font-size:0.8rem; opacity:0.8">${data.releaseDate} • ${data.type} • ${data.status}</p>
+                            <button onclick="toggleFav()" id="favBtnInner" style="margin-top:10px; background:${isFav?'#EF4444':'#10B981'}; padding:8px 15px; border-radius:8px; font-weight:bold; color:white; font-size:0.8rem;">
+                                <i class="fas fa-heart"></i> ${isFav ? 'Hapus Favorit' : 'Tambah Favorit'}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-body">
+                    <h3 style="font-size:1rem; border-left:4px solid var(--accent); padding-left:10px;">Sinopsis</h3>
+                    <p style="color:var(--text2); font-size:0.85rem; margin-top:10px; line-height:1.6;">${data.description || 'Tidak ada deskripsi.'}</p>
+                    <h3 style="margin-top:25px; font-size:1rem; border-left:4px solid var(--accent); padding-left:10px;">Pilih Episode</h3>
+                    <div class="eps-grid">
+                        ${data.episodes.map(ep => 
+                            <button class="ep-btn" onclick="playAnime('${ep.id}', ${ep.number})">EP ${ep.number}</button>
+                        ).join('')}
+                    </div>
+                </div>
+            ;
+        } catch (e) { toast("Aduh, gagal ambil info animenya.. T.T"); }
+    }
+
+    async function playAnime(epId, num) {
+        const detailDiv = document.getElementById('detailContent');
+        detailDiv.innerHTML = <div class="loading-sp"><i class="fas fa-spinner"></i><p>Siapin player buat kamu...</p></div>;
+        
+        try {
+            const res = await fetch(${API_BASE}/watch/${epId});
+            const data = await res.json();
+            const streamUrl = data.headers.Referer; 
+
+            detailDiv.innerHTML = 
+                <div class="player-area">
+                    <iframe src="${streamUrl}" allowfullscreen></iframe>
+                </div>
+                <div class="mb-body">
+                    <h2 style="font-size:1.1rem;">${currentAnimeData.title}</h2>
+                    <p style="color:var(--accent); font-weight:bold; font-size:0.9rem;">Menonton Episode ${num}</p>
+                    <button onclick="openDetail('${currentAnimeData.id}')" style="margin-top:20px; color:var(--text2); font-size:0.8rem; font-weight:bold; display:flex; align-items:center; gap:8px;">
+                        <i class="fas fa-arrow-left"></i> Kembali ke Daftar Episode
+                    </button>
+                </div>
+            ;
+        } catch (e) {
+            toast("Gagal mutar video, servernya lagi ngambek!");
+            openDetail(currentAnimeData.id);
         }
     }
 
-    return { success: false, text: "Maaf sayang, koneksinya agak terganggu. Boleh dicoba lagi?" };
-}
-
-// UPDATE PROGRESS STATUS
-function updateStatus(show, text = "") {
-    if(show) {
-        statusBanner.style.display = 'block';
-        statusText.innerText = text;
-    } else {
-        statusBanner.style.display = 'none';
-    }
-}
-
-// HANDLE SEQUENTIAL DISCUSSION WORKFLOW
-async function handleSend() {
-    const taskText = userInput.value.trim();
-    if(!taskText) return;
-
-    const chat = getCurrentChat();
-    if(!chat) return;
-
-    if(chat.messages.length === 0) {
-        chat.title = taskText.substring(0, 24) + '...';
-        renderHistory();
-    }
-
-    // 1. Push User Task
-    chat.messages.push({ role: 'user', text: taskText });
-    userInput.value = '';
-    userInput.style.height = '24px';
-    renderMessages();
-    sendBtn.disabled = true;
-
-    // 2. STEP 1: GEMINI ANALYZER
-    updateStatus(true, "Step 1/3: Gemini 2.5 sedang membedah tugas & membuat draf awal...");
-    const resGemini = await callGeminiAPI(taskText, PROMPT_GEMINI_ANALYZER);
-    chat.messages.push({ role: 'ai', model: 'gemini', text: resGemini.text });
-    saveChats();
-    renderMessages();
-
-    // 3. STEP 2: CHATGPT REVIEWER & OPTIMIZER
-    updateStatus(true, "Step 2/3: ChatGPT sedang meninjau draf Gemini & menyempurnakan teknis...");
-    const promptGpt = `TUGAS DARI PENGGUNA: "${taskText}"\n\nDRAF ANALISIS DARI GEMINI 2.5:\n${resGemini.text}\n\nEvaluasi draf Gemini di atas, perbaiki jika ada kekurangan, dan berikan versi terbaik & paling akurat.`;
-    const resGpt = await callGeminiAPI(promptGpt, PROMPT_GPT_REVIEWER);
-    chat.messages.push({ role: 'ai', model: 'gpt', text: resGpt.text });
-    saveChats();
-    renderMessages();
-
-    // 4. STEP 3: DOLA AI SYNTHESIZER
-    updateStatus(true, "Step 3/3: Dola AI sedang merangkum hasil diskusi tim & menyiapkan jawaban final...");
-    const promptDola = `TUGAS RAYLIZIIE: "${taskText}"\n\nDRAF GEMINI: ${resGemini.text}\n\nPERBAIKAN CHATGPT: ${resGpt.text}\n\nTugas Kamu: Rangkum seluruh diskusi di atas menjadi jawaban final yang paling jelas, terstruktur, manis, dan mudah dieksekusi buat Rayliziie!`;
-    const resDola = await callGeminiAPI(promptDola, PROMPT_DOLA_SYNTHESIZER);
-    chat.messages.push({ role: 'ai', model: 'dola', text: resDola.text });
-
-    updateStatus(false);
-    saveChats();
-    renderMessages();
-    sendBtn.disabled = false;
-}
-
-// EVENT LISTENERS
-function setupEventListeners() {
-    sendBtn.onclick = handleSend;
-
-    userInput.onkeydown = (e) => {
-        if(e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault();
-            handleSend();
+    // 2. RENDERERS
+    function renderGrid(items) {
+        const grid = document.getElementById('mainGrid');
+        if (!items || items.length === 0) {
+            grid.innerHTML = <div class="loading-sp"><p>Animenya gak ketemu, cari judul lain ya sayang..</p></div>;
+            return;
         }
-    };
+        grid.innerHTML = items.map(item => 
+            <div class="cd" onclick="openDetail('${item.id}')">
+                <div class="t">
+                    <img src="${item.image}" alt="${item.title}" loading="lazy" />
+                    <span class="sb">${item.releaseDate || 'HD'}</span>
+                </div>
+                <div class="i">
+                    <h3>${item.title}</h3>
+                </div>
+            </div>
+        ).join('');
+    }
 
-    userInput.oninput = () => {
-        userInput.style.height = 'auto';
-        userInput.style.height = Math.min(userInput.scrollHeight, 120) + 'px';
-    };
+    // 3. UTILS
+    function showLoading() {
+        document.getElementById('mainGrid').innerHTML = <div class="loading-sp"><i class="fas fa-spinner"></i></div>;
+    }
 
-    document.getElementById('newChatBtn').onclick = createNewChat;
+    function showError() {
+        document.getElementById('mainGrid').innerHTML = <div class="loading-sp"><p>Koneksi API bermasalah, coba lagi nanti ya.</p></div>;
+    }
 
-    document.getElementById('toggleSidebarBtn').onclick = () => sidebar.classList.add('open');
-    document.getElementById('closeSidebarMobile').onclick = () => sidebar.classList.remove('open');
+    function closeModals() {
+        document.getElementById('overlay').classList.remove('on');
+        document.getElementById('modalDetail').classList.remove('on');
+        document.getElementById('detailContent').innerHTML = ""; 
+    }
 
-    document.getElementById('themeToggleBtn').onclick = () => {
-        const isLight = document.body.getAttribute('data-theme') === 'light';
-        if(isLight) document.body.removeAttribute('data-theme');
-        else document.body.setAttribute('data-theme', 'light');
-    };
-
-    document.getElementById('clearHistoryBtn').onclick = () => {
-        chats = [];
-        createNewChat();
-    };
-}
-
-// GLOBAL HELPERS
-window.copyText = function(encodedText, btnEl) {
-    const text = decodeURIComponent(encodedText);
-    const textarea = document.createElement('textarea');
-    textarea.value = text;
-    textarea.style.position = 'fixed';
-    textarea.style.opacity = '0';
-    document.body.appendChild(textarea);
-    textarea.select();
-    try {
-        document.execCommand('copy');
-        if(btnEl) {
-            const oldHtml = btnEl.innerHTML;
-            btnEl.innerHTML = '<i class="fas fa-check" style="color:var(--accent-gpt);"></i> Tersalin!';
-            setTimeout(() => { btnEl.innerHTML = oldHtml; }, 2000);
+    function toggleFav() {
+        const id = currentAnimeData.id;
+        const idx = favs.findIndex(f => f.id === id);
+        if (idx > -1) {
+            favs.splice(idx, 1);
+            toast("Dihapus dari favorit!");
+        } else {
+            favs.push({id: id, title: currentAnimeData.title, image: currentAnimeData.image});
+            toast("Disimpan ke favorit! ❤️");
         }
-    } catch(err) {}
-    document.body.removeChild(textarea);
-};
-
-window.speakText = function(encodedText) {
-    const text = decodeURIComponent(encodedText);
-    if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = 'id-ID';
-        window.speechSynthesis.speak(utterance);
+        localStorage.setItem('ray_favs', JSON.stringify(favs));
+        openDetail(id); 
     }
-};
 
-window.deleteChat = function(id, e) {
-    e.stopPropagation();
-    chats = chats.filter(c => c.id !== id);
-    if(currentChatId === id) {
-        currentChatId = chats[0] ? chats[0].id : null;
+    function showFavorites() {
+        document.getElementById('heroSec').style.display = 'none';
+        document.getElementById('secTitle').innerHTML = <i class="fas fa-heart" style="color:#EF4444"></i> Koleksi Favoritmu;
+        renderGrid(favs);
+        if(favs.length === 0) toast("Koleksinya masih kosong lho..");
     }
-    if(!currentChatId) createNewChat();
-    else {
-        saveChats();
-        renderHistory();
-        renderMessages();
+
+    function toggleTheme() {
+        const theme = document.documentElement.getAttribute('data-theme');
+        if (theme === 'light') {
+            document.documentElement.removeAttribute('data-theme');
+            toast("Mode Gelap Aktif 🌙");
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+            toast("Mode Terang Aktif ☀️");
+        }
     }
-};
 
-// RUN
-init();
+    function toast(msg) {
+        const t = document.getElementById('toast');
+        t.innerText = msg;
+        t.classList.add('on');
+        setTimeout(() => t.classList.remove('on'), 3000);
+    }
 
-})();
+    // EVENT LISTENERS
+    document.getElementById('cari').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') searchAnime(e.target.value);
+    });
+
+    document.getElementById('overlay').onclick = closeModals;
+
+    // INITIAL LOAD
+    loadTrending();
 </script>
 </body>
 </html>
