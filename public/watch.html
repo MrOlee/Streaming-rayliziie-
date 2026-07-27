@@ -3,45 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nonton Anime</title>
+  <title>Detail & Nonton Anime</title>
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
   <header>
-    <a href="/">⬅️ Kembali ke Katalog</a>
+    <a href="/" class="back-btn">⬅️ Kembali ke Katalog</a>
   </header>
 
-  <main>
-    <div class="player-container">
+  <main class="container">
+    <!-- Player Video -->
+    <div class="player-wrapper">
       <iframe id="video-player" src="" frameborder="0" allowfullscreen></iframe>
     </div>
-    <h2 id="title">Loading...</h2>
+
+    <!-- Informasi Detail Anime -->
+    <div class="info-section">
+      <h1 id="anime-title">Memuat judul...</h1>
+      <p id="anime-desc" class="desc">Memuat deskripsi...</p>
+    </div>
+
+    <!-- Pilihan Episode -->
+    <div class="episodes-section">
+      <h3>Daftar Episode</h3>
+      <div id="episodes-list" class="episodes-grid">
+        <p>Memuat daftar episode...</p>
+      </div>
+    </div>
   </main>
 
-  <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const id = urlParams.get('id');
-    const path = urlParams.get('path');
-
-    async function loadVideo() {
-      if (!id) return;
-      try {
-        const res = await fetch(`/api/play?id=${id}&se=1&ep=1&detailPath=${path}`);
-        const data = await res.json();
-
-        // Ambil URL stream/embed dari response API
-        const videoUrl = data.playUrl || data.url || data.embed || '';
-        if (videoUrl) {
-          document.getElementById('video-player').src = videoUrl;
-        } else {
-          alert('Link video tidak ditemukan');
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    }
-
-    loadVideo();
-  </script>
+  <script src="/js/watch.js"></script>
 </body>
 </html>
