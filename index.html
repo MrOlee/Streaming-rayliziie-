@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>rayliziie nime - Nonton Anime Sub Indo</title>
+    <title>rayliziie nime - Streaming Anime Sub Indo</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icon -->
@@ -24,94 +24,113 @@
         }
     </script>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans">
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans selection:bg-brand-500 selection:text-white">
 
-    <!-- Header Navigation -->
-    <header class="sticky top-0 z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-800">
+    <!-- Header / Navbar -->
+    <header class="sticky top-0 z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 shadow-md">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+            
             <!-- Logo -->
-            <a href="#" onclick="showHome()" class="flex items-center gap-2 font-bold text-xl sm:text-2xl tracking-wider text-white">
+            <a href="#" onclick="showHome()" class="flex items-center gap-2 font-extrabold text-xl sm:text-2xl tracking-wider text-white hover:opacity-90 transition-opacity">
                 <span class="text-brand-500"><i class="fa-solid fa-play-circle"></i> rayliziie</span>
                 <span class="text-slate-300">nime</span>
             </a>
 
             <!-- Search Bar -->
-            <div class="flex-1 max-w-md">
+            <div class="flex-1 max-w-xs sm:max-w-md">
                 <div class="relative">
                     <input 
                         type="text" 
                         id="searchInput"
                         placeholder="Cari anime..." 
-                        onkeypress="handleSearch(event)"
-                        class="w-full bg-slate-800 border border-slate-700 rounded-full py-2 pl-4 pr-10 text-sm focus:outline-none focus:border-brand-500 transition-colors placeholder-slate-400"
+                        onkeypress="handleSearchKey(event)"
+                        class="w-full bg-slate-800/80 border border-slate-700/80 rounded-full py-2 pl-4 pr-10 text-xs sm:text-sm text-slate-100 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-all placeholder-slate-400"
                     />
-                    <button onclick="executeSearch()" class="absolute right-3 top-2.5 text-slate-400 hover:text-white">
+                    <button onclick="executeSearch()" class="absolute right-3 top-2.5 text-slate-400 hover:text-brand-500 transition-colors">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </button>
                 </div>
             </div>
+
+            <!-- Bookmark Nav -->
+            <button onclick="showFavorites()" class="flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs sm:text-sm px-3 py-2 rounded-full border border-slate-700 transition-colors">
+                <i class="fa-solid fa-bookmark text-brand-500"></i>
+                <span class="hidden sm:inline">Favorit</span>
+            </button>
         </div>
     </header>
 
-    <!-- Main Container -->
+    <!-- Main Content -->
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
         
-        <!-- Hero / Alert Banner -->
-        <div class="bg-gradient-to-r from-brand-700 to-indigo-900 rounded-2xl p-6 sm:p-8 mb-8 shadow-lg shadow-brand-500/10">
+        <!-- Hero Banner -->
+        <div class="bg-gradient-to-r from-brand-700 via-indigo-900 to-slate-900 rounded-2xl p-6 sm:p-8 mb-8 shadow-xl border border-brand-500/20">
             <h1 class="text-2xl sm:text-4xl font-extrabold mb-2 text-white">Selamat Datang di rayliziie nime</h1>
-            <p class="text-slate-200 text-sm sm:text-base">Streaming anime subtitle Indonesia gratis dan terupdate setiap hari.</p>
+            <p class="text-slate-300 text-xs sm:text-sm max-w-2xl leading-relaxed">Platform streaming anime subtitle Indonesia gratis, cepat, dan selalu terupdate setiap hari.</p>
         </div>
 
-        <!-- Section Title -->
-        <div class="flex items-center justify-between mb-6">
-            <h2 id="sectionTitle" class="text-xl font-bold flex items-center gap-2">
+        <!-- Section Title Bar -->
+        <div class="flex items-center justify-between mb-6 border-b border-slate-800/80 pb-4">
+            <h2 id="sectionTitle" class="text-lg sm:text-xl font-bold flex items-center gap-2 text-slate-100">
                 <i class="fa-solid fa-fire text-brand-500"></i> Anime Terbaru
             </h2>
-            <button id="backBtn" onclick="showHome()" class="hidden text-sm text-brand-500 hover:underline">
-                <i class="fa-solid fa-arrow-left mr-1"></i> Kembali ke Beranda
+            <button id="backBtn" onclick="showHome()" class="hidden text-xs sm:text-sm text-brand-500 hover:text-brand-600 font-semibold transition-colors flex items-center gap-1">
+                <i class="fa-solid fa-arrow-left"></i> Kembali ke Beranda
             </button>
         </div>
 
-        <!-- Loading State -->
+        <!-- Loading Spinner -->
         <div id="loading" class="flex flex-col justify-center items-center py-20 gap-3">
-            <div class="animate-spin rounded-full h-12 w-12 border-4 border-brand-500 border-t-transparent"></div>
-            <p class="text-slate-400 text-sm">Memuat data dari server...</p>
+            <div class="animate-spin rounded-full h-10 w-10 border-4 border-brand-500 border-t-transparent"></div>
+            <p class="text-slate-400 text-xs font-medium">Memuat data dari server...</p>
         </div>
 
-        <!-- Content Area: Anime Grid -->
+        <!-- Anime Grid -->
         <div id="animeGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 sm:gap-6 hidden">
-            <!-- Card items will be inserted dynamically by JS -->
+            <!-- Dynamic content from JS -->
         </div>
 
-        <!-- Content Area: Player & Detail View -->
+        <!-- Detail & Player View -->
         <div id="detailView" class="hidden space-y-6">
             <!-- Video Player -->
-            <div class="bg-black rounded-xl overflow-hidden aspect-video shadow-2xl border border-slate-800 relative">
+            <div class="bg-black rounded-xl overflow-hidden aspect-video shadow-2xl border border-slate-800 relative group">
                 <iframe id="videoPlayer" class="w-full h-full" src="" frameborder="0" allowfullscreen></iframe>
             </div>
 
             <!-- Detail Info -->
-            <div class="bg-slate-900 rounded-xl p-6 border border-slate-800">
-                <h2 id="animeTitle" class="text-2xl font-bold mb-2">Title Placeholder</h2>
-                <p id="animeSynopsis" class="text-slate-400 text-sm leading-relaxed mb-4">Synopsis goes here...</p>
+            <div class="bg-slate-900/90 rounded-xl p-6 border border-slate-800 shadow-md">
+                <div class="flex justify-between items-start gap-4 mb-4">
+                    <div>
+                        <h2 id="animeTitle" class="text-xl sm:text-2xl font-bold text-white mb-1">Judul Anime</h2>
+                        <span id="animeStatus" class="inline-block bg-brand-500/20 text-brand-500 text-xs px-2.5 py-1 rounded-md font-semibold border border-brand-500/30">Streaming Active</span>
+                    </div>
+                    <button id="favBtn" onclick="toggleFavoriteCurrent()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 p-3 rounded-xl border border-slate-700 transition-colors">
+                        <i id="favIcon" class="fa-regular fa-bookmark text-lg"></i>
+                    </button>
+                </div>
+
+                <p id="animeSynopsis" class="text-slate-400 text-xs sm:text-sm leading-relaxed mb-6">Sinopsis anime...</p>
 
                 <!-- Episode List -->
-                <h3 class="text-lg font-bold mb-3 border-b border-slate-800 pb-2">Daftar Episode</h3>
-                <div id="episodeList" class="flex flex-wrap gap-2 max-h-60 overflow-y-auto pr-2">
-                    <!-- Episodes dynamic list -->
+                <h3 class="text-sm font-bold text-slate-200 mb-3 uppercase tracking-wider border-b border-slate-800 pb-2">
+                    <i class="fa-solid fa-list-ul text-brand-500 mr-2"></i>Pilih Episode
+                </h3>
+                <div id="episodeList" class="flex flex-wrap gap-2 max-h-60 overflow-y-auto pr-2 custom-scrollbar">
+                    <!-- Episodes list -->
                 </div>
             </div>
         </div>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-slate-900 border-t border-slate-800 py-6 mt-12 text-center text-slate-500 text-sm">
-        <p>© 2026 <strong class="text-slate-300">rayliziie nime</strong>. API Powered by Indocast.</p>
+    <footer class="bg-slate-900 border-t border-slate-800 py-6 mt-12 text-center text-slate-500 text-xs">
+        <p>© 2026 <strong class="text-slate-300">rayliziie nime</strong>. All rights reserved.</p>
     </footer>
 
-    <!-- JavaScript Logic -->
+    <!-- JavaScript Application Logic -->
     <script>
         const API_BASE = 'https://indocast.site/animekompi';
+        const CORS_PROXY = 'https://corsproxy.io/?';
 
         const loading = document.getElementById('loading');
         const animeGrid = document.getElementById('animeGrid');
@@ -119,56 +138,69 @@
         const sectionTitle = document.getElementById('sectionTitle');
         const backBtn = document.getElementById('backBtn');
 
-        // Fetch Data Awal saat website dibuka
+        let currentAnimeData = null;
+
+        // Inisialisasi saat pertama dibuka
         document.addEventListener('DOMContentLoaded', () => {
             fetchLatestAnime();
         });
 
-        // 1. Ambil Anime Terbaru / Beranda
+        // Helper Fetch ke API melalui Proxy
+        async function fetchAPI(endpointPath = '') {
+            const targetUrl = `${API_BASE}${endpointPath}`;
+            const proxiedUrl = `${CORS_PROXY}${encodeURIComponent(targetUrl)}`;
+            
+            const res = await fetch(proxiedUrl);
+            if (!res.ok) throw new Error(`HTTP Status ${res.status}`);
+            return await res.json();
+        }
+
+        // 1. Fetch Anime Terbaru
         async function fetchLatestAnime() {
             showLoading();
             try {
-                const response = await fetch(`${API_BASE}`);
-                const data = await response.json();
-                
-                // Menyesuaikan struktur JSON dari endpoint
+                const data = await fetchAPI();
                 const animeList = Array.isArray(data) ? data : (data.data || data.results || []);
                 renderGrid(animeList);
-            } catch (error) {
-                console.error('Gagal mengambil data:', error);
-                animeGrid.innerHTML = `<p class="col-span-full text-center text-red-400 py-10">Gagal memuat data dari API. Silakan coba lagi nanti.</p>`;
+            } catch (err) {
+                console.error(err);
+                animeGrid.innerHTML = `
+                    <div class="col-span-full text-center py-12 space-y-2">
+                        <i class="fa-solid fa-triangle-exclamation text-amber-500 text-3xl mb-2"></i>
+                        <p class="text-slate-300 text-sm font-semibold">Gagal memuat data dari server.</p>
+                        <p class="text-slate-500 text-xs">Silakan muat ulang halaman dalam beberapa saat.</p>
+                    </div>`;
                 hideLoading();
             }
         }
 
-        // 2. Render List Card Anime
+        // 2. Render Card Grid
         function renderGrid(list) {
             animeGrid.innerHTML = '';
             
             if (!list || list.length === 0) {
-                animeGrid.innerHTML = `<p class="col-span-full text-center text-slate-400 py-10">Anime tidak ditemukan.</p>`;
+                animeGrid.innerHTML = `<p class="col-span-full text-center text-slate-400 py-10 text-sm">Tidak ada anime yang ditemukan.</p>`;
                 hideLoading();
                 return;
             }
 
             list.forEach(item => {
-                // Handling fleksibel untuk property nama/gambar/endpoint
                 const title = item.title || item.name || 'Judul Tidak Tersedia';
                 const image = item.thumb || item.image || item.poster || 'https://via.placeholder.com/300x400?text=No+Cover';
                 const endpoint = item.endpoint || item.slug || item.id || '';
                 const episode = item.episode || item.latest_episode || '';
 
                 const card = document.createElement('div');
-                card.className = 'bg-slate-900 rounded-xl overflow-hidden border border-slate-800 hover:border-brand-500 transition-all duration-300 hover:-translate-y-1 group cursor-pointer flex flex-col';
+                card.className = 'bg-slate-900 rounded-xl overflow-hidden border border-slate-800 hover:border-brand-500/80 transition-all duration-300 hover:-translate-y-1 group cursor-pointer flex flex-col shadow-lg';
                 card.onclick = () => loadDetail(endpoint);
 
                 card.innerHTML = `
                     <div class="relative aspect-[3/4] overflow-hidden bg-slate-800">
                         <img src="${image}" alt="${title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
-                        ${episode ? `<span class="absolute top-2 right-2 bg-brand-600 text-xs text-white font-bold px-2 py-1 rounded-md shadow">${episode}</span>` : ''}
+                        ${episode ? `<span class="absolute top-2 right-2 bg-brand-600 text-[10px] text-white font-bold px-2 py-0.5 rounded shadow">${episode}</span>` : ''}
                     </div>
                     <div class="p-3 flex-grow flex flex-col justify-between">
-                        <h3 class="font-semibold text-sm text-slate-200 line-clamp-2 group-hover:text-brand-500 transition-colors">${title}</h3>
+                        <h3 class="font-semibold text-xs sm:text-sm text-slate-200 line-clamp-2 group-hover:text-brand-500 transition-colors leading-snug">${title}</h3>
                     </div>
                 `;
                 animeGrid.appendChild(card);
@@ -177,7 +209,7 @@
             hideLoading();
         }
 
-        // 3. Pencarian Anime
+        // 3. Pencarian
         async function executeSearch() {
             const query = document.getElementById('searchInput').value.trim();
             if (!query) return;
@@ -187,83 +219,131 @@
             backBtn.classList.remove('hidden');
 
             try {
-                const response = await fetch(`${API_BASE}/search?q=${encodeURIComponent(query)}`);
-                const data = await response.json();
-                const searchResults = Array.isArray(data) ? data : (data.data || data.results || []);
-                renderGrid(searchResults);
-            } catch (error) {
-                console.error('Error saat pencarian:', error);
-                animeGrid.innerHTML = `<p class="col-span-full text-center text-red-400 py-10">Pencarian gagal dilakukan.</p>`;
+                const data = await fetchAPI(`/search?q=${encodeURIComponent(query)}`);
+                const results = Array.isArray(data) ? data : (data.data || data.results || []);
+                renderGrid(results);
+            } catch (err) {
+                console.error(err);
+                animeGrid.innerHTML = `<p class="col-span-full text-center text-red-400 py-10 text-sm">Pencarian gagal dilakukan.</p>`;
                 hideLoading();
             }
         }
 
-        function handleSearch(e) {
-            if (e.key === 'Enter') {
-                executeSearch();
-            }
+        function handleSearchKey(e) {
+            if (e.key === 'Enter') executeSearch();
         }
 
-        // 4. Load Detail Anime & Stream Player
+        // 4. Detail Anime & Streaming Player
         async function loadDetail(endpoint) {
             if (!endpoint) return;
             showLoading();
 
             try {
-                const response = await fetch(`${API_BASE}/detail/${endpoint}`);
-                const data = await response.json();
+                const data = await fetchAPI(`/detail/${endpoint}`);
                 const anime = data.data || data;
+                currentAnimeData = { ...anime, endpoint };
 
                 document.getElementById('animeTitle').textContent = anime.title || 'Detail Anime';
-                document.getElementById('animeSynopsis').textContent = anime.synopsis || anime.description || 'Tidak ada sinopsis.';
+                document.getElementById('animeSynopsis').textContent = anime.synopsis || anime.description || 'Tidak ada sinopsis tersedia.';
 
-                // Embed Video / Player
-                const videoIframe = document.getElementById('videoPlayer');
+                // Check Bookmark status
+                updateFavButtonUI();
+
+                // Streaming Player Setup
+                const player = document.getElementById('videoPlayer');
                 if (anime.stream_url || anime.streamLink) {
-                    videoIframe.src = anime.stream_url || anime.streamLink;
+                    player.src = anime.stream_url || anime.streamLink;
                 } else {
-                    videoIframe.src = 'about:blank';
+                    player.src = 'about:blank';
                 }
 
-                // Render Daftar Episode
-                const epListContainer = document.getElementById('episodeList');
-                epListContainer.innerHTML = '';
-
+                // Render Episodes
+                const epContainer = document.getElementById('episodeList');
+                epContainer.innerHTML = '';
                 const episodes = anime.episodes || anime.episode_list || [];
+
                 if (episodes.length > 0) {
-                    episodes.forEach((ep, index) => {
+                    episodes.forEach((ep, i) => {
                         const btn = document.createElement('button');
-                        btn.className = 'px-3 py-1.5 bg-slate-800 hover:bg-brand-600 text-xs font-semibold rounded border border-slate-700 transition-colors';
-                        btn.textContent = ep.title || `Ep ${index + 1}`;
+                        btn.className = 'px-3 py-1.5 bg-slate-800 hover:bg-brand-600 text-xs font-semibold rounded-lg border border-slate-700 transition-colors text-slate-200 hover:text-white';
+                        btn.textContent = ep.title || `Episode ${i + 1}`;
                         btn.onclick = () => {
                             if (ep.stream_url || ep.link) {
-                                videoIframe.src = ep.stream_url || ep.link;
+                                player.src = ep.stream_url || ep.link;
                             }
                         };
-                        epListContainer.appendChild(btn);
+                        epContainer.appendChild(btn);
                     });
                 } else {
-                    epListContainer.innerHTML = `<p class="text-xs text-slate-500">Tidak ada daftar episode tersedia.</p>`;
+                    epContainer.innerHTML = `<p class="text-xs text-slate-500">Daftar episode belum tersedia.</p>`;
                 }
 
-                // Tampilkan Tampilan Detail
+                // Show Detail View
                 animeGrid.classList.add('hidden');
                 detailView.classList.remove('hidden');
                 backBtn.classList.remove('hidden');
                 sectionTitle.innerHTML = `<i class="fa-solid fa-circle-play text-brand-500"></i> Memutar Anime`;
 
-            } catch (error) {
-                console.error('Gagal memuat detail:', error);
-                alert('Gagal memuat detail anime.');
+            } catch (err) {
+                console.error(err);
+                alert('Gagal memuat detail episode.');
             } finally {
                 hideLoading();
             }
         }
 
-        // Helpers untuk Navigasi & Tampilan State
+        // 5. Fitur Bookmark / Favorit (LocalStorage)
+        function getFavorites() {
+            return JSON.parse(localStorage.getItem('rayliziie_favs') || '[]');
+        }
+
+        function toggleFavoriteCurrent() {
+            if (!currentAnimeData) return;
+            let favs = getFavorites();
+            const existsIndex = favs.findIndex(item => item.endpoint === currentAnimeData.endpoint);
+
+            if (existsIndex > -1) {
+                favs.splice(existsIndex, 1);
+            } else {
+                favs.push({
+                    title: currentAnimeData.title,
+                    endpoint: currentAnimeData.endpoint,
+                    thumb: currentAnimeData.thumb || currentAnimeData.image || ''
+                });
+            }
+
+            localStorage.setItem('rayliziie_favs', JSON.stringify(favs));
+            updateFavButtonUI();
+        }
+
+        function updateFavButtonUI() {
+            if (!currentAnimeData) return;
+            const favs = getFavorites();
+            const isFav = favs.some(item => item.endpoint === currentAnimeData.endpoint);
+            const icon = document.getElementById('favIcon');
+
+            if (isFav) {
+                icon.className = 'fa-solid fa-bookmark text-brand-500';
+            } else {
+                icon.className = 'fa-regular fa-bookmark text-slate-400';
+            }
+        }
+
+        function showFavorites() {
+            showLoading();
+            detailView.classList.add('hidden');
+            document.getElementById('videoPlayer').src = '';
+            sectionTitle.innerHTML = `<i class="fa-solid fa-bookmark text-brand-500"></i> Anime Favorit Saya`;
+            backBtn.classList.remove('hidden');
+
+            const favs = getFavorites();
+            renderGrid(favs);
+        }
+
+        // Navigasi & View Helpers
         function showHome() {
             detailView.classList.add('hidden');
-            document.getElementById('videoPlayer').src = ''; // stop video
+            document.getElementById('videoPlayer').src = '';
             document.getElementById('searchInput').value = '';
             backBtn.classList.add('hidden');
             sectionTitle.innerHTML = `<i class="fa-solid fa-fire text-brand-500"></i> Anime Terbaru`;
