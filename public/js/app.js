@@ -6,7 +6,7 @@ async function fetchLatestAnime() {
     const res = await fetch('/api/recent');
     const result = await res.json();
 
-    // Mapping respon dari API Indocast /list
+    // Mapping fleksibel berbagai bentuk struktur respon JSON Indocast
     const items = result.data?.list || result.list || result.data || (Array.isArray(result) ? result : []);
 
     if (!items || items.length === 0) {
@@ -17,7 +17,7 @@ async function fetchLatestAnime() {
     renderGrid(items);
   } catch (err) {
     console.error('Fetch error:', err);
-    grid.innerHTML = '<div class="col-span-full text-center text-red-400 py-20">Gagal terhubung ke API Indocast.</div>';
+    grid.innerHTML = '<div class="col-span-full text-center text-red-400 py-20">Gagal terhubung ke server. Silakan muat ulang halaman.</div>';
   }
 }
 
@@ -49,10 +49,9 @@ function handleSearch(e) {
 function renderGrid(items) {
   const grid = document.getElementById('animeGrid');
   grid.innerHTML = items.map(item => {
-    const title = item.title || item.name || item.coverTitle || 'Untitled';
+    const title = item.title || item.coverTitle || item.name || 'Untitled';
     const image = item.cover || item.poster || item.imgUrl || item.coverUrl || 'https://via.placeholder.com/300x400';
     
-    // Parameter ID dan DetailPath untuk URL streaming Indocast
     const id = item.id || item.contentId || '';
     const detailPath = item.detailPath || item.slug || '';
     const episodeText = item.latestEpisode ? `Eps ${item.latestEpisode}` : (item.subTitle || 'Sub Indo');
